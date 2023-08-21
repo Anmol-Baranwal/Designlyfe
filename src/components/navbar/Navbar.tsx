@@ -10,12 +10,14 @@ const Navbar: FC = () => {
       <NavbarItems />
       <div className="flex justify-end">
         <Button
+          linkHref={'/login'}
           buttonTxt={'Login'}
           className={
             'border-2 border-primary-100 bg-accent-200 text-bg-300 hover:bg-primary-100 hover:text-primary-300 transition duration-300'
           }
         />
         <Button
+          linkHref={'/signup'}
           buttonTxt={'Signup'}
           className={
             'bg-primary-100 text-text-100 hover:bg-primary-300 hover:text-bg-300 border-2 border-violet-500 transition duration-300'
