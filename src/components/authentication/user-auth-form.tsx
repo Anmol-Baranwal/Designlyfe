@@ -2,10 +2,11 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
+import Link from 'next/link'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -73,12 +74,12 @@ export function UserAuthForm({
           </div>
           {formType === 'login' && (
             <div className="text-right">
-              <a
+              <Link
                 href="/forgot-password"
-                className="text-primary-500 hover:underline transition duration-300"
+                className="text-sm text-muted-foreground text-primary-500 pr-1 transition duration-300 underline-offset-4 hover:underline hover:text-primary"
               >
                 Forgot password?
-              </a>
+              </Link>
             </div>
           )}
           <Button disabled={isLoading}>
@@ -111,9 +112,9 @@ export function UserAuthForm({
             className="mr-2 h-4 w-4 animate-spin"
           />
         ) : (
-          <FontAwesomeIcon icon={faGithub} className="mr-2 h-4 w-4" />
+          <FontAwesomeIcon icon={faGoogle} className="mr-2 h-4 w-4" />
         )}{' '}
-        Github
+        Google
       </Button>
     </div>
   )
