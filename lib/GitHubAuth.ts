@@ -5,20 +5,18 @@ import { firebaseApp } from '../firebaseConfig';
 const auth = getAuth(firebaseApp);
 const githubProvider = new GithubAuthProvider();
 
-interface SuccessCallback {
-  (): void;
-}
-
-export const signInWithGitHub = async (onSuccess: SuccessCallback) => {
+export const signInWithGitHub = async (): Promise<any> => {
   try {
     const result = await signInWithPopup(auth, githubProvider);
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const token = credential?.accessToken;
+    // const credential = GithubAuthProvider.credentialFromResult(result);
+    // const token = credential?.accessToken;
 
     // The signed-in user info.
     const user = result.user;
     // IdP data available using result.additionalUserInfo.profile
-    onSuccess();
+
+    return user;
+
   } catch (error: any) {
     // Handle authentication errors
     console.error('GitHub authentication failed:', error);
@@ -32,6 +30,8 @@ export const signInWithGitHub = async (onSuccess: SuccessCallback) => {
     console.error(
       `Error Code: ${errorCode}, Error Message: ${errorMessage}, email: ${email}, Credential: ${credential}`
     );
+
+    throw error;
   }
 };
 
