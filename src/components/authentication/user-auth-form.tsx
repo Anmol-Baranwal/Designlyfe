@@ -13,16 +13,16 @@ import { useRouter } from 'next/router'
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   formType: 'login' | 'signup'
+  onSuccessfulAuth: (userId: string, email: string) => void
 }
 
 export function UserAuthForm({
   className,
   formType,
+  onSuccessfulAuth,
   ...props
 }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-
-  const router = useRouter()
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
@@ -31,6 +31,20 @@ export function UserAuthForm({
     setTimeout(() => {
       setIsLoading(false)
     }, 3000)
+  }
+
+  const router = useRouter()
+  async function handleSubmitWithGitHub() {
+    try {
+      setIsLoading(true)
+      const user = await signInWithGitHub()
+      onSuccessfulAuth(user.uid, user.email)
+      router.push('/dashboard')
+    } catch (error) {
+      // Handle error if authentication fails
+      console.error(error)
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -124,7 +138,7 @@ export function UserAuthForm({
         variant="outline"
         type="button"
         disabled={isLoading}
-        onClick={() => signInWithGitHub(() => router.push('/dashboard'))}
+        onClick={handleSubmitWithGitHub}
       >
         {isLoading ? (
           <FontAwesomeIcon
