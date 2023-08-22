@@ -8,6 +8,7 @@ interface ButtonProps {
   showIcon?: boolean
   className: string
   linkHref: string
+  onClick?: () => void
 }
 
 const Button: FC<ButtonProps> = ({
@@ -15,12 +16,14 @@ const Button: FC<ButtonProps> = ({
   showIcon = false,
   className,
   linkHref,
+  onClick,
 }) => {
   return (
     <>
       <Link href={linkHref}>
         <button
           className={`py-2 px-8 mx-2 border border-light-primary shadow-md ${className}`}
+          onClick={onClick}
         >
           {buttonTxt}
           {showIcon && (

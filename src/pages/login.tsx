@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useContext } from 'react'
 
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '../components/ui/button'
 import { UserAuthForm } from '../components/authentication/user-auth-form'
+import AuthContext from '@/components/AuthContext'
 
 export const metadata: Metadata = {
   title: 'Authentication',
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
 }
 
 export default function AuthenticationPage() {
-  const [formType, setFormType] = useState<'login' | 'signup'>('signup')
+  // const [formType, setFormType] = useState<'login' | 'signup'>('signup')
+  const { formType, setFormType } = useContext(AuthContext)
 
   return (
     <>
@@ -62,7 +64,7 @@ export default function AuthenticationPage() {
             >
               <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
             </svg>
-            Acme Inc
+            <Link href="/">UIVerse</Link>
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
