@@ -2,10 +2,10 @@ import React, { FC, useContext } from 'react'
 import Logo from '../Logo'
 import Button from '../Button'
 import NavbarItems from './NavbarItems'
-import AuthContext from '../AuthContext'
+import AuthPageContext from '../AuthPageContext'
 
 const Navbar: FC = () => {
-  const { setFormType } = useContext(AuthContext)
+  const { setFormType } = useContext(AuthPageContext)
 
   return (
     <div className="flex align-items items-center justify-between px-6 mt-0 p-4 border-b-2 shadow-md bg-primary-300">

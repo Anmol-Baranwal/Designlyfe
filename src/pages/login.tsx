@@ -1,12 +1,12 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
 import { useContext } from 'react'
 
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '../components/ui/button'
 import { UserAuthForm } from '../components/authentication/user-auth-form'
-import AuthContext from '@/components/AuthContext'
+import AuthPageContext from '@/components/AuthPageContext'
 
 export const metadata: Metadata = {
   title: 'Authentication',
@@ -15,25 +15,25 @@ export const metadata: Metadata = {
 
 export default function AuthenticationPage() {
   // const [formType, setFormType] = useState<'login' | 'signup'>('signup')
-  const { formType, setFormType } = useContext(AuthContext)
+  const { formType, setFormType } = useContext(AuthPageContext)
 
   return (
     <>
       <div className="md:hidden">
-        <Image
-          src="/examples/authentication-light.png"
+        {/* <Image
+          src="/authentication-light.png"
           width={1280}
           height={843}
           alt="Authentication"
           className="block dark:hidden"
-        />
-        <Image
-          src="/examples/authentication-dark.png"
+        /> */}
+        {/* <Image
+          src="/authentication-dark.png"
           width={1280}
           height={843}
           alt="Authentication"
           className="hidden dark:block"
-        />
+        /> */}
       </div>
       <div className="container relative h-screen flex flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link

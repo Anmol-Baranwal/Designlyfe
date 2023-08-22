@@ -1,11 +1,11 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { AuthProvider } from '@/components/AuthContext'
+import { AuthPageProvider } from '@/components/AuthPageContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
+    <AuthPageProvider>
       <Component {...pageProps} />
-    </AuthProvider>
+    </AuthPageProvider>
   )
 }
