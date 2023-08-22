@@ -2,11 +2,13 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import Link from 'next/link'
+import signInWithGitHub from '../../../lib/GitHubAuth'
+import { useRouter } from 'next/router'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -19,6 +21,8 @@ export function UserAuthForm({
   ...props
 }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
+  const router = useRouter()
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
@@ -115,6 +119,22 @@ export function UserAuthForm({
           <FontAwesomeIcon icon={faGoogle} className="mr-2 h-4 w-4" />
         )}{' '}
         Google
+      </Button>
+      <Button
+        variant="outline"
+        type="button"
+        disabled={isLoading}
+        onClick={() => signInWithGitHub(() => router.push('/dashboard'))}
+      >
+        {isLoading ? (
+          <FontAwesomeIcon
+            icon={faSpinner}
+            className="mr-2 h-4 w-4 animate-spin"
+          />
+        ) : (
+          <FontAwesomeIcon icon={faGithub} className="mr-2 h-4 w-4" />
+        )}{' '}
+        GitHub
       </Button>
     </div>
   )
