@@ -3,7 +3,8 @@ import {
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
   sendPasswordResetEmail, 
-  getAuth 
+  getAuth, 
+  signOut
 } from 'firebase/auth';
 
 const auth = getAuth(firebaseApp);
@@ -49,3 +50,13 @@ export const resetPassword = async (email: string): Promise<SignInResult> => {
 
   return { result, error };
 };
+
+export const signOutEmail = async (): Promise<void> => {
+    try {
+      await signOut(auth);
+      console.log('User signed out from email/password authentication');
+    } catch (error) {
+      console.error('Error signing out from email/password authentication:', error);
+      throw error;
+    }
+  };
