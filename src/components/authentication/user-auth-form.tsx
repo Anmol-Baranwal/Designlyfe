@@ -15,7 +15,7 @@ import { useAuthContext } from '../../../lib/firebase/context/AuthContext'
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   formType: 'login' | 'signup'
-  onSuccessfulAuth: (userId: string, email: string) => void
+  onSuccessfulAuth: (userId: string, email: string | null) => void
 }
 
 export function UserAuthForm({
@@ -26,8 +26,15 @@ export function UserAuthForm({
 }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
+  const [emailWarning, setEmailWarning] = React.useState<boolean>(false)
+  const [emailWarningText, setEmailWarningText] = React.useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [passwordWarning, setPasswordWarning] = React.useState<boolean>(false)
+  const [passwordWarningText, setPasswordWarningText] =
+    React.useState<string>('')
   const [username, setUsername] = useState<string>('')
+  const [usernameWarning, setUsernameWarning] = useState<boolean>(false)
+  const [usernameWarningText, setUsernameWarningText] = useState<string>('')
 
   const { signIn, signUp } = useAuthContext()
 
@@ -94,7 +101,21 @@ export function UserAuthForm({
                 autoComplete="username"
                 disabled={isLoading}
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  const inputValue = e.target.value
+                  setUsername(inputValue)
+                  const regex = /^[a-zA-Z]+$/
+                  if (!regex.test(inputValue)) {
+                    setUsernameWarning(true)
+                    setUsernameWarningText('Only alphabets are allowed')
+                  } else {
+                    setUsernameWarning(false)
+                    setUsernameWarningText('')
+                  }
+                }}
+                isWarning={usernameWarning}
+                warningText={usernameWarningText}
+                required
               />
             </div>
           )}
@@ -111,7 +132,21 @@ export function UserAuthForm({
               autoCorrect="off"
               disabled={isLoading}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                const inputValue = e.target.value
+                setEmail(inputValue)
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                if (!regex.test(inputValue)) {
+                  setEmailWarning(true)
+                  setEmailWarningText('Please enter a valid email')
+                } else {
+                  setEmailWarning(false)
+                  setEmailWarningText('')
+                }
+              }}
+              isWarning={emailWarning}
+              warningText={emailWarningText}
+              required
             />
           </div>
           <div className="grid gap-1">
@@ -125,7 +160,26 @@ export function UserAuthForm({
               autoComplete="current-password"
               disabled={isLoading}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                const inputValue = e.target.value
+                setPassword(inputValue)
+
+                // Add password strength validation here
+                const strongPasswordRegex =
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                if (!strongPasswordRegex.test(inputValue)) {
+                  setPasswordWarning(true)
+                  setPasswordWarningText(
+                    'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
+                  )
+                } else {
+                  setPasswordWarning(false)
+                  setPasswordWarningText('')
+                }
+              }}
+              isWarning={passwordWarning}
+              warningText={passwordWarningText}
+              required
             />
           </div>
           {formType === 'login' && (
