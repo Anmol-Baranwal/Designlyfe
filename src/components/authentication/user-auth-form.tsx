@@ -11,6 +11,8 @@ import signInWithGitHub from '../../../lib/GitHubAuth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAuthContext } from '../../../lib/firebase/context/AuthContext'
+import { useToast } from '../../components/ui/use-toast'
+import { resetPassword } from '../../../lib/emailPasswordAuth'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -59,33 +61,32 @@ export function UserAuthForm({
 
   const handleEmailChange = (inputValue: string) => {
     setEmail(inputValue)
-    if (formType === 'signup') {
-      if (inputValue) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!regex.test(inputValue)) {
-          setEmailWarning(true)
-          setEmailWarningText('Please enter a valid email')
-        } else {
-          setEmailWarning(false)
-          setEmailWarningText('')
-        }
+    // if (formType === 'signup') { // for validation in login form
+    if (inputValue) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!regex.test(inputValue)) {
+        setEmailWarning(true)
+        setEmailWarningText('Please enter a valid email')
       } else {
         setEmailWarning(false)
         setEmailWarningText('')
       }
+    } else {
+      setEmailWarning(false)
+      setEmailWarningText('')
     }
+    // }
   }
 
   const handlePasswordChange = (inputValue: string) => {
     setPassword(inputValue)
     if (formType === 'signup') {
       if (inputValue) {
-        const strongPasswordRegex =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
         if (!strongPasswordRegex.test(inputValue)) {
           setPasswordWarning(true)
           setPasswordWarningText(
-            'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
+            'Min 8 characters and should contain at least one capital letter and one number. Special characters are not allowed.'
           )
         } else {
           setPasswordWarning(false)
@@ -130,6 +131,36 @@ export function UserAuthForm({
     }
 
     setIsLoading(false)
+  }
+
+  const { toast } = useToast()
+  const handleForgotPassword = async (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    if (email === '') {
+      toast({
+        title: 'Email missing!',
+        description: 'Enter an email to recieve password reset link',
+      })
+    } else {
+      try {
+        await resetPassword(email)
+        toast({
+          title: 'Reset Link Sent',
+          description:
+            'A password reset link has been sent to your email address',
+        })
+        setIsLoading(false)
+      } catch (error) {
+        console.error(error)
+
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: 'There was a problem with your request.',
+        })
+        setIsLoading(false)
+      }
+    }
   }
 
   const router = useRouter()
@@ -207,8 +238,9 @@ export function UserAuthForm({
           {formType === 'login' && (
             <div className="text-right">
               <Link
-                href="/forgot-password"
+                href={''}
                 className="text-sm text-muted-foreground text-primary-500 pr-1 transition duration-300 underline-offset-4 hover:underline hover:text-primary"
+                onClick={handleForgotPassword}
               >
                 Forgot password?
               </Link>
