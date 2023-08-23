@@ -2,6 +2,7 @@ import { useAuthContext } from '../../lib/firebase/context/AuthContext'
 import { useEffect, FC } from 'react'
 
 import Dashboard from './dashboard'
+import { UserAuthForm } from '@/components/authentication/user-auth-form'
 
 interface AppComponentProps {
   children: React.ReactNode
@@ -22,8 +23,20 @@ const AppComponent: FC<AppComponentProps> = ({ children }) => {
     }
   }, [user])
 
+  const handleSuccessfulAuth = (
+    userId: string,
+    email: string,
+    username?: string
+  ) => {
+    console.log('User ID:', userId)
+    console.log('Email:', email)
+    if (username) {
+      console.log('Username:', username)
+    }
+    // Redirect to the dashboard or perform any other actions
+  }
+
   if (loading) {
-    // Render a loading component or indicator
     return <div>Loading...</div>
   }
 
@@ -32,8 +45,12 @@ const AppComponent: FC<AppComponentProps> = ({ children }) => {
       {user ? (
         <Dashboard userId={user.uid} email={user.email} />
       ) : (
-        <>{children}</>
+        <UserAuthForm
+          formType="login"
+          onSuccessfulAuth={handleSuccessfulAuth}
+        />
       )}
+      {children}
     </>
   )
 }

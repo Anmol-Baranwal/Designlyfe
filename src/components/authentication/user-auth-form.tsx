@@ -9,6 +9,8 @@ import { Label } from '../ui/label'
 import Link from 'next/link'
 import signInWithGitHub from '../../../lib/GitHubAuth'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useAuthContext } from '../../../lib/firebase/context/AuthContext'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -23,14 +25,44 @@ export function UserAuthForm({
   ...props
 }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
 
-  async function onSubmit(event: React.SyntheticEvent) {
+  const { signIn, signUp } = useAuthContext()
+
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     setIsLoading(true)
 
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    try {
+      if (formType === 'signup') {
+        const { result, error } = await signUp(email, password)
+        if (result) {
+          // Include username in onSuccessfulAuth function if needed
+          // const { username } = result.user
+          onSuccessfulAuth(result.user.uid, result.user.email)
+        } else {
+          // Handle error if sign up fails
+          console.error(error)
+        }
+      } else {
+        const { result, error } = await signIn(email, password)
+        if (result) {
+          onSuccessfulAuth(result.user.uid, result.user.email)
+        } else {
+          // Handle error if sign in fails
+          console.error(error)
+        }
+      }
+      //   setTimeout(() => {
+      //     setIsLoading(false)
+      //   }, 3000)
+    } catch (error) {
+      console.error(error)
+    }
+
+    setIsLoading(false)
   }
 
   const router = useRouter()
@@ -49,7 +81,7 @@ export function UserAuthForm({
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="grid gap-2">
           {formType === 'signup' && (
             <div className="grid gap-1">
@@ -61,6 +93,8 @@ export function UserAuthForm({
                 placeholder="Enter your username"
                 autoComplete="username"
                 disabled={isLoading}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
           )}
@@ -76,6 +110,8 @@ export function UserAuthForm({
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="grid gap-1">
@@ -88,6 +124,8 @@ export function UserAuthForm({
               type="password"
               autoComplete="current-password"
               disabled={isLoading}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           {formType === 'login' && (
