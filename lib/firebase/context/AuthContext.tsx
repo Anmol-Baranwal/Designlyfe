@@ -2,13 +2,24 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { onAuthStateChanged, getAuth, User } from 'firebase/auth'
 import { firebaseApp } from '../../../firebaseConfig'
 import { FC } from 'react'
+import {
+  signIn as signInWithEmail,
+  signUp as signUpWithEmail,
+  resetPassword,
+  SignInResult,
+} from '../../emailPasswordAuth'
 
 const auth = getAuth(firebaseApp)
 
-export const AuthContext = createContext<{
+interface AuthContextData {
   user: User | null
   loading: boolean
-}>({ user: null, loading: true })
+  signIn: (email: string, password: string) => Promise<any>
+  signUp: (email: string, password: string) => Promise<any>
+  resetPassword: (email: string) => Promise<any>
+}
+
+export const AuthContext = createContext({} as AuthContextData)
 
 export const useAuthContext = () => useContext(AuthContext)
 
@@ -33,8 +44,16 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
     return () => unsubscribe()
   }, [])
 
+  const authContextValue: AuthContextData = {
+    user,
+    loading,
+    signIn: signInWithEmail,
+    signUp: signUpWithEmail,
+    resetPassword: resetPassword,
+  }
+
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={authContextValue}>
       {loading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   )
