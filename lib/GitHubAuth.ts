@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GithubAuthProvider, signOut } from 'firebase/auth';
 import { firebaseApp } from '../firebaseConfig';
 
 
@@ -31,6 +31,16 @@ export const signInWithGitHub = async (): Promise<any> => {
       `Error Code: ${errorCode}, Error Message: ${errorMessage}, email: ${email}, Credential: ${credential}`
     );
 
+    throw error;
+  }
+};
+
+export const signOutGitHub = async (): Promise<void> => {
+  try {
+    await signOut(auth);
+    console.log('User signed out from GitHub');
+  } catch (error) {
+    console.error('Error signing out from GitHub:', error);
     throw error;
   }
 };
