@@ -104,13 +104,15 @@ export function UserAuthForm({
                 onChange={(e) => {
                   const inputValue = e.target.value
                   setUsername(inputValue)
-                  const regex = /^[a-zA-Z]+$/
-                  if (!regex.test(inputValue)) {
-                    setUsernameWarning(true)
-                    setUsernameWarningText('Only alphabets are allowed')
-                  } else {
-                    setUsernameWarning(false)
-                    setUsernameWarningText('')
+                  if (formType === 'signup') {
+                    const regex = /^[a-zA-Z]+$/
+                    if (!regex.test(inputValue)) {
+                      setUsernameWarning(true)
+                      setUsernameWarningText('Only alphabets are allowed')
+                    } else {
+                      setUsernameWarning(false)
+                      setUsernameWarningText('')
+                    }
                   }
                 }}
                 isWarning={usernameWarning}
@@ -135,13 +137,15 @@ export function UserAuthForm({
               onChange={(e) => {
                 const inputValue = e.target.value
                 setEmail(inputValue)
-                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                if (!regex.test(inputValue)) {
-                  setEmailWarning(true)
-                  setEmailWarningText('Please enter a valid email')
-                } else {
-                  setEmailWarning(false)
-                  setEmailWarningText('')
+                if (formType === 'signup') {
+                  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                  if (!regex.test(inputValue)) {
+                    setEmailWarning(true)
+                    setEmailWarningText('Please enter a valid email')
+                  } else {
+                    setEmailWarning(false)
+                    setEmailWarningText('')
+                  }
                 }
               }}
               isWarning={emailWarning}
@@ -163,18 +167,18 @@ export function UserAuthForm({
               onChange={(e) => {
                 const inputValue = e.target.value
                 setPassword(inputValue)
-
-                // Add password strength validation here
-                const strongPasswordRegex =
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-                if (!strongPasswordRegex.test(inputValue)) {
-                  setPasswordWarning(true)
-                  setPasswordWarningText(
-                    'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
-                  )
-                } else {
-                  setPasswordWarning(false)
-                  setPasswordWarningText('')
+                if (formType === 'signup') {
+                  const strongPasswordRegex =
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                  if (!strongPasswordRegex.test(inputValue)) {
+                    setPasswordWarning(true)
+                    setPasswordWarningText(
+                      'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
+                    )
+                  } else {
+                    setPasswordWarning(false)
+                    setPasswordWarningText('')
+                  }
                 }
               }}
               isWarning={passwordWarning}
