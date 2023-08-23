@@ -38,6 +38,66 @@ export function UserAuthForm({
 
   const { signIn, signUp } = useAuthContext()
 
+  const handleUsernameChange = (inputValue: string) => {
+    setUsername(inputValue)
+    if (formType === 'signup') {
+      if (inputValue) {
+        const regex = /^[a-zA-Z]+$/
+        if (!regex.test(inputValue)) {
+          setUsernameWarning(true)
+          setUsernameWarningText('Only alphabets are allowed')
+        } else {
+          setUsernameWarning(false)
+          setUsernameWarningText('')
+        }
+      } else {
+        setUsernameWarning(false)
+        setUsernameWarningText('')
+      }
+    }
+  }
+
+  const handleEmailChange = (inputValue: string) => {
+    setEmail(inputValue)
+    if (formType === 'signup') {
+      if (inputValue) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!regex.test(inputValue)) {
+          setEmailWarning(true)
+          setEmailWarningText('Please enter a valid email')
+        } else {
+          setEmailWarning(false)
+          setEmailWarningText('')
+        }
+      } else {
+        setEmailWarning(false)
+        setEmailWarningText('')
+      }
+    }
+  }
+
+  const handlePasswordChange = (inputValue: string) => {
+    setPassword(inputValue)
+    if (formType === 'signup') {
+      if (inputValue) {
+        const strongPasswordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        if (!strongPasswordRegex.test(inputValue)) {
+          setPasswordWarning(true)
+          setPasswordWarningText(
+            'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
+          )
+        } else {
+          setPasswordWarning(false)
+          setPasswordWarningText('')
+        }
+      } else {
+        setPasswordWarning(false)
+        setPasswordWarningText('')
+      }
+    }
+  }
+
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     setIsLoading(true)
@@ -101,25 +161,7 @@ export function UserAuthForm({
                 autoComplete="username"
                 disabled={isLoading}
                 value={username}
-                onChange={(e) => {
-                  const inputValue = e.target.value
-                  setUsername(inputValue)
-                  if (formType === 'signup') {
-                    if (inputValue) {
-                      const regex = /^[a-zA-Z]+$/
-                      if (!regex.test(inputValue)) {
-                        setUsernameWarning(true)
-                        setUsernameWarningText('Only alphabets are allowed')
-                      } else {
-                        setUsernameWarning(false)
-                        setUsernameWarningText('')
-                      }
-                    } else {
-                      setUsernameWarning(false)
-                      setUsernameWarningText('')
-                    }
-                  }
-                }}
+                onChange={(e) => handleUsernameChange(e.target.value)}
                 isWarning={usernameWarning}
                 warningText={usernameWarningText}
                 required
@@ -139,25 +181,7 @@ export function UserAuthForm({
               autoCorrect="off"
               disabled={isLoading}
               value={email}
-              onChange={(e) => {
-                const inputValue = e.target.value
-                setEmail(inputValue)
-                if (formType === 'signup') {
-                  if (inputValue) {
-                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                    if (!regex.test(inputValue)) {
-                      setEmailWarning(true)
-                      setEmailWarningText('Please enter a valid email')
-                    } else {
-                      setEmailWarning(false)
-                      setEmailWarningText('')
-                    }
-                  } else {
-                    setEmailWarning(false)
-                    setEmailWarningText('')
-                  }
-                }
-              }}
+              onChange={(e) => handleEmailChange(e.target.value)}
               isWarning={emailWarning}
               warningText={emailWarningText}
               required
@@ -174,28 +198,7 @@ export function UserAuthForm({
               autoComplete="current-password"
               disabled={isLoading}
               value={password}
-              onChange={(e) => {
-                const inputValue = e.target.value
-                setPassword(inputValue)
-                if (formType === 'signup') {
-                  if (inputValue) {
-                    const strongPasswordRegex =
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-                    if (!strongPasswordRegex.test(inputValue)) {
-                      setPasswordWarning(true)
-                      setPasswordWarningText(
-                        'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
-                      )
-                    } else {
-                      setPasswordWarning(false)
-                      setPasswordWarningText('')
-                    }
-                  } else {
-                    setPasswordWarning(false)
-                    setPasswordWarningText('')
-                  }
-                }
-              }}
+              onChange={(e) => handlePasswordChange(e.target.value)}
               isWarning={passwordWarning}
               warningText={passwordWarningText}
               required
