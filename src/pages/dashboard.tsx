@@ -1,5 +1,8 @@
 import { Button } from '@/components/ui/button'
-import { signOut } from 'firebase/auth'
+import { useAuthContext } from '../../lib/firebase/context/AuthContext'
+import { signOutGitHub } from '../../lib/GitHubAuth'
+import { signOutEmail } from '../../lib/emailPasswordAuth'
+import { useRouter } from 'next/router'
 
 interface DashboardProps {
   userId: string
@@ -7,10 +10,18 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ userId, email }) => {
+  const { user } = useAuthContext()
+
+  const router = useRouter()
   const handleSignOut = async () => {
     try {
-      await signOut()
+      if (user?.providerId === 'github.com') {
+        await signOutGitHub()
+      } else {
+        await signOutEmail()
+      }
       console.log('User signed out')
+      router.push('/')
     } catch (error) {
       console.error(error)
     }
