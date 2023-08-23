@@ -105,10 +105,15 @@ export function UserAuthForm({
                   const inputValue = e.target.value
                   setUsername(inputValue)
                   if (formType === 'signup') {
-                    const regex = /^[a-zA-Z]+$/
-                    if (!regex.test(inputValue)) {
-                      setUsernameWarning(true)
-                      setUsernameWarningText('Only alphabets are allowed')
+                    if (inputValue) {
+                      const regex = /^[a-zA-Z]+$/
+                      if (!regex.test(inputValue)) {
+                        setUsernameWarning(true)
+                        setUsernameWarningText('Only alphabets are allowed')
+                      } else {
+                        setUsernameWarning(false)
+                        setUsernameWarningText('')
+                      }
                     } else {
                       setUsernameWarning(false)
                       setUsernameWarningText('')
@@ -138,10 +143,15 @@ export function UserAuthForm({
                 const inputValue = e.target.value
                 setEmail(inputValue)
                 if (formType === 'signup') {
-                  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                  if (!regex.test(inputValue)) {
-                    setEmailWarning(true)
-                    setEmailWarningText('Please enter a valid email')
+                  if (inputValue) {
+                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    if (!regex.test(inputValue)) {
+                      setEmailWarning(true)
+                      setEmailWarningText('Please enter a valid email')
+                    } else {
+                      setEmailWarning(false)
+                      setEmailWarningText('')
+                    }
                   } else {
                     setEmailWarning(false)
                     setEmailWarningText('')
@@ -168,13 +178,18 @@ export function UserAuthForm({
                 const inputValue = e.target.value
                 setPassword(inputValue)
                 if (formType === 'signup') {
-                  const strongPasswordRegex =
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-                  if (!strongPasswordRegex.test(inputValue)) {
-                    setPasswordWarning(true)
-                    setPasswordWarningText(
-                      'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
-                    )
+                  if (inputValue) {
+                    const strongPasswordRegex =
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                    if (!strongPasswordRegex.test(inputValue)) {
+                      setPasswordWarning(true)
+                      setPasswordWarningText(
+                        'Min 8 characters and should contain at least one letter, one number, and one special character (-,@).'
+                      )
+                    } else {
+                      setPasswordWarning(false)
+                      setPasswordWarningText('')
+                    }
                   } else {
                     setPasswordWarning(false)
                     setPasswordWarningText('')
