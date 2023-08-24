@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '../components/ui/button'
 import { UserAuthForm } from '../components/authentication/user-auth-form'
 import AuthPageContext from '@/components/AuthPageContext'
+import { useAuthContext } from '../../lib/firebase/context/AuthContext'
 
 export const metadata: Metadata = {
   title: 'Authentication',
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
 export default function AuthenticationPage() {
   // const [formType, setFormType] = useState<'login' | 'signup'>('signup')
   const { formType, setFormType } = useContext(AuthPageContext)
+
+  const { onSuccessfulAuth } = useAuthContext()
 
   return (
     <>
@@ -89,7 +92,10 @@ export default function AuthenticationPage() {
                   : 'Enter your login credentials'}
               </p>
             </div>
-            <UserAuthForm formType={formType} />
+            <UserAuthForm
+              formType={formType}
+              onSuccessfulAuth={onSuccessfulAuth}
+            />
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{' '}
               <Link

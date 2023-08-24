@@ -1,9 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import {
-  onAuthStateChanged,
-  getAuth,
-  User as FirebaseUser,
-} from 'firebase/auth'
+import { onAuthStateChanged, getAuth, User, IdTokenResult } from 'firebase/auth'
 import { firebaseApp } from '../../../firebaseConfig'
 import { FC } from 'react'
 import {
@@ -12,27 +8,16 @@ import {
   resetPassword,
   SignInResult,
 } from '../../emailPasswordAuth'
-import { setCustomUserClaims } from '../../emailPasswordAuth'
-
-interface CustomClaims {
-  authMethod: string
-}
 
 const auth = getAuth(firebaseApp)
 
-interface CustomUser extends FirebaseUser {
-  customClaims?: {
-    authMethod: string
-  }
-}
-
 interface AuthContextData {
-  user: CustomUser | null
+  user: User | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<any>
   signUp: (email: string, password: string) => Promise<any>
   resetPassword: (email: string) => Promise<any>
-  setCustomClaims: (claims: CustomClaims) => Promise<void>
+  onSuccessfulAuth: (userId: string, email: string | null) => void
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -44,16 +29,52 @@ interface AuthContextProps {
 }
 
 export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
-  const [user, setUser] = useState<CustomUser | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const onSuccessfulAuth = (userId: string, email: string | null) => {
+    const newUser: User = {
+      uid: userId,
+      email: email,
+      emailVerified: false,
+      isAnonymous: false,
+      metadata: null,
+      providerData: [],
+      phoneNumber: null,
+      displayName: null,
+      photoURL: null,
+      refreshToken: '',
+      tenantId: null,
+      delete: function (): Promise<void> {
+        throw new Error('Function not implemented.')
+      },
+      getIdToken: function (
+        forceRefresh?: boolean | undefined
+      ): Promise<string> {
+        throw new Error('Function not implemented.')
+      },
+      getIdTokenResult: function (
+        forceRefresh?: boolean | undefined
+      ): Promise<IdTokenResult> {
+        throw new Error('Function not implemented.')
+      },
+      reload: function (): Promise<void> {
+        throw new Error('Function not implemented.')
+      },
+      toJSON: function (): object {
+        throw new Error('Function not implemented.')
+      },
+      providerId: '',
+    }
+    setUser(newUser)
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const tokenResult = await user.getIdTokenResult()
-        const customClaims = tokenResult.claims
-        const authMethod = customClaims?.authMethod || null
-        setUser({ ...user, customClaims: { authMethod } })
+        // const tokenResult = await user.getIdTokenResult()
+        // const customClaims = tokenResult.claims
+        setUser(user)
       } else {
         setUser(null)
       }
@@ -69,7 +90,7 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
     signIn: signInWithEmail,
     signUp: signUpWithEmail,
     resetPassword: resetPassword,
-    setCustomClaims: setCustomUserClaims,
+    onSuccessfulAuth: onSuccessfulAuth,
   }
 
   return (
