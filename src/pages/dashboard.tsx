@@ -4,6 +4,7 @@ import { signOutGitHub } from '../../lib/GitHubAuth'
 // import { signOutEmail } from '../../lib/emailPasswordAuth'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { useToast } from '../components/ui/use-toast'
 
 interface DashboardProps {
   userId: string
@@ -17,6 +18,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const email = user?.email
 
   const router = useRouter()
+  const { toast } = useToast()
+
   const handleSignOut = async () => {
     console.log('Provider ID:', user?.providerId)
     try {
@@ -28,21 +31,27 @@ const Dashboard: React.FC<DashboardProps> = () => {
       router.push('/')
     }
   }
+  if (user) {
+    const { uid, email, displayName, photoURL } = user
 
-  useEffect(() => {
-    if (user) {
-      const { uid, email, displayName, photoURL } = user
-
-      // Display the user details as needed
-      console.log('User ID:', uid)
-      console.log('Email:', email)
-      console.log('Display Name:', displayName)
-      console.log('Photo URL:', photoURL)
-    }
-  }, [user, router])
+    // Display the user details as needed
+    console.log('User ID:', uid)
+    console.log('Email:', email)
+    console.log('Display Name:', displayName)
+    console.log('Photo URL:', photoURL)
+  }
 
   if (loading) {
     return <div>Loading...</div>
+  }
+
+  if (!user) {
+    // User is not authenticated => redirect to home page
+    router.push('/')
+    toast({
+      title: 'Authentication Required',
+      description: 'Please Signup or Login to access dashboard',
+    })
   }
 
   return (

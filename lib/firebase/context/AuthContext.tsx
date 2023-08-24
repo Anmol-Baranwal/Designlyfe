@@ -1,5 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { onAuthStateChanged, getAuth, User, IdTokenResult } from 'firebase/auth'
+import {
+  onAuthStateChanged,
+  getAuth,
+  User,
+  IdTokenResult,
+  UserMetadata,
+} from 'firebase/auth'
 import { firebaseApp } from '../../../firebaseConfig'
 import { FC } from 'react'
 import {
@@ -14,9 +20,9 @@ const auth = getAuth(firebaseApp)
 interface AuthContextData {
   user: User | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<any>
-  signUp: (email: string, password: string) => Promise<any>
-  resetPassword: (email: string) => Promise<any>
+  signIn: (email: string, password: string) => Promise<SignInResult>
+  signUp: (email: string, password: string) => Promise<SignInResult>
+  resetPassword: (email: string) => Promise<SignInResult>
   onSuccessfulAuth: (userId: string, email: string | null) => void
 }
 
@@ -38,7 +44,7 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
       email: email,
       emailVerified: false,
       isAnonymous: false,
-      metadata: null,
+      metadata: {} as UserMetadata,
       providerData: [],
       phoneNumber: null,
       displayName: null,
@@ -48,14 +54,10 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
       delete: function (): Promise<void> {
         throw new Error('Function not implemented.')
       },
-      getIdToken: function (
-        forceRefresh?: boolean | undefined
-      ): Promise<string> {
+      getIdToken: function (): Promise<string> {
         throw new Error('Function not implemented.')
       },
-      getIdTokenResult: function (
-        forceRefresh?: boolean | undefined
-      ): Promise<IdTokenResult> {
+      getIdTokenResult: function (): Promise<IdTokenResult> {
         throw new Error('Function not implemented.')
       },
       reload: function (): Promise<void> {
