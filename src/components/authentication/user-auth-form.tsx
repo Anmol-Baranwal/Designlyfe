@@ -100,6 +100,7 @@ export function UserAuthForm({
     }
   }
 
+  const { setCustomClaims } = useAuthContext()
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     setIsLoading(true)
@@ -118,6 +119,7 @@ export function UserAuthForm({
       } else {
         const { result, error } = await signIn(email, password)
         if (result) {
+          await setCustomClaims({ authMethod: 'email' })
           onSuccessfulAuth(result.user.uid, result.user.email)
         } else {
           // Handle error if sign in fails
@@ -169,6 +171,7 @@ export function UserAuthForm({
     try {
       setGitHubLoading(true)
       const user = await signInWithGitHub()
+      await setCustomClaims({ authMethod: 'github' })
       onSuccessfulAuth(user.uid, user.email)
       router.push('/dashboard')
     } catch (error) {

@@ -14,16 +14,19 @@ const Dashboard: React.FC<DashboardProps> = ({ userId, email }) => {
 
   const router = useRouter()
   const handleSignOut = async () => {
+    console.log('Provider ID:', user?.providerId)
+    console.log('Custom claim:', user?.customClaims?.authMethod)
     try {
-      if (user?.providerId === 'github.com') {
-        await signOutGitHub()
-      } else {
-        await signOutEmail()
+      if (user?.customClaims?.authMethod === 'github') {
+        await signOutGitHub() // Sign out using GitHub auth
+      } else if (user?.customClaims?.authMethod === 'email') {
+        await signOutEmail() // Sign out using email/password auth
       }
       console.log('User signed out')
-      router.push('/')
     } catch (error) {
       console.error(error)
+    } finally {
+      router.push('/')
     }
   }
 
