@@ -26,12 +26,13 @@ export function UserAuthForm({
   onSuccessfulAuth,
   ...props
 }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [gitHubLoading, setGitHubLoading] = useState(false)
   const [email, setEmail] = useState<string>('')
-  const [emailWarning, setEmailWarning] = React.useState<boolean>(false)
-  const [emailWarningText, setEmailWarningText] = React.useState<string>('')
+  const [emailWarning, setEmailWarning] = useState<boolean>(false)
+  const [emailWarningText, setEmailWarningText] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [passwordWarning, setPasswordWarning] = React.useState<boolean>(false)
+  const [passwordWarning, setPasswordWarning] = useState<boolean>(false)
   const [passwordWarningText, setPasswordWarningText] =
     React.useState<string>('')
   const [username, setUsername] = useState<string>('')
@@ -63,7 +64,7 @@ export function UserAuthForm({
     setEmail(inputValue)
     // if (formType === 'signup') { // for validation in login form
     if (inputValue) {
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      const regex = /^[^\@]+@[^\s@]+\.[^\s@]+$/
       if (!regex.test(inputValue)) {
         setEmailWarning(true)
         setEmailWarningText('Please enter a valid email')
@@ -166,14 +167,14 @@ export function UserAuthForm({
   const router = useRouter()
   async function handleSubmitWithGitHub() {
     try {
-      setIsLoading(true)
+      setGitHubLoading(true)
       const user = await signInWithGitHub()
       onSuccessfulAuth(user.uid, user.email)
       router.push('/dashboard')
     } catch (error) {
       // Handle error if authentication fails
       console.error(error)
-      setIsLoading(false)
+      setGitHubLoading(false)
     }
   }
 
@@ -269,7 +270,7 @@ export function UserAuthForm({
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      {/* <Button variant="outline" type="button" disabled={isLoading}>
         {isLoading ? (
           <FontAwesomeIcon
             icon={faSpinner}
@@ -279,14 +280,14 @@ export function UserAuthForm({
           <FontAwesomeIcon icon={faGoogle} className="mr-2 h-4 w-4" />
         )}{' '}
         Google
-      </Button>
+      </Button> */}
       <Button
         variant="outline"
         type="button"
-        disabled={isLoading}
+        disabled={gitHubLoading}
         onClick={handleSubmitWithGitHub}
       >
-        {isLoading ? (
+        {gitHubLoading ? (
           <FontAwesomeIcon
             icon={faSpinner}
             className="mr-2 h-4 w-4 animate-spin"
