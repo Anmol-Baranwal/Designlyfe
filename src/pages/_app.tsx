@@ -6,13 +6,11 @@ import { Toaster } from '../components/ui/toaster'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    // <AppComponent>
     <AuthContextProvider>
       <AuthPageProvider>
         <Component {...pageProps} />
         <Toaster />
       </AuthPageProvider>
     </AuthContextProvider>
-    // </AppComponent>
   )
 }

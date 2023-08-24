@@ -1,6 +1,5 @@
 import { getAuth, signInWithPopup, GithubAuthProvider, signOut, User } from 'firebase/auth';
 import { firebaseApp } from '../firebaseConfig';
-import { setCustomUserClaims } from './emailPasswordAuth';
 
 const auth = getAuth(firebaseApp);
 const githubProvider = new GithubAuthProvider();
@@ -12,9 +11,6 @@ export const signInWithGitHub = async (): Promise<User> => {
     // const token = credential?.accessToken;
 
     const user = result.user;
-
-    // Set the custom claim to indicate GitHub authentication
-    await setCustomUserClaims(user, { authMethod: 'github' });
 
     return user;
 
