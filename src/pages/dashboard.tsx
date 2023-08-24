@@ -3,7 +3,6 @@ import { useAuthContext } from '../../lib/firebase/context/AuthContext'
 import { signOutGitHub } from '../../lib/GitHubAuth'
 // import { signOutEmail } from '../../lib/emailPasswordAuth'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { useToast } from '../components/ui/use-toast'
 
 interface DashboardProps {
