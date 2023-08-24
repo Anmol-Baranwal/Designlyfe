@@ -13,8 +13,9 @@ const PrivacyPage: React.FC = () => {
         Welcome to UIVerse! This privacy policy outlines how we collect, use,
         and safeguard your personal information while you use our website at{' '}
         <a href="https://ui-verse.vercel.app/">https://ui-verse.vercel.app/</a>{' '}
-        (referred to as "UIVerse," "we," "us," or "our"). By accessing or using
-        our website, you consent to the practices described in this policy.
+        (referred to as &ldquo;UIVerse,&rdquo; &ldquo;we,&rdquo;
+        &ldquo;us,&rdquo; or &ldquo;our&rdquo;). By accessing or using our
+        website, you consent to the practices described in this policy.
       </p>
 
       <h2>2. Information We Collect</h2>
@@ -35,7 +36,7 @@ const PrivacyPage: React.FC = () => {
           <strong>Usage Data:</strong> We collect data related to how you
           interact with our website. This includes your IP address, browser
           type, device type, pages viewed, and other browsing behaviors. This
-          information helps us improve our website's performance and user
+          information helps us improve our website&apos;s performance and user
           experience.
         </li>
       </ul>
@@ -55,7 +56,7 @@ const PrivacyPage: React.FC = () => {
         </li>
         <li>
           <strong>Improve User Experience:</strong> To analyze user behavior and
-          preferences, and optimize our website's design, content, and
+          preferences, and optimize our website&apos;s design, content, and
           functionality.
         </li>
       </ul>
@@ -119,7 +120,7 @@ const PrivacyPage: React.FC = () => {
         visit.
       </p>
 
-      <h2>8. Children's Privacy</h2>
+      <h2>8. Children&apos;s Privacy</h2>
 
       <p>
         Our website is not intended for children under the age of 13. We do not

@@ -10,11 +10,13 @@ const TermsOfServicePage: React.FC = () => {
       <h2>1. Acceptance of Terms</h2>
 
       <p>
-        These Terms of Service ("Terms") govern your use of the website at{' '}
+        These Terms of Service (&ldquo;Terms&rdquo;) govern your use of the
+        website at{' '}
         <a href="https://ui-verse.vercel.app/">https://ui-verse.vercel.app/</a>{' '}
-        (referred to as "UIVerse," "we," "us," or "our"). By accessing or using
-        our website, you agree to abide by these Terms. If you do not agree to
-        these Terms, please do not use our website.
+        (referred to as &ldquo;UIVerse,&rdquo; &ldquo;we,&rdquo;
+        &ldquo;us,&rdquo; or &ldquo;our&rdquo;). By accessing or using our
+        website, you agree to abide by these Terms. If you do not agree to these
+        Terms, please do not use our website.
       </p>
 
       <h2>2. Use of Our Website</h2>
@@ -46,9 +48,10 @@ const TermsOfServicePage: React.FC = () => {
       <h2>5. Disclaimer of Warranties</h2>
 
       <p>
-        Our website is provided "as is" and "as available." We make no
-        representations or warranties of any kind, express or implied, regarding
-        the operation, content, or availability of our website.
+        Our website is provided &ldquo;as is&rdquo; and &ldquo;as
+        available.&rdquo; We make no representations or warranties of any kind,
+        express or implied, regarding the operation, content, or availability of
+        our website.
       </p>
 
       {/* Continue the rest of the content similarly */}
