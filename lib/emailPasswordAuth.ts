@@ -5,19 +5,20 @@ import {
   sendPasswordResetEmail, 
   getAuth, 
   signOut,
-  User
+  User,
+  UserCredential,
 } from 'firebase/auth';
 
 const auth = getAuth(firebaseApp);
 
 export interface SignInResult {
-  result: any;
+  result: UserCredential | null | string;
   error: any;
 }
 
 export const signIn = async (email: string, password: string): Promise<SignInResult> => {
-  let result: any = null,
-    error: any = null;
+  let result: UserCredential | null = null,
+    error: any;
   try {
     result = await signInWithEmailAndPassword(auth, email, password);
   } catch (e: any) {
@@ -28,8 +29,8 @@ export const signIn = async (email: string, password: string): Promise<SignInRes
 };
 
 export const signUp = async (email: string, password: string): Promise<SignInResult> => {
-  let result: any = null,
-    error: any = null;
+  let result: UserCredential | null = null,
+    error: any;
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
     const user: User | null = result.user;
@@ -41,8 +42,8 @@ export const signUp = async (email: string, password: string): Promise<SignInRes
 };
 
 export const resetPassword = async (email: string): Promise<SignInResult> => {
-  let result: any = null,
-    error: any = null;
+  let result: string | null = null,
+    error: any;
   try {
     await sendPasswordResetEmail(auth, email);
     result = 'Email sent successfully';
