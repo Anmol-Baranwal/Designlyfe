@@ -2,13 +2,47 @@ import { cn } from '@/lib/utils'
 import { Button } from '../../button'
 import { ScrollArea } from '../../scroll-area'
 
-import { Playlist } from '../../../../../data/playlists'
+import { PersonalList } from '../../../../../data/personalLists'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faChartLine,
+  faHeart,
+  faIcons,
+  faImage,
+  faDesktop,
+  faPuzzlePiece,
+  faGlobe,
+  faExternalLinkAlt,
+  faBookmark,
+  faList,
+  faTag,
+  faLink,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../../dialog'
+import { Input } from '../../input'
+import { Label } from '../../label'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../../dropdown-menu'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  playlists: Playlist[]
+  personalLists: PersonalList[]
 }
 
-export function Sidebar({ className, playlists }: SidebarProps) {
+export function Sidebar({ className, personalLists }: SidebarProps) {
   return (
     <div className={cn('pb-12', className)}>
       <div className="space-y-4 py-4">
@@ -18,181 +52,144 @@ export function Sidebar({ className, playlists }: SidebarProps) {
           </h2>
           <div className="space-y-1">
             <Button variant="secondary" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <polygon points="10 8 16 12 10 16 10 8" />
-              </svg>
-              Listen Now
+              <FontAwesomeIcon icon={faChartLine} />
+              &nbsp; Trending
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <rect width="7" height="7" x="3" y="3" rx="1" />
-                <rect width="7" height="7" x="14" y="3" rx="1" />
-                <rect width="7" height="7" x="14" y="14" rx="1" />
-                <rect width="7" height="7" x="3" y="14" rx="1" />
-              </svg>
-              Browse
+              <FontAwesomeIcon icon={faHeart} />
+              &nbsp; Most Loved
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
-                <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
-                <circle cx="12" cy="12" r="2" />
-                <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
-                <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" />
-              </svg>
-              Radio
+              <FontAwesomeIcon icon={faTag} />
+              &nbsp; Recommended For You
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <FontAwesomeIcon icon={faBookmark} />
+              &nbsp; My bookmarks
             </Button>
           </div>
         </div>
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-            Library
+            Categories
           </h2>
           <div className="space-y-1">
             <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <path d="M21 15V6" />
-                <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                <path d="M12 12H3" />
-                <path d="M16 6H3" />
-                <path d="M12 18H3" />
-              </svg>
-              Playlists
+              <FontAwesomeIcon icon={faImage} />
+              &nbsp; Illustrations
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <circle cx="8" cy="18" r="4" />
-                <path d="M12 18V2l7 4" />
-              </svg>
-              Songs
+              <FontAwesomeIcon icon={faIcons} />
+              &nbsp; Icons
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              Made for You
+              <FontAwesomeIcon icon={faDesktop} />
+              &nbsp; Mockups
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <path d="m12 8-9.04 9.06a2.82 2.82 0 1 0 3.98 3.98L16 12" />
-                <circle cx="17" cy="7" r="5" />
-              </svg>
-              Artists
+              <FontAwesomeIcon icon={faPuzzlePiece} />
+              &nbsp; UI Kits
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <path d="m16 6 4 14" />
-                <path d="M12 6v14" />
-                <path d="M8 8v12" />
-                <path d="M4 4v16" />
-              </svg>
-              Albums
+              <FontAwesomeIcon icon={faGlobe} />
+              &nbsp; Awesome Websites
             </Button>
+          </div>
+        </div>
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Manage
+          </h2>
+          <div className="space-y-1">
+            <Dialog>
+              <DialogTrigger>
+                <Button variant="ghost" className="w-full justify-start">
+                  <FontAwesomeIcon icon={faExternalLinkAlt} />
+                  &nbsp; Submit Source Link
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add Website</DialogTitle>
+                  <DialogDescription>
+                    Copy and paste the podcast feed URL to import.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="url">Website URL</Label>
+                    <Input
+                      id="url"
+                      placeholder="https://example.com/feed.xml"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button>Submit Link</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger>
+                <Button variant="ghost" className="w-full justify-start">
+                  <FontAwesomeIcon icon={faLink} />
+                  &nbsp; Submit New Asset
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Name of Asset</DialogTitle>
+                  <DialogDescription>
+                    Mention the details of the asset
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="name">Name of Asset</Label>
+                    <Input id="name" placeholder="Google Illustrations" />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="url">Website URL</Label>
+                    <Input id="url" placeholder="https://example.com" />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="type">Type of Asset</Label>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="text-left pl-6 text-sm p-2 border-bg-muted border">
+                        Click to see options
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-50">
+                        <DropdownMenuItem>Icon</DropdownMenuItem>
+                        <DropdownMenuItem>Illustration</DropdownMenuItem>
+                        <DropdownMenuItem>Mockup</DropdownMenuItem>
+                        <DropdownMenuItem>UI Kit</DropdownMenuItem>
+                        <DropdownMenuItem>Useful Website</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button>Submit Link</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
         <div className="py-2">
           <h2 className="relative px-7 text-lg font-semibold tracking-tight">
-            Playlists
+            Personal Lists
           </h2>
           <ScrollArea className="h-[300px] px-1">
             <div className="space-y-1 p-2">
-              {playlists?.map((playlist, i) => (
+              {personalLists?.map((list, i) => (
                 <Button
-                  key={`${playlist}-${i}`}
+                  key={`${list}-${i}`}
                   variant="ghost"
                   className="w-full justify-start font-normal"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mr-2 h-4 w-4"
-                  >
-                    <path d="M21 15V6" />
-                    <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                    <path d="M12 12H3" />
-                    <path d="M16 6H3" />
-                    <path d="M12 18H3" />
-                  </svg>
-                  {playlist}
+                  <FontAwesomeIcon icon={faList} />
+                  &nbsp;
+                  {list}
                 </Button>
               ))}
             </div>
