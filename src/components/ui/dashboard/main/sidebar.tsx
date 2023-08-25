@@ -33,16 +33,21 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  // DropdownMenuLabel,
+  // DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../../dropdown-menu'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   personalLists: PersonalList[]
+  onSelectSidebarOption: (option: string | null) => void
 }
 
-export function Sidebar({ className, personalLists }: SidebarProps) {
+export function Sidebar({
+  className,
+  personalLists,
+  onSelectSidebarOption,
+}: SidebarProps) {
   return (
     <div className={cn('pb-12', className)}>
       <div className="space-y-4 py-4">
@@ -51,19 +56,43 @@ export function Sidebar({ className, personalLists }: SidebarProps) {
             Discover
           </h2>
           <div className="space-y-1">
-            <Button variant="secondary" className="w-full justify-start">
+            <Button
+              variant="secondary"
+              className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('Trending')
+              }}
+            >
               <FontAwesomeIcon icon={faChartLine} />
               &nbsp; Trending
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant="ghost"
+              className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('Most Loved')
+              }}
+            >
               <FontAwesomeIcon icon={faHeart} />
               &nbsp; Most Loved
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant="ghost"
+              className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('Recommended For You')
+              }}
+            >
               <FontAwesomeIcon icon={faTag} />
               &nbsp; Recommended For You
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant="ghost"
+              className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('My bookmarks')
+              }}
+            >
               <FontAwesomeIcon icon={faBookmark} />
               &nbsp; My bookmarks
             </Button>

@@ -8,19 +8,28 @@ import { Separator } from '../../separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs'
 
 import { AlbumArtwork } from './album-artwork'
-import { PodcastEmptyPlaceholder } from './podcast-empty-placeholder'
 import { Sidebar } from './sidebar'
-import { listenNowAlbums, madeForYouAlbums } from '../../../../../data/albums'
+import { listenNowAlbums } from '../../../../../data/albums'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
 import { Search } from './search'
+import React, { useState } from 'react'
 
 export const metadata: Metadata = {
-  title: 'Music App',
-  description: 'Example music app using the components.',
+  title: 'Dashboard of UIVerse',
+  description: 'Keep track of your best resources',
 }
 
 export default function DashboardInterface() {
+  const [selectedTab, setSelectedTab] = useState('All') // Default selected tab
+  const [selectedSidebarOption, setSelectedSidebarOption] = useState<
+    string | null
+  >('Trending') // Default selected sidebar option
+
+  const handleSidebarOptionSelect = (option: string | null) => {
+    setSelectedSidebarOption(option)
+  }
+
   return (
     <>
       <div className="md:hidden">
@@ -63,18 +72,37 @@ export default function DashboardInterface() {
               <Sidebar
                 personalLists={personalLists}
                 className="hidden lg:block"
+                onSelectSidebarOption={handleSidebarOptionSelect}
               />
-              <div className="col-span-3 lg:col-span-4 lg:border-l">
-                <div className="h-full px-4 py-6 lg:px-8">
-                  <Tabs defaultValue="music" className="h-full space-y-6">
+              <div className="col-span-4 lg:col-span-4 lg:border-l">
+                <div className="h-full px-4 py-6 lg:px-10">
+                  <Tabs defaultValue="All" className="h-full space-y-6">
                     <div className="space-between flex items-center">
                       <TabsList>
-                        <TabsTrigger value="music" className="relative">
-                          Music
+                        <TabsTrigger
+                          value="All"
+                          className="relative"
+                          onClick={() => setSelectedTab('All')}
+                        >
+                          All Types
                         </TabsTrigger>
-                        <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
-                        <TabsTrigger value="live" disabled>
-                          Live
+                        <TabsTrigger
+                          value="Free"
+                          onClick={() => setSelectedTab('Free')}
+                        >
+                          Free
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="Paid"
+                          onClick={() => setSelectedTab('Paid')}
+                        >
+                          Paid
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="Premium"
+                          onClick={() => setSelectedTab('Premium')}
+                        >
+                          Premium
                         </TabsTrigger>
                       </TabsList>
                       <div className="ml-auto mr-4">
@@ -83,21 +111,23 @@ export default function DashboardInterface() {
                             icon={faPlusCircle}
                             className="mr-2 h-4 w-4"
                           />
-                          Add music
+                          Filter Cards
                         </Button>
                       </div>
                     </div>
                     <TabsContent
-                      value="music"
+                      value={selectedTab}
                       className="border-none p-0 outline-none"
                     >
                       <div className="flex items-center justify-between">
                         <div className="space-y-1">
                           <h2 className="text-2xl font-semibold tracking-tight">
-                            Listen Now
+                            {selectedSidebarOption || 'All'}
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            Top picks for you. Updated daily.
+                            {selectedTab
+                              ? `${selectedTab} resources for you. Updated daily.`
+                              : 'Top resources for you. Updated daily.'}
                           </p>
                         </div>
                       </div>
@@ -119,49 +149,6 @@ export default function DashboardInterface() {
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
                       </div>
-                      <div className="mt-6 space-y-1">
-                        <h2 className="text-2xl font-semibold tracking-tight">
-                          Made for You
-                        </h2>
-                        <p className="text-sm text-muted-foreground">
-                          Your personal playlists. Updated daily.
-                        </p>
-                      </div>
-                      <Separator className="my-4" />
-                      <div className="relative">
-                        <ScrollArea>
-                          <div className="flex space-x-4 pb-4">
-                            {madeForYouAlbums.map((album) => (
-                              <AlbumArtwork
-                                key={album.name}
-                                album={album}
-                                className="w-[150px]"
-                                aspectRatio="square"
-                                width={150}
-                                height={150}
-                              />
-                            ))}
-                          </div>
-                          <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
-                      </div>
-                    </TabsContent>
-                    <TabsContent
-                      value="podcasts"
-                      className="h-full flex-col border-none p-0 data-[state=active]:flex"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="space-y-1">
-                          <h2 className="text-2xl font-semibold tracking-tight">
-                            New Episodes
-                          </h2>
-                          <p className="text-sm text-muted-foreground">
-                            Your favorite podcasts. Updated daily.
-                          </p>
-                        </div>
-                      </div>
-                      <Separator className="my-4" />
-                      <PodcastEmptyPlaceholder />
                     </TabsContent>
                   </Tabs>
                 </div>
