@@ -13,6 +13,8 @@ import { PodcastEmptyPlaceholder } from './podcast-empty-placeholder'
 import { Sidebar } from './sidebar'
 import { listenNowAlbums, madeForYouAlbums } from '../../../../../data/albums'
 import { playlists } from '../../../../../data/playlists'
+import { UserNav } from './user-nav'
+import { Search } from './search'
 
 export const metadata: Metadata = {
   title: 'Music App',
@@ -37,6 +39,17 @@ export default function DashboardInterface() {
           alt="Music"
           className="hidden dark:block"
         />
+      </div>
+      <div className="hidden flex-col md:flex">
+        <div className="border-b">
+          <div className="flex h-16 items-center px-4">
+            <div className="pl-6 font-semibold text-2xl">UIVerse</div>
+            <div className="ml-auto flex items-center space-x-4">
+              <Search />
+              <UserNav />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="hidden md:block">
         {/* <Menu /> */}
