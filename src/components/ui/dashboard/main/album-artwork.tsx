@@ -1,7 +1,7 @@
 import Image from 'next/image'
 // import { PlusCircledIcon } from '@radix-ui/react-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle, faList } from '@fortawesome/free-solid-svg-icons'
 import { cn } from '@/lib/utils'
 import {
   ContextMenu,
@@ -62,30 +62,15 @@ export function AlbumArtwork({
               <ContextMenuSeparator />
               {personalLists.map((list) => (
                 <ContextMenuItem key={list}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="mr-2 h-4 w-4"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M21 15V6M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM12 12H3M16 6H3M12 18H3" />
-                  </svg>
-                  {list}
+                  <FontAwesomeIcon icon={faList} />
+                  &nbsp; {list}
                 </ContextMenuItem>
               ))}
             </ContextMenuSubContent>
           </ContextMenuSub>
           <ContextMenuSeparator />
-          <ContextMenuItem>Play Next</ContextMenuItem>
-          <ContextMenuItem>Play Later</ContextMenuItem>
-          <ContextMenuItem>Create Station</ContextMenuItem>
-          <ContextMenuSeparator />
           <ContextMenuItem>Like</ContextMenuItem>
-          <ContextMenuItem>Share</ContextMenuItem>
+          <ContextMenuItem>Copy URL</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
       <div className="space-y-1 text-sm">
