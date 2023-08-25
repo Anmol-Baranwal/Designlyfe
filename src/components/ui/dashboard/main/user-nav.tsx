@@ -10,8 +10,29 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '../../dropdown-menu'
+import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
+import { useRouter } from 'next/router'
+import { signOutGitHub } from '../../../../../lib/GitHubAuth'
 
 export function UserNav() {
+  const { user } = useAuthContext()
+  // const userId = user?.uid
+  // const email = user?.email
+
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    console.log('Provider ID:', user?.providerId)
+    try {
+      await signOutGitHub()
+      console.log('User signed out')
+    } catch (error) {
+      console.error(error)
+    } finally {
+      router.push('/')
+    }
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,7 +66,8 @@ export function UserNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          Log out
+          {/* <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer"> */}
+          Log Out
           {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
         </DropdownMenuItem>
       </DropdownMenuContent>

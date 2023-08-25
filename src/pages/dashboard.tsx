@@ -1,6 +1,5 @@
-import { Button } from '@/components/ui/button'
+// import { Button } from '@/components/ui/button'
 import { useAuthContext } from '../../lib/firebase/context/AuthContext'
-import { signOutGitHub } from '../../lib/GitHubAuth'
 // import { signOutEmail } from '../../lib/emailPasswordAuth'
 import { useRouter } from 'next/router'
 import { useToast } from '../components/ui/use-toast'
@@ -14,23 +13,11 @@ interface DashboardProps {
 // { userId, email, username }
 const Dashboard: React.FC<DashboardProps> = () => {
   const { user, loading } = useAuthContext()
-  const userId = user?.uid
-  const email = user?.email
+  // const userId = user?.uid
+  // const email = user?.email
 
   const router = useRouter()
   const { toast } = useToast()
-
-  const handleSignOut = async () => {
-    console.log('Provider ID:', user?.providerId)
-    try {
-      await signOutGitHub()
-      console.log('User signed out')
-    } catch (error) {
-      console.error(error)
-    } finally {
-      router.push('/')
-    }
-  }
 
   if (!user) {
     // User is not authenticated => redirect to home page
@@ -61,9 +48,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       {router.pathname === '/dashboard' && (
         <>
           <DashboardInterface />
-          <Button variant="outline" type="button" onClick={handleSignOut}>
-            Sign Out
-          </Button>
         </>
       )}
     </div>
