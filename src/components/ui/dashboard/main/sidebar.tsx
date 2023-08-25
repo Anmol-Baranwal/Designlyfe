@@ -5,7 +5,7 @@ import { ScrollArea } from '../../scroll-area'
 import { PersonalList } from '../../../../../data/personalLists'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChartLine,
+  faFire,
   faHeart,
   faIcons,
   faImage,
@@ -41,12 +41,14 @@ import {
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   personalLists: PersonalList[]
   onSelectSidebarOption: (option: string | null) => void
+  selectedSidebarOption: string | null
 }
 
 export function Sidebar({
   className,
   personalLists,
   onSelectSidebarOption,
+  selectedSidebarOption,
 }: SidebarProps) {
   return (
     <div className={cn('pb-12', className)}>
@@ -57,17 +59,21 @@ export function Sidebar({
           </h2>
           <div className="space-y-1">
             <Button
-              variant="secondary"
+              variant={
+                selectedSidebarOption === 'Trending' ? 'secondary' : 'ghost'
+              }
               className="w-full justify-start"
               onClick={() => {
                 onSelectSidebarOption('Trending')
               }}
             >
-              <FontAwesomeIcon icon={faChartLine} />
+              <FontAwesomeIcon icon={faFire} />
               &nbsp; Trending
             </Button>
             <Button
-              variant="ghost"
+              variant={
+                selectedSidebarOption === 'Most Loved' ? 'secondary' : 'ghost'
+              }
               className="w-full justify-start"
               onClick={() => {
                 onSelectSidebarOption('Most Loved')
@@ -77,7 +83,11 @@ export function Sidebar({
               &nbsp; Most Loved
             </Button>
             <Button
-              variant="ghost"
+              variant={
+                selectedSidebarOption === 'Recommended For You'
+                  ? 'secondary'
+                  : 'ghost'
+              }
               className="w-full justify-start"
               onClick={() => {
                 onSelectSidebarOption('Recommended For You')
@@ -87,7 +97,9 @@ export function Sidebar({
               &nbsp; Recommended For You
             </Button>
             <Button
-              variant="ghost"
+              variant={
+                selectedSidebarOption === 'My bookmarks' ? 'secondary' : 'ghost'
+              }
               className="w-full justify-start"
               onClick={() => {
                 onSelectSidebarOption('My bookmarks')
@@ -103,23 +115,52 @@ export function Sidebar({
             Categories
           </h2>
           <div className="space-y-1">
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant={
+                selectedSidebarOption === 'Illustrations'
+                  ? 'secondary'
+                  : 'ghost'
+              }
+              className="w-full justify-start"
+            >
               <FontAwesomeIcon icon={faImage} />
               &nbsp; Illustrations
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant={
+                selectedSidebarOption === 'Icons' ? 'secondary' : 'ghost'
+              }
+              className="w-full justify-start"
+            >
               <FontAwesomeIcon icon={faIcons} />
               &nbsp; Icons
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant={
+                selectedSidebarOption === 'Mockups' ? 'secondary' : 'ghost'
+              }
+              className="w-full justify-start"
+            >
               <FontAwesomeIcon icon={faDesktop} />
               &nbsp; Mockups
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant={
+                selectedSidebarOption === 'UI Kits' ? 'secondary' : 'ghost'
+              }
+              className="w-full justify-start"
+            >
               <FontAwesomeIcon icon={faPuzzlePiece} />
               &nbsp; UI Kits
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button
+              variant={
+                selectedSidebarOption === 'Awesome Websites'
+                  ? 'secondary'
+                  : 'ghost'
+              }
+              className="w-full justify-start"
+            >
               <FontAwesomeIcon icon={faGlobe} />
               &nbsp; Awesome Websites
             </Button>

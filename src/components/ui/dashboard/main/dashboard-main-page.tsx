@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faChartSimple } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '../../button'
 import { ScrollArea, ScrollBar } from '../../scroll-area'
 import { Separator } from '../../separator'
@@ -73,6 +73,7 @@ export default function DashboardInterface() {
                 personalLists={personalLists}
                 className="hidden lg:block"
                 onSelectSidebarOption={handleSidebarOptionSelect}
+                selectedSidebarOption={selectedSidebarOption}
               />
               <div className="col-span-4 lg:col-span-4 lg:border-l">
                 <div className="h-full px-4 py-6 lg:px-10">
@@ -108,7 +109,7 @@ export default function DashboardInterface() {
                       <div className="ml-auto mr-4">
                         <Button>
                           <FontAwesomeIcon
-                            icon={faPlusCircle}
+                            icon={faChartSimple}
                             className="mr-2 h-4 w-4"
                           />
                           Filter Cards
