@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-
+import { faPlusCircle, faBell } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '../../button'
 import { ScrollArea, ScrollBar } from '../../scroll-area'
 import { Separator } from '../../separator'
@@ -45,7 +44,12 @@ export default function DashboardInterface() {
           <div className="flex h-16 items-center px-4">
             <div className="pl-6 font-semibold text-2xl">UIVerse</div>
             <div className="ml-auto flex items-center space-x-4">
+              <Button className="bg-foreground">Feedback</Button>
               <Search />
+              <FontAwesomeIcon
+                icon={faBell}
+                className="mr-2 h-4 w-4 rounded-full bg-muted p-2"
+              />
               <UserNav />
             </div>
           </div>
