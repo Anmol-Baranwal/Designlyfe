@@ -14,32 +14,32 @@ import {
   ContextMenuTrigger,
 } from '../../context-menu'
 
-import { Album } from '../../../../../data/albums'
+import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 
-interface AlbumArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
-  album: Album
+interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
+  asset: Asset
   aspectRatio?: 'portrait' | 'square'
   width?: number
   height?: number
 }
 
-export function AlbumArtwork({
-  album,
+export function AssetArtwork({
+  asset,
   aspectRatio = 'portrait',
   width,
   height,
   className,
   ...props
-}: AlbumArtworkProps) {
+}: AssetArtworkProps) {
   return (
     <div className={cn('space-y-3', className)} {...props}>
       <ContextMenu>
         <ContextMenuTrigger>
           <div className="overflow-hidden rounded-md">
             <Image
-              src={album.cover}
-              alt={album.name}
+              src={asset.imageUrl}
+              alt={asset.name}
               width={width}
               height={height}
               className={cn(
@@ -74,8 +74,8 @@ export function AlbumArtwork({
         </ContextMenuContent>
       </ContextMenu>
       <div className="space-y-1 text-sm">
-        <h3 className="font-medium leading-none">{album.name}</h3>
-        <p className="text-xs text-muted-foreground">{album.artist}</p>
+        <h3 className="font-medium leading-none">{asset.name}</h3>
+        <p className="text-xs text-muted-foreground">{asset.author}</p>
       </div>
     </div>
   )
