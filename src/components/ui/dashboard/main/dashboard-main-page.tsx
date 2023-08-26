@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faChartSimple } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '../../button'
@@ -7,9 +7,9 @@ import { ScrollArea, ScrollBar } from '../../scroll-area'
 import { Separator } from '../../separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs'
 
-import { AlbumArtwork } from './album-artwork'
+import { AssetArtwork } from './asset-artwork'
 import { Sidebar } from './sidebar'
-import { listenNowAlbums } from '../../../../../data/albums'
+import { illustrations } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
 import { Search } from './search'
@@ -24,7 +24,7 @@ export default function DashboardInterface() {
   const [selectedTab, setSelectedTab] = useState('All') // Default selected tab
   const [selectedSidebarOption, setSelectedSidebarOption] = useState<
     string | null
-  >('Trending') // Default selected sidebar option
+  >('Illustrations') // Default selected sidebar option
 
   const handleSidebarOptionSelect = (option: string | null) => {
     setSelectedSidebarOption(option)
@@ -33,20 +33,13 @@ export default function DashboardInterface() {
   return (
     <>
       <div className="md:hidden">
-        <Image
+        {/* <Image
           src="/examples/music-light.png"
           width={1280}
           height={1114}
           alt="Music"
           className="block dark:hidden"
-        />
-        <Image
-          src="/examples/music-dark.png"
-          width={1280}
-          height={1114}
-          alt="Music"
-          className="hidden dark:block"
-        />
+        /> */}
       </div>
       <div className="hidden flex-col md:flex">
         <div className="border-b">
@@ -136,10 +129,10 @@ export default function DashboardInterface() {
                       <div className="relative">
                         <ScrollArea>
                           <div className="flex space-x-4 pb-4">
-                            {listenNowAlbums.map((album) => (
-                              <AlbumArtwork
-                                key={album.name}
-                                album={album}
+                            {illustrations.map((item) => (
+                              <AssetArtwork
+                                key={item.name}
+                                asset={item}
                                 className="w-[250px]"
                                 aspectRatio="portrait"
                                 width={250}
