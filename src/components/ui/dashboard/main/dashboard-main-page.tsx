@@ -127,21 +127,18 @@ export default function DashboardInterface() {
                       </div>
                       <Separator className="my-4" />
                       <div className="relative">
-                        <ScrollArea>
-                          <div className="flex space-x-4 pb-4">
-                            {illustrations.map((item) => (
-                              <AssetArtwork
-                                key={item.name}
-                                asset={item}
-                                className="w-[250px]"
-                                aspectRatio="square"
-                                width={250}
-                                height={330}
-                              />
-                            ))}
-                          </div>
-                          <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
+                          {illustrations.map((item) => (
+                            <AssetArtwork
+                              key={item.name}
+                              asset={item}
+                              className="w-[300px]"
+                              aspectRatio="square"
+                              width={300}
+                              height={380}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </TabsContent>
                   </Tabs>

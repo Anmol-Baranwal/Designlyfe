@@ -36,7 +36,7 @@ export function AssetArtwork({
 }: AssetArtworkProps) {
   return (
     <div
-      className={cn('space-y-3 bg-muted p-2 pb-0 rounded-lg', className)}
+      className={cn('space-y-3 bg-muted p-2 mb-6 rounded-lg', className)}
       {...props}
     >
       <div className="bg-muted h-10 w-10 rounded-full flex justify-center items-center">
@@ -108,7 +108,7 @@ export function AssetArtwork({
           <ContextMenuItem>Copy URL</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
-      <div className="flex flex-wrap justify-evenly pt-1 transition-all duration-500">
+      <div className="flex flex-wrap justify-evenly pt-0 pb-1 transition-all duration-500">
         <div className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2">
           <Image
             src="/reactions/like.png"
