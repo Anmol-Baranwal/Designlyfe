@@ -134,7 +134,7 @@ export default function DashboardInterface() {
                                 key={item.name}
                                 asset={item}
                                 className="w-[250px]"
-                                aspectRatio="portrait"
+                                aspectRatio="square"
                                 width={250}
                                 height={330}
                               />

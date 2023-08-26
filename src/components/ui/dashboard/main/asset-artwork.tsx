@@ -16,6 +16,8 @@ import {
 
 import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
+import { Avatar, AvatarFallback, AvatarImage } from '../../avatar'
+import { Badge } from '../../badge'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
@@ -33,7 +35,40 @@ export function AssetArtwork({
   ...props
 }: AssetArtworkProps) {
   return (
-    <div className={cn('space-y-3', className)} {...props}>
+    <div
+      className={cn('space-y-3 bg-muted p-2 rounded-lg', className)}
+      {...props}
+    >
+      <div className="bg-muted h-10 w-10 rounded-full flex justify-center items-center">
+        <Avatar className="h-6 w-6">
+          <AvatarImage
+            src={asset.companyLogoUrl}
+            alt={` Logo of ${asset.author}`}
+          />
+          <AvatarFallback>AB</AvatarFallback>
+        </Avatar>
+      </div>
+      <div className="space-y-1 text-sm pb-2 overflow-hidden pl-2">
+        <h3 className="font-medium leading-none text-lg">{asset.name}</h3>
+        <div className="flex text-md pt-2">
+          <p className="text-muted-foreground mr-2">• {asset.category}</p>
+          <p className="text-muted-foreground mr-2">
+            {asset.price && `• ${asset.price} `}
+          </p>
+        </div>
+        <div className="h-16">
+          <div className="flex text-sm flex-wrap">
+            {asset.formats.split(', ').map((format, index) => (
+              <Badge
+                key={index}
+                className="text-foreground bg-slate-200 mr-2 hover:bg-slate-200 mt-2"
+              >
+                {format}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </div>
       <ContextMenu>
         <ContextMenuTrigger>
           <div className="overflow-hidden rounded-md">
@@ -73,10 +108,6 @@ export function AssetArtwork({
           <ContextMenuItem>Copy URL</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
-      <div className="space-y-1 text-sm">
-        <h3 className="font-medium leading-none">{asset.name}</h3>
-        <p className="text-xs text-muted-foreground">{asset.author}</p>
-      </div>
     </div>
   )
 }
