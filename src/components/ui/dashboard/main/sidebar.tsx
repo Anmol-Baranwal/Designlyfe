@@ -52,6 +52,7 @@ export function Sidebar({
 }: SidebarProps) {
   return (
     <div className={cn('pb-12', className)}>
+      {/* <ScrollArea className="h-[600px] px-1"> */}
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
@@ -281,6 +282,7 @@ export function Sidebar({
           </ScrollArea>
         </div>
       </div>
+      {/* </ScrollArea> */}
     </div>
   )
 }
