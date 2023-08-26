@@ -122,6 +122,9 @@ export function Sidebar({
                   : 'ghost'
               }
               className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('Illustrations')
+              }}
             >
               <FontAwesomeIcon icon={faImage} />
               &nbsp; Illustrations
@@ -131,6 +134,9 @@ export function Sidebar({
                 selectedSidebarOption === 'Icons' ? 'secondary' : 'ghost'
               }
               className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('Icons')
+              }}
             >
               <FontAwesomeIcon icon={faIcons} />
               &nbsp; Icons
@@ -140,6 +146,9 @@ export function Sidebar({
                 selectedSidebarOption === 'Mockups' ? 'secondary' : 'ghost'
               }
               className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('Mockups')
+              }}
             >
               <FontAwesomeIcon icon={faDesktop} />
               &nbsp; Mockups
@@ -149,6 +158,9 @@ export function Sidebar({
                 selectedSidebarOption === 'UI Kits' ? 'secondary' : 'ghost'
               }
               className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('UI Kits')
+              }}
             >
               <FontAwesomeIcon icon={faPuzzlePiece} />
               &nbsp; UI Kits
@@ -160,6 +172,9 @@ export function Sidebar({
                   : 'ghost'
               }
               className="w-full justify-start"
+              onClick={() => {
+                onSelectSidebarOption('Awesome Websites')
+              }}
             >
               <FontAwesomeIcon icon={faGlobe} />
               &nbsp; Awesome Websites
