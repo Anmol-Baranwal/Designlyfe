@@ -4,6 +4,7 @@ import { AuthPageProvider } from '@/components/AuthPageContext'
 import { AuthContextProvider } from '../../lib/firebase/context/AuthContext'
 import { Toaster } from '../components/ui/toaster'
 import Head from 'next/head'
+import { ThemeProvider } from '../components/theme-provider'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,8 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <AuthContextProvider>
         <AuthPageProvider>
-          <Component {...pageProps} />
-          <Toaster />
+          <ThemeProvider attribute="class" defaultTheme="dark">
+            <Component {...pageProps} />
+            <Toaster />
+          </ThemeProvider>
         </AuthPageProvider>
       </AuthContextProvider>
     </>

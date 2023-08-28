@@ -1,0 +1,76 @@
+import { Avatar, AvatarFallback, AvatarImage } from '../../avatar'
+import { Button } from '../../button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from '../../dropdown-menu'
+import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
+import { useRouter } from 'next/router'
+import { signOutGitHub } from '../../../../../lib/GitHubAuth'
+
+export function UserNav() {
+  const { user } = useAuthContext()
+  // const userId = user?.uid
+  // const email = user?.email
+
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    console.log('Provider ID:', user?.providerId)
+    try {
+      await signOutGitHub()
+      console.log('User signed out')
+    } catch (error) {
+      console.error(error)
+    } finally {
+      router.push('/')
+    }
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="/avatars/01.png" alt="@shadcn" />
+            <AvatarFallback>AB</AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">Anmol</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              uiverse@example.com
+            </p>
+          </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            Profile
+            {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Discussions
+            {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
+          </DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          {/* <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer"> */}
+          Log Out
+          {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
