@@ -21,9 +21,18 @@ interface AuthContextData {
   user: User | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<SignInResult>
-  signUp: (email: string, password: string) => Promise<SignInResult>
+  signUp: (
+    email: string,
+    password: string,
+    username?: string
+  ) => Promise<SignInResult>
   resetPassword: (email: string) => Promise<SignInResult>
-  onSuccessfulAuth: (userId: string, email: string | null) => void
+  onSuccessfulAuth: (
+    userId: string,
+    email: string | null,
+    username?: string,
+    avatarUrl?: string
+  ) => void
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -38,14 +47,19 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const onSuccessfulAuth = async (userId: string, email: string | null) => {
+  const onSuccessfulAuth = async (
+    userId: string,
+    email: string | null,
+    username?: string,
+    avatarUrl?: string
+  ) => {
     try {
       // Create user document in Firestore
       const response = await fetch('/api/createUser', {
         method: 'POST',
         body: JSON.stringify({
           collectionName: 'users',
-          data: { userId, email, name: '' },
+          data: { userId, email, name: '', username, avatarUrl },
         }),
         headers: {
           'Content-Type': 'application/json',

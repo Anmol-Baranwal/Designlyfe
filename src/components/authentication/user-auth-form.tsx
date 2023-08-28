@@ -17,7 +17,17 @@ import { resetPassword } from '../../../lib/emailPasswordAuth'
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   formType: 'login' | 'signup'
-  onSuccessfulAuth: (userId: string, email: string | null) => void
+  onSuccessfulAuth: (
+    userId: string,
+    email: string | null,
+    username?: string,
+    avatarUrl?: string
+  ) => void
+}
+
+interface GitHubUserInfo {
+  username: string
+  avatarUrl: string
 }
 
 export function UserAuthForm({
@@ -110,7 +120,7 @@ export function UserAuthForm({
         if (result) {
           // Include username in onSuccessfulAuth function if needed
           // const { username } = result.user
-          onSuccessfulAuth(result.user.uid, result.user.email)
+          onSuccessfulAuth(result.user.uid, result.user.email, username, '')
           router.push('/dashboard')
         } else {
           // Handle error if sign up fails
@@ -171,6 +181,34 @@ export function UserAuthForm({
     try {
       setGitHubLoading(true)
       const user = await signInWithGitHub()
+
+      if (user) {
+        const { uid, email } = user
+
+        // Fetch the GitHub user info
+        const response = await fetch('/api/githubUserInfo', {
+          method: 'POST',
+          body: JSON.stringify({ email }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        const data: GitHubUserInfo = await response.json()
+
+        if (response.ok) {
+          const { username, avatarUrl } = data
+          console.log({ data })
+
+          // Call onSuccessfulAuth with the username and avatar URL
+          onSuccessfulAuth(uid, email, username, avatarUrl)
+
+          router.push('/dashboard')
+        } else {
+          // Handle error if fetching GitHub user info fails
+          console.error('Failed to fetch GitHub user info')
+        }
+      }
+
       onSuccessfulAuth(user.uid, user.email)
       router.push('/dashboard')
     } catch (error) {
