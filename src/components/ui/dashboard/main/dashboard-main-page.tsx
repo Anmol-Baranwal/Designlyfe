@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faChartSimple } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '../../button'
-import { ScrollArea, ScrollBar } from '../../scroll-area'
 import { Separator } from '../../separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs'
 
@@ -128,16 +127,24 @@ export default function DashboardInterface() {
                       <Separator className="my-4" />
                       <div className="relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
-                          {illustrations.map((item) => (
-                            <AssetArtwork
-                              key={item.name}
-                              asset={item}
-                              className="w-[300px]"
-                              aspectRatio="square"
-                              width={300}
-                              height={380}
-                            />
-                          ))}
+                          {illustrations
+                            .filter((item) => {
+                              if (selectedTab === 'All') {
+                                return true // Show all cards
+                              }
+                              // Filter based on selectedTab and item category
+                              return item.category === selectedTab
+                            })
+                            .map((item) => (
+                              <AssetArtwork
+                                key={item.name}
+                                asset={item}
+                                className="w-[300px]"
+                                aspectRatio="square"
+                                width={300}
+                                height={380}
+                              />
+                            ))}
                         </div>
                       </div>
                     </TabsContent>

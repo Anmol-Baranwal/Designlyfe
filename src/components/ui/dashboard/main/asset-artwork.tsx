@@ -39,8 +39,8 @@ export function AssetArtwork({
       className={cn('space-y-3 bg-muted p-2 mb-6 rounded-lg', className)}
       {...props}
     >
-      <div className="bg-muted h-10 w-10 rounded-full flex justify-center items-center">
-        <Avatar className="h-6 w-6">
+      <div className="bg-muted h-14 w-14 rounded-full flex justify-center items-center">
+        <Avatar className="h-8 w-8">
           <AvatarImage
             src={asset.companyLogoUrl}
             alt={` Logo of ${asset.author}`}
