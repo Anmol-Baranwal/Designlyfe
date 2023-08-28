@@ -1,4 +1,4 @@
-import { getFirestore, collection, doc, getDoc, addDoc } from "firebase/firestore";
+import { getFirestore, collection, doc, getDoc, addDoc, getDocs } from "firebase/firestore";
 import { firebaseApp } from "../../../firebaseConfig";
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -19,16 +19,23 @@ export default async function handler(
       const db = getFirestore(firebaseApp);
 
       // Check if the user already exists in the Firestore collection
-      const userDocRef = doc(db, collectionName, data.userId);
-      const userDocSnapshot = await getDoc(userDocRef);
-      if (userDocSnapshot.exists()) {
+      const usersCollectionRef = collection(db, collectionName);
+      const querySnapshot = await getDocs(usersCollectionRef);
+      const existingUser = querySnapshot.docs.find(
+        (doc) => doc.data().userId === data.userId
+      );
+
+      if (existingUser) {
         // User already exists
         res.status(400).json({ success: false, error: "User already exists" });
       } else {
         // Create a new document in the specified collection
         const newDocRef = await addDoc(collection(db, collectionName), {
+          userId: data.userId,
           name: "",              // Set name to empty string
-          email: data.email
+          email: data.email,
+          username: data.username || "",
+          avatarUrl: data.avatarUrl || "",
         });
 
         // Retrieve the auto-generated document ID
