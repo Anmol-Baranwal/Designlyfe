@@ -2,7 +2,7 @@ import fetchRssFeed from '../../utils/rssUtils'
 
 export async function getServerSideProps() {
   const urls = [
-    // 'https://craftwork.design/home/feed/',
+    'https://craftwork.design/home/feed/',
     // 'https://craftwork.design/feed',
     // 'https://notioly.com/feed',
     // https://designspace.io/feed/,
