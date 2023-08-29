@@ -1,11 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  query,
-  where,
-} from 'firebase/firestore'
+import { getFirestore, collection, getDocs } from 'firebase/firestore'
 import { db } from '../../../firebaseConfig'
 
 export default async function getAssetData(
@@ -14,16 +8,12 @@ export default async function getAssetData(
 ) {
   if (req.method === 'GET') {
     try {
-      const selectedSidebarOption = req.query.category as string
+      // Access the "assets" collection
+      const assetsCollection = collection(db, 'assets')
 
-      const assetsCollection = collection(db, 'assets') // Access the "assets" collection
+      const querySnapshot = await getDocs(assetsCollection)
 
-      // Create a query to filter documents based on the selected category
-      const querySnapshot = await getDocs(
-        query(assetsCollection, where('category', '==', selectedSidebarOption))
-      )
-
-      const assetsData = querySnapshot.docs.map((doc) => doc.data()) // Extract the asset data
+      const assetsData = querySnapshot.docs.map((doc) => doc.data())
 
       res.status(200).json(assetsData)
     } catch (error) {
