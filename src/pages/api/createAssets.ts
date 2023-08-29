@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { icons, illustrations } from '../../../data/assets'
+import { Icons, Illustrations } from '../../../data/assets'
 import {
   getFirestore,
   doc,
@@ -25,8 +25,8 @@ const createAssets = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Create the asset collection and upload new data
-    await setDoc(doc(db, 'assets', 'icons'), {})
-    await setDoc(doc(db, 'assets', 'illustrations'), {})
+    await setDoc(doc(db, 'assets', 'Icons'), {})
+    await setDoc(doc(db, 'assets', 'Illustrations'), {})
     // await setDoc(doc(db, 'assets', 'mockups'), {});
 
     // const mockups = [
@@ -40,26 +40,26 @@ const createAssets = async (req: NextApiRequest, res: NextApiResponse) => {
     //   },
     // ]
 
-    for (const icon of icons) {
+    for (const icon of Icons) {
       const { author, ...rest } = icon
       const iconDocRef = doc(
         db,
-        'assets/icons',
+        'assets/Icons',
         author,
         icon.name.toLowerCase()
       )
       await setDoc(iconDocRef, { ...rest, category: 'icons' })
     }
 
-    for (const illustration of illustrations) {
+    for (const illustration of Illustrations) {
       const { author, ...rest } = illustration
       const illustrationDocRef = doc(
         db,
-        'assets/illustrations',
+        'assets/Illustrations',
         author,
         illustration.name.toLowerCase()
       )
-      await setDoc(illustrationDocRef, { ...rest, category: 'illustrations' })
+      await setDoc(illustrationDocRef, { ...rest, category: 'Illustrations' })
     }
 
     // for (const mockup of mockups) {
