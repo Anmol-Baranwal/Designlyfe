@@ -1,73 +1,38 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { icons, illustrations } from '../../../data/assets';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';  // collection, addDoc
 
-interface AssetDocument {
-  name: string;
-  companyLogoUrl: string;
-  formats: string[];
-  assetUrl: string;
-  imageUrl: string;
-  category: string;
-  author: string;
-  price?: string;
-  upvotes: Record<string, boolean>;
-  bookmarks: Record<string, boolean>;
-}
+// Initialize Firebase if you haven't already
+const db = getFirestore();
 
-interface AuthorDocument {
-  [key: string]: AssetDocument;
-}
+const createAssets = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    // Clear existing data (if any)
+    await setDoc(doc(db, 'assets', 'icons'), {});
+    await setDoc(doc(db, 'assets', 'illustrations'), {});
 
-interface BrandCollection {
-  [key: string]: AuthorDocument;
-}
-
-interface AssetCategory {
-  name: string;
-  document: BrandCollection;
-}
-
-const createCollection = <T extends AssetDocument>(
-  data: T[],
-  category: string
-): AssetCategory => {
-  const collection: AssetCategory = {
-    name: category,
-    document: {},
-  };
-
-  const brandIcons: string[] = [];
-
-  for (const item of data) {
-    const companyName = item.author.toLowerCase().replace(/ /g, '');
-    const assetKey = item.name.toLowerCase().replace(/ /g, '');
-
-    if (!brandIcons.includes(companyName)) {
-      brandIcons.push(companyName);
+    for (const icon of icons) {
+      const { author, ...rest } = icon;
+      const iconDocRef = doc(db, 'assets/icons', author, icon.name.toLowerCase());
+      await setDoc(iconDocRef, { ...rest, category: 'icons' });
     }
 
-    const assetDocument: AssetDocument = {
-      ...item,
-      category,
-      upvotes: {},
-      bookmarks: {},
-    };
-
-    if (!collection.document[companyName]) {
-      collection.document[companyName] = {};
+    for (const illustration of illustrations) {
+      const { author, ...rest } = illustration;
+      const illustrationDocRef = doc(
+        db,
+        'assets/illustrations',
+        author,
+        illustration.name.toLowerCase()
+      );
+      await setDoc(illustrationDocRef, { ...rest, category: 'illustrations' });
     }
 
-    collection.document[companyName][assetKey] = assetDocument;
+    res.status(200).json({ message: 'Assets created successfully' });
+  } catch (error) {
+    console.error('Error creating assets:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-
-  return collection;
 };
 
-const iconsCollection = createCollection(icons, 'icons');
-const illustrationsCollection = createCollection(illustrations, 'illustrations');
-
-const assets: AssetCategory[] = [iconsCollection, illustrationsCollection];
-
-export default function createAssets(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json(assets);
-}
+export default createAssets;
