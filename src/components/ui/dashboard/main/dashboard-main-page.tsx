@@ -8,11 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs'
 
 import { AssetArtwork } from './asset-artwork'
 import { Sidebar } from './sidebar'
-import { illustrations } from '../../../../../data/assets'
+import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
 import { Search } from './search'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const metadata: Metadata = {
   title: 'Dashboard of UIVerse',
@@ -24,6 +24,31 @@ export default function DashboardInterface() {
   const [selectedSidebarOption, setSelectedSidebarOption] = useState<
     string | null
   >('Illustrations') // Default selected sidebar option
+
+  const [assets, setAssets] = useState<Asset[]>([])
+
+  useEffect(() => {
+    async function fetchAssets() {
+      try {
+        const response = await fetch(
+          `/api/getAssetData?category=${selectedSidebarOption}`
+        )
+
+        if (response.ok) {
+          const assetsData = await response.json()
+          console.log(assetsData)
+
+          setAssets(assetsData)
+        } else {
+          console.error('Error fetching assets:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error fetching assets:', error)
+      }
+    }
+
+    fetchAssets()
+  }, [selectedSidebarOption])
 
   const handleSidebarOptionSelect = (option: string | null) => {
     setSelectedSidebarOption(option)
@@ -127,7 +152,7 @@ export default function DashboardInterface() {
                       <Separator className="my-4" />
                       <div className="relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
-                          {illustrations
+                          {assets
                             .filter((item) => {
                               if (selectedTab === 'All') {
                                 return true // Show all cards
