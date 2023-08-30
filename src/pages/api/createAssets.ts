@@ -1,23 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { doc, setDoc, collection, getDocs } from 'firebase/firestore'
+import { db } from '../../../firebaseConfig'
 import { Icons, Illustrations } from '../../../data/assets'
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  collection,
-  getDocs,
-  query,
-} from 'firebase/firestore' // addDoc
-
-const db = getFirestore()
 
 const createAssets = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    // Check if the asset collection already exists
-    // Check if the asset collection already exists
+    // Delete existing asset collection if it exists
     const assetCollectionRef = collection(db, 'assets')
-    const assetCollectionQuery = query(assetCollectionRef)
-    const assetCollectionSnapshot = await getDocs(assetCollectionQuery)
+    const assetCollectionSnapshot = await getDocs(assetCollectionRef)
 
     if (!assetCollectionSnapshot.empty) {
       res.status(400).json({ message: 'Asset collection already exists' })
@@ -25,53 +15,25 @@ const createAssets = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Create the asset collection and upload new data
-    await setDoc(doc(db, 'assets', 'Icons'), {})
-    await setDoc(doc(db, 'assets', 'Illustrations'), {})
-    // await setDoc(doc(db, 'assets', 'mockups'), {});
+    const iconsDocumentRef = doc(collection(db, 'assets'))
+    await setDoc(iconsDocumentRef, { name: 'Icons' })
 
-    // const mockups = [
-    //   {
-    //     name: 'Mockup 1',
-    //     /* other mockup fields */
-    //     author: 'Author 1',
-    //     category: 'mockups',
-    //     upvotes: {},
-    //     bookmarks: {},
-    //   },
-    // ]
+    const illustrationsDocumentRef = doc(collection(db, 'assets'))
+    await setDoc(illustrationsDocumentRef, { name: 'Illustrations' })
 
     for (const icon of Icons) {
-      const { author, ...rest } = icon
-      const iconDocRef = doc(
-        db,
-        'assets/Icons',
-        author,
-        icon.name.toLowerCase()
-      )
-      await setDoc(iconDocRef, { ...rest, category: 'icons' })
+      const { type, author, ...rest } = icon
+      const iconDocRef = doc(collection(db, 'assets', 'Icons', author))
+      await setDoc(iconDocRef, rest)
     }
 
     for (const illustration of Illustrations) {
-      const { author, ...rest } = illustration
+      const { type, author, ...rest } = illustration
       const illustrationDocRef = doc(
-        db,
-        'assets/Illustrations',
-        author,
-        illustration.name.toLowerCase()
+        collection(db, 'assets', 'Illustrations', author)
       )
-      await setDoc(illustrationDocRef, { ...rest, category: 'Illustrations' })
+      await setDoc(illustrationDocRef, rest)
     }
-
-    // for (const mockup of mockups) {
-    //   const { author, ...rest } = mockup
-    //   const mockupDocRef = doc(
-    //     db,
-    //     'assets/mockups',
-    //     author,
-    //     mockup.name.toLowerCase()
-    //   )
-    //   await setDoc(mockupDocRef, { ...rest, category: 'mockups' })
-    // }
 
     res.status(200).json({ message: 'Assets created successfully' })
   } catch (error) {
