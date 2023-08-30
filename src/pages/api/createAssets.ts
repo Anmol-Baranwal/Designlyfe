@@ -22,17 +22,23 @@ const createAssets = async (req: NextApiRequest, res: NextApiResponse) => {
     await setDoc(illustrationsDocumentRef, { name: 'Illustrations' })
 
     for (const icon of Icons) {
-      const { type, author, ...rest } = icon
-      const iconDocRef = doc(collection(db, 'assets', 'Icons', author))
-      await setDoc(iconDocRef, rest)
+      const iconDocRef = doc(collection(db, 'assets', 'Icons', icon.author))
+      await setDoc(iconDocRef, {
+        ...icon,
+        type: 'Icons',
+        author: icon.author,
+      })
     }
 
     for (const illustration of Illustrations) {
-      const { type, author, ...rest } = illustration
       const illustrationDocRef = doc(
-        collection(db, 'assets', 'Illustrations', author)
+        collection(db, 'assets', 'Illustrations', illustration.author)
       )
-      await setDoc(illustrationDocRef, rest)
+      await setDoc(illustrationDocRef, {
+        ...illustration,
+        type: 'Illustrations',
+        author: illustration.author,
+      })
     }
 
     res.status(200).json({ message: 'Assets created successfully' })
