@@ -15,11 +15,11 @@ const createAssets = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Create the asset collection and upload new data
-    const iconsDocumentRef = doc(collection(db, 'assets'))
-    await setDoc(iconsDocumentRef, { name: 'Icons' })
+    // const iconsDocumentRef = doc(collection(db, 'assets'))
+    // await setDoc(iconsDocumentRef, { name: 'Icons' })
 
-    const illustrationsDocumentRef = doc(collection(db, 'assets'))
-    await setDoc(illustrationsDocumentRef, { name: 'Illustrations' })
+    // const illustrationsDocumentRef = doc(collection(db, 'assets'))
+    // await setDoc(illustrationsDocumentRef, { name: 'Illustrations' })
 
     for (const icon of Icons) {
       const iconDocRef = doc(collection(db, 'assets', 'Icons', icon.author))
