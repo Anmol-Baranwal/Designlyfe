@@ -1,14 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
-  collectionGroup,
   query,
   getDocs,
   collection,
   where,
+  DocumentData,
+  DocumentReference,
 } from 'firebase/firestore'
-import { db } from '../../../firebaseConfig' // Make sure to import your firebaseConfig
-
-// Initialize Firebase
+import { db } from '../../../firebaseConfig'
 
 export default async function getAssetsData(
   req: NextApiRequest,
@@ -17,9 +16,11 @@ export default async function getAssetsData(
   if (req.method === 'GET') {
     try {
       // Query the Icons document
+      const option = req.query.sidebarOption || 'Icons'
+
       const iconsQuery = query(
         collection(db, 'assets'),
-        where('name', '==', 'Icons')
+        where('name', '==', option)
       )
       const iconsSnapshot = await getDocs(iconsQuery)
 
@@ -49,9 +50,11 @@ export default async function getAssetsData(
   }
 }
 
-async function getSubcollectionData(docRef, subcollectionName) {
-  const data = []
-
+async function getSubcollectionData(
+  docRef: DocumentReference<DocumentData>,
+  subcollectionName: string
+) {
+  const data: DocumentData[] = []
   // Retrieve subcollection data by querying each subcollection individually
   const subcollectionQuery = query(collection(docRef, subcollectionName))
   const subcollectionSnapshot = await getDocs(subcollectionQuery)
