@@ -19,24 +19,30 @@ export const metadata: Metadata = {
   description: 'Keep track of your best resources',
 }
 
+const initialState = {
+  drawkit: [],
+  getIllustrations: [],
+}
+
 export default function DashboardInterface() {
   const [selectedTab, setSelectedTab] = useState('All') // Default selected tab
   const [selectedSidebarOption, setSelectedSidebarOption] = useState<
     string | null
   >('Illustrations') // Default selected sidebar option
 
-  const [assets, setAssets] = useState<Asset[]>([])
+  const [assets, setAssets] = useState(initialState)
 
   useEffect(() => {
     async function fetchAssets() {
       try {
         const response = await fetch(
-          `/api/getAssetData?category=${selectedSidebarOption}`
+          `/api/getAssetData/?sidebarOption=${selectedSidebarOption}`
         )
 
         if (response.ok) {
           const assetsData = await response.json()
-          console.log(assetsData)
+
+          // console.log({ assetsData })
 
           setAssets(assetsData)
         } else {
@@ -49,6 +55,8 @@ export default function DashboardInterface() {
 
     fetchAssets()
   }, [selectedSidebarOption])
+
+  // console.log({ assets })
 
   const handleSidebarOptionSelect = (option: string | null) => {
     setSelectedSidebarOption(option)
@@ -152,7 +160,7 @@ export default function DashboardInterface() {
                       <Separator className="my-4" />
                       <div className="relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
-                          {assets
+                          {assets.drawkit
                             .filter((item) => {
                               if (selectedTab === 'All') {
                                 return true // Show all cards
