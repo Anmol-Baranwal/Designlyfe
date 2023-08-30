@@ -5,6 +5,7 @@ export interface Asset {
   assetUrl: string
   imageUrl: string
   category: string
+  type: string
   author: string
   price?: string
   upvotes: Record<string, boolean>
@@ -21,6 +22,7 @@ export const Icons: Asset[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
     category: 'Free',
+    type: 'Icons',
     author: 'Getillustrations',
     upvotes: {},
     bookmarks: {},
@@ -33,6 +35,7 @@ export const Icons: Asset[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
     category: 'Free',
+    type: 'Icons',
     author: 'Getillustrations',
     upvotes: {},
     bookmarks: {},
@@ -45,6 +48,7 @@ export const Icons: Asset[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
     category: 'Free',
+    type: 'Icons',
     author: 'DrawKit',
     upvotes: {},
     bookmarks: {},
@@ -57,6 +61,7 @@ export const Icons: Asset[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
     category: 'Free',
+    type: 'Icons',
     author: 'DrawKit',
     upvotes: {},
     bookmarks: {},
@@ -72,6 +77,7 @@ export const Illustrations: Asset[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
     category: 'Free',
+    type: 'Illustrations',
     author: 'Craftwork',
     upvotes: {},
     bookmarks: {},
@@ -85,6 +91,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Free',
+    type: 'Illustrations',
     author: 'Craftwork',
     upvotes: {},
     bookmarks: {},
@@ -98,6 +105,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Free',
+    type: 'Illustrations',
     author: 'Craftwork',
     upvotes: {},
     bookmarks: {},
@@ -112,6 +120,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Free',
+    type: 'Illustrations',
     author: 'Getillustrations',
     upvotes: {},
     bookmarks: {},
@@ -126,6 +135,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Free',
+    type: 'Illustrations',
     author: 'Getillustrations',
     upvotes: {},
     bookmarks: {},
@@ -139,6 +149,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1446185250204-f94591f7d702?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Paid',
+    type: 'Illustrations',
     author: 'Ls Graphics',
     price: '$24',
     upvotes: {},
@@ -153,6 +164,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1446185250204-f94591f7d702?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Paid',
+    type: 'Illustrations',
     author: 'Ls Graphics',
     price: '$32',
     upvotes: {},
@@ -167,6 +179,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1615247001958-f4bc92fa6a4a?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Paid',
+    type: 'Illustrations',
     author: 'Drawer',
     price: '$29',
     upvotes: {},
@@ -181,6 +194,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1615247001958-f4bc92fa6a4a?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Paid',
+    type: 'Illustrations',
     author: 'Drawer',
     price: '$29',
     upvotes: {},
@@ -195,6 +209,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Paid',
+    type: 'Illustrations',
     author: 'Growww',
     price: '$22',
     upvotes: {},
@@ -209,6 +224,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Paid',
+    type: 'Illustrations',
     author: 'Growww',
     price: '$24',
     upvotes: {},
@@ -224,6 +240,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Free',
+    type: 'Illustrations',
     author: 'DrawKit',
     upvotes: {},
     bookmarks: {},
@@ -237,6 +254,7 @@ export const Illustrations: Asset[] = [
       'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
     // "imageUrl": "",
     category: 'Paid',
+    type: 'Illustrations',
     author: 'DrawKit',
     price: '$30',
     upvotes: {},
