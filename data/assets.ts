@@ -50,7 +50,7 @@ export const brandData: { [key: string]: brandInterface } = {
 export const Icons: Asset[] = [
   {
     name: '3D App Icons',
-    companyLogoUrl: '',
+    companyLogoUrl: '/companies/getillustrations.png',
     formats: ['Figma', 'Sketch', 'Adobe XD', 'PNG'],
     assetUrl:
       'https://www.getillustrations.com/illustration-pack/download-free-3d-app-icons-for-iphone',
@@ -63,21 +63,23 @@ export const Icons: Asset[] = [
     bookmarks: {},
   },
   {
-    name: 'Many Pixels Icons',
-    companyLogoUrl: '',
-    formats: ['SVG', 'AI', 'PNG'],
-    assetUrl: 'https://www.manypixels.co/free-icons',
+    name: '3D Finance Icons',
+    companyLogoUrl: '/companies/getillustrations.png',
+    formats: ['Figma', 'PNG'],
+    assetUrl:
+      'https://www.getillustrations.com/illustration-pack/3d-finance-icons',
     imageUrl:
       'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
-    category: 'Free',
+    category: 'Paid',
     type: 'Icons',
     author: 'Getillustrations',
+    price: '$20',
     upvotes: {},
     bookmarks: {},
   },
   {
     name: '3D Black Friday Mini Icons',
-    companyLogoUrl: '',
+    companyLogoUrl: '/companies/drawkit.png',
     formats: ['PNG', 'Figma'],
     assetUrl: 'https://www.drawkit.com/product/3d-black-friday-mini-icons',
     imageUrl:
@@ -90,7 +92,7 @@ export const Icons: Asset[] = [
   },
   {
     name: '3D Wooden Icons',
-    companyLogoUrl: '',
+    companyLogoUrl: '/companies/drawkit.png',
     formats: ['PNG'],
     assetUrl: 'https://www.drawkit.com/product/3d-wooden-icons',
     imageUrl:
