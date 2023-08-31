@@ -12,6 +12,25 @@ export interface Asset {
   bookmarks: Record<string, boolean>
 }
 
+export interface brandInterface {
+  brand: string[]
+}
+
+export const brandIcons: brandInterface = {
+  brand: ['Drawkit', 'Getillustrations'],
+}
+
+export const brandIllustrations: brandInterface = {
+  brand: [
+    'Craftwork',
+    'Drawer',
+    'Drawkit',
+    'Getillustrations',
+    'Growww',
+    'Ls Graphics',
+  ],
+}
+
 export const Icons: Asset[] = [
   {
     name: '3D App Icons',
