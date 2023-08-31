@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs'
 
 import { AssetArtwork } from './asset-artwork'
 import { Sidebar } from './sidebar'
-import { Asset, brandInterface } from '../../../../../data/assets'
+import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
 import { Search } from './search'
@@ -37,8 +37,6 @@ export default function DashboardInterface() {
         if (response.ok) {
           const assetsData = await response.json()
 
-          // console.log({ assetsData })
-
           setAssets(assetsData)
         } else {
           console.error('Error fetching assets:', response.statusText)
@@ -56,9 +54,6 @@ export default function DashboardInterface() {
   const handleSidebarOptionSelect = (option: string | null) => {
     setSelectedSidebarOption(option)
   }
-
-  // const brandsToShow =
-  //   selectedSidebarOption === 'Icons' ? brandIcons : brandIllustrations
 
   return (
     <>
@@ -88,7 +83,6 @@ export default function DashboardInterface() {
         </div>
       </div>
       <div className="hidden md:block">
-        {/* <Menu /> */}
         <div className="border-t">
           <div className="bg-background">
             <div className="grid lg:grid-cols-5">
@@ -180,24 +174,6 @@ export default function DashboardInterface() {
                               />
                             ))
                           })}
-                          {/* {assets.drawkit
-                            .filter((item) => {
-                              if (selectedTab === 'All') {
-                                return true // Show all cards
-                              }
-                              // Filter based on selectedTab and item category
-                              return item.category === selectedTab
-                            })
-                            .map((item) => (
-                              <AssetArtwork
-                                key={item.name}
-                                asset={item}
-                                className="w-[300px]"
-                                aspectRatio="square"
-                                width={300}
-                                height={380}
-                              />
-                            ))} */}
                         </div>
                       </div>
                     </TabsContent>
