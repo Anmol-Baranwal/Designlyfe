@@ -18,12 +18,19 @@ import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { Avatar, AvatarFallback, AvatarImage } from '../../avatar'
 import { Badge } from '../../badge'
+import { useState } from 'react'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
   aspectRatio?: 'portrait' | 'square'
   width?: number
   height?: number
+}
+
+interface Reactions {
+  upvote: boolean
+  bookmark: boolean
+  share: boolean
 }
 
 export function AssetArtwork({
@@ -34,6 +41,22 @@ export function AssetArtwork({
   className,
   ...props
 }: AssetArtworkProps) {
+  const [reactions, setReactions] = useState<Reactions>({
+    upvote: false,
+    bookmark: false,
+    share: false,
+  })
+
+  const handleReactionClick = (reaction: keyof Reactions) => {
+    setReactions((prevReactions) => ({
+      ...prevReactions,
+      [reaction]: !prevReactions[reaction],
+    }))
+  }
+
+  const getReactionImageName = (reaction: keyof Reactions) =>
+    reactions[reaction] ? `${reaction}-filled.png` : `${reaction}.png`
+
   return (
     <div
       className={cn('space-y-3 bg-muted p-2 mb-6 rounded-lg', className)}
@@ -58,9 +81,9 @@ export function AssetArtwork({
         </div>
         <div className="h-16">
           <div className="flex text-sm flex-wrap">
-            {asset.formats.map((format) => (
+            {asset.formats.map((format, idx) => (
               <Badge
-                key={asset.name}
+                key={idx}
                 className="text-foreground bg-slate-200 mr-2 hover:bg-slate-200 mt-2"
               >
                 {format}
@@ -109,25 +132,34 @@ export function AssetArtwork({
         </ContextMenuContent>
       </ContextMenu>
       <div className="flex flex-wrap justify-evenly pt-0 pb-1 transition-all duration-500">
-        <div className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2">
+        <div
+          className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
+          onClick={() => handleReactionClick('upvote')}
+        >
           <Image
-            src="/reactions/like.png"
-            alt="like reaction"
+            src={`/reactions/${getReactionImageName('upvote')}`}
+            alt="upvote reaction"
             width={20}
             height={20}
           />
         </div>
-        <div className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2">
+        <div
+          className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
+          onClick={() => handleReactionClick('bookmark')}
+        >
           <Image
-            src="/reactions/bookmark.png"
+            src={`/reactions/${getReactionImageName('bookmark')}`}
             alt="bookmark reaction"
-            width={15}
-            height={15}
+            width={18}
+            height={18}
           />
         </div>
-        <div className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2">
+        <div
+          className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
+          onClick={() => handleReactionClick('share')}
+        >
           <Image
-            src="/reactions/share.png"
+            src={`/reactions/${getReactionImageName('share')}`}
             alt="share reaction"
             width={20}
             height={20}
