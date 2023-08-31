@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs'
 
 import { AssetArtwork } from './asset-artwork'
 import { Sidebar } from './sidebar'
-import { Asset } from '../../../../../data/assets'
+import { Asset, brandInterface } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
 import { Search } from './search'
@@ -19,18 +19,13 @@ export const metadata: Metadata = {
   description: 'Keep track of your best resources',
 }
 
-const initialState = {
-  drawkit: [],
-  getIllustrations: [],
-}
-
 export default function DashboardInterface() {
   const [selectedTab, setSelectedTab] = useState('All') // Default selected tab
   const [selectedSidebarOption, setSelectedSidebarOption] = useState<
     string | null
   >('Illustrations') // Default selected sidebar option
 
-  const [assets, setAssets] = useState(initialState)
+  const [assets, setAssets] = useState<{ [key: string]: Asset[] }>({})
 
   useEffect(() => {
     async function fetchAssets() {
@@ -61,6 +56,9 @@ export default function DashboardInterface() {
   const handleSidebarOptionSelect = (option: string | null) => {
     setSelectedSidebarOption(option)
   }
+
+  // const brandsToShow =
+  //   selectedSidebarOption === 'Icons' ? brandIcons : brandIllustrations
 
   return (
     <>
@@ -160,7 +158,29 @@ export default function DashboardInterface() {
                       <Separator className="my-4" />
                       <div className="relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
-                          {assets.drawkit
+                          {Object.keys(assets).map((brand) => {
+                            // Filter the assets based on the selected tab and category
+                            const filteredAssets = assets[brand].filter(
+                              (item) => {
+                                if (selectedTab === 'All') {
+                                  return true
+                                }
+                                return item.category === selectedTab
+                              }
+                            )
+
+                            return filteredAssets.map((item) => (
+                              <AssetArtwork
+                                key={item.name}
+                                asset={item}
+                                className="w-[300px]"
+                                aspectRatio="square"
+                                width={300}
+                                height={380}
+                              />
+                            ))
+                          })}
+                          {/* {assets.drawkit
                             .filter((item) => {
                               if (selectedTab === 'All') {
                                 return true // Show all cards
@@ -177,7 +197,7 @@ export default function DashboardInterface() {
                                 width={300}
                                 height={380}
                               />
-                            ))}
+                            ))} */}
                         </div>
                       </div>
                     </TabsContent>
