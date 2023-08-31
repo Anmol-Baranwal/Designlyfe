@@ -19,6 +19,7 @@ import { personalLists } from '../../../../../data/personalLists'
 import { Avatar, AvatarFallback, AvatarImage } from '../../avatar'
 import { Badge } from '../../badge'
 import { useState } from 'react'
+import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
@@ -52,6 +53,45 @@ export function AssetArtwork({
       ...prevReactions,
       [reaction]: !prevReactions[reaction],
     }))
+  }
+
+  const { user } = useAuthContext()
+
+  const handleBookmarkReactionClick = async (reaction: keyof Reactions) => {
+    if (!user) {
+      // Handle the case when user is null (not authenticated)
+      console.log('User is not authenticated')
+      return
+    }
+
+    if (reaction === 'bookmark') {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        bookmark: !prevReactions['bookmark'],
+      }))
+    }
+
+    try {
+      // Get the asset type, author, name, and userId from the asset object
+      const { type, author, name } = asset
+
+      // Call the addToBookmarks API route
+      const addToBookmarksResponse = await fetch('/api/addToBookmarks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user.uid,
+          asset,
+        }),
+      })
+
+      const addToBookmarksData = await addToBookmarksResponse.json()
+      console.log(addToBookmarksData.message)
+    } catch (error) {
+      console.error('Error adding bookmark:', error)
+    }
   }
 
   const getReactionImageName = (reaction: keyof Reactions) =>
@@ -145,7 +185,7 @@ export function AssetArtwork({
         </div>
         <div
           className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
-          onClick={() => handleReactionClick('bookmark')}
+          onClick={() => handleBookmarkReactionClick('bookmark')}
         >
           <Image
             src={`/reactions/${getReactionImageName('bookmark')}`}
