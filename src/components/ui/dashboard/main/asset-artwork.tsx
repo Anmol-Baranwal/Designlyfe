@@ -58,9 +58,9 @@ export function AssetArtwork({
         </div>
         <div className="h-16">
           <div className="flex text-sm flex-wrap">
-            {asset.formats.split(', ').map((format, index) => (
+            {asset.formats.map((format) => (
               <Badge
-                key={index}
+                key={asset.name}
                 className="text-foreground bg-slate-200 mr-2 hover:bg-slate-200 mt-2"
               >
                 {format}
