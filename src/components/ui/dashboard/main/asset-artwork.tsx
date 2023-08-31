@@ -72,9 +72,6 @@ export function AssetArtwork({
     }
 
     try {
-      // Get the asset type, author, name, and userId from the asset object
-      const { type, author, name } = asset
-
       // Call the addToBookmarks API route
       const addToBookmarksResponse = await fetch('/api/addToBookmarks', {
         method: 'POST',
@@ -89,6 +86,27 @@ export function AssetArtwork({
 
       const addToBookmarksData = await addToBookmarksResponse.json()
       console.log(addToBookmarksData.message)
+
+      // Get the asset type, author, name, and userId from the asset object
+
+      // Call the addUserToAssetBookmark API route
+      const addUserToAssetBookmarkResponse = await fetch(
+        '/api/addUserToAssetBookmark',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: user.uid,
+            asset: asset, // Assuming asset has an 'id' property
+          }),
+        }
+      )
+
+      const addUserToAssetBookmarkData =
+        await addUserToAssetBookmarkResponse.json()
+      console.log(addUserToAssetBookmarkData.message)
     } catch (error) {
       console.error('Error adding bookmark:', error)
     }
