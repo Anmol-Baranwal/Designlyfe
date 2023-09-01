@@ -20,6 +20,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../../avatar'
 import { Badge } from '../../badge'
 import { useState, useEffect } from 'react'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
+import { useToast } from '../../use-toast'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
@@ -49,6 +50,7 @@ export function AssetArtwork({
   })
 
   const [upvoteCount, setUpvoteCount] = useState<number>(0)
+  const [shareClicked, setShareClicked] = useState(false)
 
   const { user } = useAuthContext()
 
@@ -72,12 +74,12 @@ export function AssetArtwork({
     }
   }, [user, asset])
 
-  const handleReactionClick = (reaction: keyof Reactions) => {
-    setReactions((prevReactions) => ({
-      ...prevReactions,
-      [reaction]: !prevReactions[reaction],
-    }))
-  }
+  // const handleReactionClick = (reaction: keyof Reactions) => {
+  //   setReactions((prevReactions) => ({
+  //     ...prevReactions,
+  //     [reaction]: !prevReactions[reaction],
+  //   }))
+  // }
 
   const handleUpvoteReactionClick = async (reaction: keyof Reactions) => {
     if (!user) {
@@ -243,8 +245,36 @@ export function AssetArtwork({
     }
   }
 
-  const getReactionImageName = (reaction: keyof Reactions) =>
-    reactions[reaction] ? `${reaction}-filled.png` : `${reaction}.png`
+  const { toast } = useToast()
+  const handleShareReactionClick = () => {
+    const urlWithRef = `${asset.assetUrl}?ref=UIVerse`
+
+    // Copy the URL to the clipboard
+    navigator.clipboard.writeText(urlWithRef).then(() => {
+      toast({
+        title: 'URL Copied! ',
+        description: 'You can now paste the link',
+      })
+    })
+
+    setShareClicked(true)
+
+    // Reset the shareClicked state after a delay (for the focus effect)
+    setTimeout(() => {
+      setShareClicked(false)
+    }, 1000)
+  }
+
+  const getReactionImageName = (reaction: keyof Reactions) => {
+    if (reactions[reaction]) {
+      return `${reaction}-filled.png` // Use the filled icon when the reaction is true
+    } else if (shareClicked && reaction === 'share') {
+      return `${reaction}-filled.png` // Use the filled icon when shareClicked is true (focused)
+    } else {
+      return `${reaction}.png` // Use the regular icon
+    }
+  }
+  // reactions[reaction] ? `${reaction}-filled.png` : `${reaction}.png`
 
   return (
     <div
@@ -348,7 +378,7 @@ export function AssetArtwork({
         </div>
         <div
           className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
-          onClick={() => handleReactionClick('share')}
+          onClick={() => handleShareReactionClick()}
         >
           <Image
             src={`/reactions/${getReactionImageName('share')}`}
