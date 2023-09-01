@@ -33,16 +33,28 @@ const removeUserFromAssetBookmark = async (
     const assetDocSnapshot = assetQuerySnapshot.docs[0]
     const assetDocRef = doc(db, 'assets', type, author, assetDocSnapshot.id)
 
+    // Get the current upvotes object
+    const currentUpvotes = assetDocSnapshot.data().upvotes || {}
+
+    // Remove the user's ID from the asset's upvotes
+    if (currentUpvotes[userId]) {
+      delete currentUpvotes[userId]
+
+      // Update the asset's upvotes with the modified object
+      await updateDoc(assetDocRef, {
+        upvotes: currentUpvotes,
+      })
+    }
     // Update the asset's bookmarks to remove the user's ID
-    await updateDoc(assetDocRef, {
-      [`upvotes.${userId}`]: null, // Set to null to remove the user
-    })
+    // await updateDoc(assetDocRef, {
+    //   [`upvotes.${userId}`]: null, // Set to null to remove the user
+    // })
 
     res
       .status(200)
-      .json({ message: 'User removed from asset bookmarks successfully' })
+      .json({ message: 'User removed from asset upvotes successfully' })
   } catch (error) {
-    console.error('Error removing user from asset bookmarks:', error)
+    console.error('Error removing user from asset upvotes:', error)
     res.status(500).json({ error: 'Internal server error' })
   }
 }
