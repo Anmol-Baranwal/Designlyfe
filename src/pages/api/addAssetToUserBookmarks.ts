@@ -9,7 +9,10 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../../firebaseConfig'
 
-const addToBookmarks = async (req: NextApiRequest, res: NextApiResponse) => {
+const addAssetToUserBookmarks = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   try {
     const { userId, asset } = req.body // Assuming userId is extracted from AuthContext
 
@@ -40,4 +43,4 @@ const addToBookmarks = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default addToBookmarks
+export default addAssetToUserBookmarks

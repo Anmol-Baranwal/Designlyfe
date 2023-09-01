@@ -73,16 +73,19 @@ export function AssetArtwork({
 
     try {
       // Call the addToBookmarks API route
-      const addToBookmarksResponse = await fetch('/api/addToBookmarks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: user.uid,
-          asset,
-        }),
-      })
+      const addToBookmarksResponse = await fetch(
+        '/api/addAssetToUserBookmarks',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: user.uid,
+            asset,
+          }),
+        }
+      )
 
       const addToBookmarksData = await addToBookmarksResponse.json()
       console.log(addToBookmarksData.message)
