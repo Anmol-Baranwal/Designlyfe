@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
   doc,
-  updateDoc,
   collection,
   query,
   where,
@@ -15,9 +14,8 @@ const addUserToAssetBookmark = async (
   res: NextApiResponse
 ) => {
   try {
-    const { userId, asset } = req.body // Assuming userId and asset are extracted from the request body
+    const { userId, asset } = req.body
 
-    // Get the asset type and author from the asset object
     const { type, author } = asset
 
     // Get the appropriate subcollection reference based on the asset type and author
