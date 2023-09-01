@@ -18,12 +18,21 @@ import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { Avatar, AvatarFallback, AvatarImage } from '../../avatar'
 import { Badge } from '../../badge'
+import { useState, useEffect } from 'react'
+import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
+import { useToast } from '../../use-toast'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
   aspectRatio?: 'portrait' | 'square'
   width?: number
   height?: number
+}
+
+interface Reactions {
+  upvote: boolean
+  bookmark: boolean
+  share: boolean
 }
 
 export function AssetArtwork({
@@ -34,6 +43,239 @@ export function AssetArtwork({
   className,
   ...props
 }: AssetArtworkProps) {
+  const [reactions, setReactions] = useState<Reactions>({
+    upvote: false,
+    bookmark: false,
+    share: false,
+  })
+
+  const [upvoteCount, setUpvoteCount] = useState<number>(0)
+  const [shareClicked, setShareClicked] = useState(false)
+
+  const { user } = useAuthContext()
+
+  useEffect(() => {
+    // Check if the user has bookmarked this asset
+    if (user && asset.bookmarks && asset.bookmarks[user.uid]) {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        bookmark: true,
+      }))
+    }
+  }, [user, asset])
+
+  useEffect(() => {
+    // Check if the user has upvoted this asset
+    if (user && asset.upvotes && asset.upvotes[user.uid]) {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        upvote: true,
+      }))
+    }
+  }, [user, asset])
+
+  // const handleReactionClick = (reaction: keyof Reactions) => {
+  //   setReactions((prevReactions) => ({
+  //     ...prevReactions,
+  //     [reaction]: !prevReactions[reaction],
+  //   }))
+  // }
+
+  const handleUpvoteReactionClick = async (reaction: keyof Reactions) => {
+    if (!user) {
+      // Handle the case when user is null
+      console.log('User is not authenticated')
+      return
+    }
+
+    if (reaction === 'upvote') {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        upvote: !prevReactions['upvote'],
+      }))
+    }
+
+    try {
+      if (!reactions['upvote']) {
+        // add user id in upvotes field of asset
+        const addUserToAssetUpvotesResponse = await fetch(
+          '/api/addUserToAssetUpvotes',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset: asset,
+            }),
+          }
+        )
+
+        const addUserToAssetUpvotesData =
+          await addUserToAssetUpvotesResponse.json()
+        console.log(addUserToAssetUpvotesData.message)
+
+        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
+        setUpvoteCount(upvoteCount || 0)
+      } else {
+        // remove user id from upvotes field of asset
+        const removeUserFromAssetUpvotesResponse = await fetch(
+          '/api/removeUserFromAssetUpvotes',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeUserFromAssetUpvotesData =
+          await removeUserFromAssetUpvotesResponse.json()
+        console.log(removeUserFromAssetUpvotesData.message)
+
+        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
+        setUpvoteCount(upvoteCount || 0)
+      }
+    } catch (error) {
+      console.error('Error adding upvote:', error)
+    }
+  }
+
+  const handleBookmarkReactionClick = async (reaction: keyof Reactions) => {
+    if (!user) {
+      // Handle the case when user is null (not authenticated)
+      console.log('User is not authenticated')
+      return
+    }
+
+    if (reaction === 'bookmark') {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        bookmark: !prevReactions['bookmark'],
+      }))
+    }
+
+    try {
+      // Check if the bookmark reaction is now filled or not
+      if (!reactions['bookmark']) {
+        // Call the api to add asset to user id in bookmarks collection
+        const addAssetToUserBookmarksResponse = await fetch(
+          '/api/addAssetToUserBookmarks',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const addAssetToUserBookmarksData =
+          await addAssetToUserBookmarksResponse.json()
+        console.log(addAssetToUserBookmarksData.message)
+
+        // Call the api to add userId in bookmarks field of asset item
+        const addUserToAssetBookmarkResponse = await fetch(
+          '/api/addUserToAssetBookmark',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset: asset,
+            }),
+          }
+        )
+
+        const addUserToAssetBookmarkData =
+          await addUserToAssetBookmarkResponse.json()
+        console.log(addUserToAssetBookmarkData.message)
+      } else {
+        // api route to remove asset item from bookmark collection in user id
+
+        const removeAssetFromUserBookmarksResponse = await fetch(
+          '/api/removeAssetFromUserBookmarks',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeAssetFromUserBookmarksData =
+          await removeAssetFromUserBookmarksResponse.json()
+        console.log(removeAssetFromUserBookmarksData.message)
+
+        // api route to remove user id from bookmark field of asset item
+        const removeUserFromAssetBookmarkResponse = await fetch(
+          '/api/removeUserFromAssetBookmark',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeUserFromAssetBookmarkData =
+          await removeUserFromAssetBookmarkResponse.json()
+        console.log(removeUserFromAssetBookmarkData.message)
+      }
+    } catch (error) {
+      console.error('Error adding bookmark:', error)
+    }
+  }
+
+  const { toast } = useToast()
+  const handleShareReactionClick = () => {
+    const urlWithRef = `${asset.assetUrl}?ref=UIVerse`
+
+    // Copy the URL to the clipboard
+    navigator.clipboard.writeText(urlWithRef).then(() => {
+      toast({
+        title: 'URL Copied! ',
+        description: 'You can now paste the link',
+      })
+    })
+
+    setShareClicked(true)
+
+    // Reset the shareClicked state after a delay (for the focus effect)
+    setTimeout(() => {
+      setShareClicked(false)
+    }, 1000)
+  }
+
+  const getReactionImageName = (reaction: keyof Reactions) => {
+    if (reactions[reaction]) {
+      return `${reaction}-filled.png` // Use the filled icon when the reaction is true
+    } else if (shareClicked && reaction === 'share') {
+      return `${reaction}-filled.png` // Use the filled icon when shareClicked is true (focused)
+    } else {
+      return `${reaction}.png` // Use the regular icon
+    }
+  }
+  // reactions[reaction] ? `${reaction}-filled.png` : `${reaction}.png`
+
   return (
     <div
       className={cn('space-y-3 bg-muted p-2 mb-6 rounded-lg', className)}
@@ -58,9 +300,9 @@ export function AssetArtwork({
         </div>
         <div className="h-16">
           <div className="flex text-sm flex-wrap">
-            {asset.formats.split(', ').map((format, index) => (
+            {asset.formats.map((format, idx) => (
               <Badge
-                key={index}
+                key={idx}
                 className="text-foreground bg-slate-200 mr-2 hover:bg-slate-200 mt-2"
               >
                 {format}
@@ -109,25 +351,37 @@ export function AssetArtwork({
         </ContextMenuContent>
       </ContextMenu>
       <div className="flex flex-wrap justify-evenly pt-0 pb-1 transition-all duration-500">
-        <div className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2">
+        <div
+          className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
+          onClick={() => handleUpvoteReactionClick('upvote')}
+        >
           <Image
-            src="/reactions/like.png"
-            alt="like reaction"
+            src={`/reactions/${getReactionImageName('upvote')}`}
+            alt="upvote reaction"
             width={20}
             height={20}
           />
+          {upvoteCount > 0 && (
+            <span className="text-lg text-foreground pl-1 ">{upvoteCount}</span>
+          )}
         </div>
-        <div className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2">
+        <div
+          className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
+          onClick={() => handleBookmarkReactionClick('bookmark')}
+        >
           <Image
-            src="/reactions/bookmark.png"
+            src={`/reactions/${getReactionImageName('bookmark')}`}
             alt="bookmark reaction"
-            width={15}
-            height={15}
+            width={18}
+            height={18}
           />
         </div>
-        <div className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2">
+        <div
+          className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
+          onClick={() => handleShareReactionClick()}
+        >
           <Image
-            src="/reactions/share.png"
+            src={`/reactions/${getReactionImageName('share')}`}
             alt="share reaction"
             width={20}
             height={20}

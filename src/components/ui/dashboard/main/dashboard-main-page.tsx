@@ -8,11 +8,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs'
 
 import { AssetArtwork } from './asset-artwork'
 import { Sidebar } from './sidebar'
-import { illustrations } from '../../../../../data/assets'
+import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
 import { Search } from './search'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { MyBookmarks } from './my-bookmarks'
+import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 
 export const metadata: Metadata = {
   title: 'Dashboard of UIVerse',
@@ -24,6 +26,33 @@ export default function DashboardInterface() {
   const [selectedSidebarOption, setSelectedSidebarOption] = useState<
     string | null
   >('Illustrations') // Default selected sidebar option
+
+  const { user } = useAuthContext()
+  const [assets, setAssets] = useState<{ [key: string]: Asset[] }>({})
+
+  useEffect(() => {
+    async function fetchAssets() {
+      try {
+        const response = await fetch(
+          `/api/getAssetData/?sidebarOption=${selectedSidebarOption}`
+        )
+
+        if (response.ok) {
+          const assetsData = await response.json()
+
+          setAssets(assetsData)
+        } else {
+          console.error('Error fetching assets:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error fetching assets:', error)
+      }
+    }
+
+    fetchAssets()
+  }, [selectedSidebarOption])
+
+  // console.log({ assets })
 
   const handleSidebarOptionSelect = (option: string | null) => {
     setSelectedSidebarOption(option)
@@ -57,7 +86,6 @@ export default function DashboardInterface() {
         </div>
       </div>
       <div className="hidden md:block">
-        {/* <Menu /> */}
         <div className="border-t">
           <div className="bg-background">
             <div className="grid lg:grid-cols-5">
@@ -69,86 +97,94 @@ export default function DashboardInterface() {
               />
               <div className="col-span-4 lg:col-span-4 lg:border-l">
                 <div className="h-full px-4 py-6 lg:px-10">
-                  <Tabs defaultValue="All" className="h-full space-y-6">
-                    <div className="space-between flex items-center">
-                      <TabsList>
-                        <TabsTrigger
-                          value="All"
-                          className="relative"
-                          onClick={() => setSelectedTab('All')}
-                        >
-                          All Types
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="Free"
-                          onClick={() => setSelectedTab('Free')}
-                        >
-                          Free
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="Paid"
-                          onClick={() => setSelectedTab('Paid')}
-                        >
-                          Paid
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="Premium"
-                          onClick={() => setSelectedTab('Premium')}
-                        >
-                          Premium
-                        </TabsTrigger>
-                      </TabsList>
-                      <div className="ml-auto mr-4">
-                        <Button>
-                          <FontAwesomeIcon
-                            icon={faChartSimple}
-                            className="mr-2 h-4 w-4"
-                          />
-                          Filter Cards
-                        </Button>
-                      </div>
-                    </div>
-                    <TabsContent
-                      value={selectedTab}
-                      className="border-none p-0 outline-none"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="space-y-1">
-                          <h2 className="text-2xl font-semibold tracking-tight">
-                            {selectedSidebarOption || 'All'}
-                          </h2>
-                          <p className="text-sm text-muted-foreground">
-                            {selectedTab
-                              ? `${selectedTab} resources for you. Updated daily.`
-                              : 'Top resources for you. Updated daily.'}
-                          </p>
+                  {selectedSidebarOption === 'My bookmarks' && user ? (
+                    <MyBookmarks userId={user.uid} />
+                  ) : (
+                    <Tabs defaultValue="All" className="h-full space-y-6">
+                      <div className="space-between flex items-center">
+                        <TabsList>
+                          <TabsTrigger
+                            value="All"
+                            className="relative"
+                            onClick={() => setSelectedTab('All')}
+                          >
+                            All Types
+                          </TabsTrigger>
+                          <TabsTrigger
+                            value="Free"
+                            onClick={() => setSelectedTab('Free')}
+                          >
+                            Free
+                          </TabsTrigger>
+                          <TabsTrigger
+                            value="Paid"
+                            onClick={() => setSelectedTab('Paid')}
+                          >
+                            Paid
+                          </TabsTrigger>
+                          <TabsTrigger
+                            value="Premium"
+                            onClick={() => setSelectedTab('Premium')}
+                          >
+                            Premium
+                          </TabsTrigger>
+                        </TabsList>
+                        <div className="ml-auto mr-4">
+                          <Button>
+                            <FontAwesomeIcon
+                              icon={faChartSimple}
+                              className="mr-2 h-4 w-4"
+                            />
+                            Filter Cards
+                          </Button>
                         </div>
                       </div>
-                      <Separator className="my-4" />
-                      <div className="relative">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
-                          {illustrations
-                            .filter((item) => {
-                              if (selectedTab === 'All') {
-                                return true // Show all cards
-                              }
-                              // Filter based on selectedTab and item category
-                              return item.category === selectedTab
-                            })
-                            .map((item) => (
-                              <AssetArtwork
-                                key={item.name}
-                                asset={item}
-                                className="w-[300px]"
-                                aspectRatio="square"
-                                width={300}
-                                height={380}
-                              />
-                            ))}
+                      <TabsContent
+                        value={selectedTab}
+                        className="border-none p-0 outline-none"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-1">
+                            <h2 className="text-2xl font-semibold tracking-tight">
+                              {selectedSidebarOption || 'All'}
+                            </h2>
+                            <p className="text-sm text-muted-foreground">
+                              {selectedTab
+                                ? `${selectedTab} resources for you. Updated daily.`
+                                : 'Top resources for you. Updated daily.'}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </TabsContent>
-                  </Tabs>
+                        <Separator className="my-4" />
+                        <div className="relative">
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
+                            {Object.keys(assets).map((brand) => {
+                              // Filter the assets based on the selected tab and category
+                              const filteredAssets = assets[brand].filter(
+                                (item) => {
+                                  if (selectedTab === 'All') {
+                                    return true
+                                  }
+                                  return item.category === selectedTab
+                                }
+                              )
+
+                              return filteredAssets.map((item) => (
+                                <AssetArtwork
+                                  key={item.name}
+                                  asset={item}
+                                  className="w-[300px]"
+                                  aspectRatio="square"
+                                  width={300}
+                                  height={380}
+                                />
+                              ))
+                            })}
+                          </div>
+                        </div>
+                      </TabsContent>
+                    </Tabs>
+                  )}
                 </div>
               </div>
             </div>
