@@ -18,7 +18,7 @@ import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { Avatar, AvatarFallback, AvatarImage } from '../../avatar'
 import { Badge } from '../../badge'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -48,14 +48,24 @@ export function AssetArtwork({
     share: false,
   })
 
+  const { user } = useAuthContext()
+
+  useEffect(() => {
+    // Check if the user has bookmarked this asset
+    if (user && asset.bookmarks && asset.bookmarks[user.uid]) {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        bookmark: true,
+      }))
+    }
+  }, [user, asset])
+
   const handleReactionClick = (reaction: keyof Reactions) => {
     setReactions((prevReactions) => ({
       ...prevReactions,
       [reaction]: !prevReactions[reaction],
     }))
   }
-
-  const { user } = useAuthContext()
 
   const handleBookmarkReactionClick = async (reaction: keyof Reactions) => {
     if (!user) {
