@@ -48,6 +48,8 @@ export function AssetArtwork({
     share: false,
   })
 
+  const [upvoteCount, setUpvoteCount] = useState<number>(0)
+
   const { user } = useAuthContext()
 
   useEffect(() => {
@@ -60,11 +62,86 @@ export function AssetArtwork({
     }
   }, [user, asset])
 
+  useEffect(() => {
+    // Check if the user has upvoted this asset
+    if (user && asset.upvotes && asset.upvotes[user.uid]) {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        upvote: true,
+      }))
+    }
+  }, [user, asset])
+
   const handleReactionClick = (reaction: keyof Reactions) => {
     setReactions((prevReactions) => ({
       ...prevReactions,
       [reaction]: !prevReactions[reaction],
     }))
+  }
+
+  const handleUpvoteReactionClick = async (reaction: keyof Reactions) => {
+    if (!user) {
+      // Handle the case when user is null
+      console.log('User is not authenticated')
+      return
+    }
+
+    if (reaction === 'upvote') {
+      setReactions((prevReactions) => ({
+        ...prevReactions,
+        upvote: !prevReactions['upvote'],
+      }))
+    }
+
+    try {
+      if (!reactions['upvote']) {
+        // add user id in upvotes field of asset
+        const addUserToAssetUpvotesResponse = await fetch(
+          '/api/addUserToAssetUpvotes',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset: asset,
+            }),
+          }
+        )
+
+        const addUserToAssetUpvotesData =
+          await addUserToAssetUpvotesResponse.json()
+        console.log(addUserToAssetUpvotesData.message)
+
+        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
+        setUpvoteCount(upvoteCount || 0)
+      } else {
+        // remove user id from upvotes field of asset
+        const removeUserFromAssetUpvotesResponse = await fetch(
+          '/api/removeUserFromAssetUpvotes',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeUserFromAssetUpvotesData =
+          await removeUserFromAssetUpvotesResponse.json()
+        console.log(removeUserFromAssetUpvotesData.message)
+
+        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
+        setUpvoteCount(upvoteCount || 0)
+      }
+    } catch (error) {
+      console.error('Error adding upvote:', error)
+    }
   }
 
   const handleBookmarkReactionClick = async (reaction: keyof Reactions) => {
@@ -113,7 +190,7 @@ export function AssetArtwork({
             },
             body: JSON.stringify({
               userId: user.uid,
-              asset: asset, // Assuming asset has an 'id' property
+              asset: asset,
             }),
           }
         )
@@ -246,7 +323,7 @@ export function AssetArtwork({
       <div className="flex flex-wrap justify-evenly pt-0 pb-1 transition-all duration-500">
         <div
           className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
-          onClick={() => handleReactionClick('upvote')}
+          onClick={() => handleUpvoteReactionClick('upvote')}
         >
           <Image
             src={`/reactions/${getReactionImageName('upvote')}`}
@@ -254,6 +331,9 @@ export function AssetArtwork({
             width={20}
             height={20}
           />
+          {upvoteCount > 0 && (
+            <span className="text-lg text-foreground pl-1 ">{upvoteCount}</span>
+          )}
         </div>
         <div
           className="hover:bg-slate-300 h-34 w-34 rounded-full flex justify-center items-center p-2"
