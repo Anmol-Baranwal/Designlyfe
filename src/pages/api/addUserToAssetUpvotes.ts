@@ -46,9 +46,9 @@ const addUserToAssetBookmark = async (
 
     res
       .status(200)
-      .json({ message: 'User added to asset bookmarks successfully' })
+      .json({ message: 'User added to asset upvotes successfully' })
   } catch (error) {
-    console.error('Error adding user to asset bookmarks:', error)
+    console.error('Error adding user to asset upvotes:', error)
     res.status(500).json({ error: 'Internal server error' })
   }
 }
