@@ -72,44 +72,85 @@ export function AssetArtwork({
     }
 
     try {
-      // Call the addToBookmarks API route
-      const addToBookmarksResponse = await fetch(
-        '/api/addAssetToUserBookmarks',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: user.uid,
-            asset,
-          }),
-        }
-      )
+      // Check if the bookmark reaction is now filled or not
+      if (!reactions['bookmark']) {
+        // Call the api to add asset to user id in bookmarks collection
+        const addAssetToUserBookmarksResponse = await fetch(
+          '/api/addAssetToUserBookmarks',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
 
-      const addToBookmarksData = await addToBookmarksResponse.json()
-      console.log(addToBookmarksData.message)
+        const addAssetToUserBookmarksData =
+          await addAssetToUserBookmarksResponse.json()
+        console.log(addAssetToUserBookmarksData.message)
 
-      // Get the asset type, author, name, and userId from the asset object
+        // Call the api to add userId in bookmarks field of asset item
+        const addUserToAssetBookmarkResponse = await fetch(
+          '/api/addUserToAssetBookmark',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset: asset, // Assuming asset has an 'id' property
+            }),
+          }
+        )
 
-      // Call the addUserToAssetBookmark API route
-      const addUserToAssetBookmarkResponse = await fetch(
-        '/api/addUserToAssetBookmark',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: user.uid,
-            asset: asset, // Assuming asset has an 'id' property
-          }),
-        }
-      )
+        const addUserToAssetBookmarkData =
+          await addUserToAssetBookmarkResponse.json()
+        console.log(addUserToAssetBookmarkData.message)
+      } else {
+        // api route to remove asset item from bookmark collection in user id
 
-      const addUserToAssetBookmarkData =
-        await addUserToAssetBookmarkResponse.json()
-      console.log(addUserToAssetBookmarkData.message)
+        const removeAssetFromUserBookmarksResponse = await fetch(
+          '/api/removeAssetFromUserBookmarks',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeAssetFromUserBookmarksData =
+          await removeAssetFromUserBookmarksResponse.json()
+        console.log(removeAssetFromUserBookmarksData.message)
+
+        // api route to remove user id from bookmark field of asset item
+        const removeUserFromAssetBookmarkResponse = await fetch(
+          '/api/removeUserFromAssetBookmark',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeUserFromAssetBookmarkData =
+          await removeUserFromAssetBookmarkResponse.json()
+        console.log(removeUserFromAssetBookmarkData.message)
+      }
     } catch (error) {
       console.error('Error adding bookmark:', error)
     }
