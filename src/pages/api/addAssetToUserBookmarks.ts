@@ -6,6 +6,7 @@ import {
   getDocs,
   where,
   query,
+  updateDoc,
 } from 'firebase/firestore'
 import { db } from '../../../firebaseConfig'
 
@@ -33,8 +34,19 @@ const addAssetToUserBookmarks = async (
     // Create a 'bookmarks' subcollection within the user's document
     const bookmarksCollectionRef = collection(userDocRef, 'bookmarks')
 
+    // Update the 'upvotes' field with the user's ID (this is crucial to maintain state for My bookmarks section)
+
     // Add the bookmarked asset to the user's bookmarks subcollection
     await setDoc(doc(bookmarksCollectionRef, asset.name), asset)
+
+    const assetDocRef = doc(bookmarksCollectionRef, asset.name)
+
+    await updateDoc(assetDocRef, {
+      bookmarks: {
+        ...asset.bookmarks,
+        [userId]: true,
+      },
+    })
 
     res.status(200).json({ message: 'Asset bookmarked successfully' })
   } catch (error) {
