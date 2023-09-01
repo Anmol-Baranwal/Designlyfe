@@ -13,6 +13,7 @@ import {
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 import { useRouter } from 'next/router'
 import { signOutGitHub } from '../../../../../lib/GitHubAuth'
+import { useEffect } from 'react'
 
 export function UserNav() {
   const { user } = useAuthContext()
@@ -32,6 +33,13 @@ export function UserNav() {
       router.push('/')
     }
   }
+
+  useEffect(() => {
+    if (!user) {
+      // If the user is logged out, navigate to the home page
+      router.push('/')
+    }
+  }, [user, router])
 
   return (
     <DropdownMenu>
@@ -65,7 +73,12 @@ export function UserNav() {
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            handleSignOut()
+          }}
+          className="cursor-pointer"
+        >
           {/* <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer"> */}
           Log Out
           {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}

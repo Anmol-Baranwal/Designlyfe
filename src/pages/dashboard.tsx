@@ -17,16 +17,18 @@ const Dashboard: React.FC<DashboardProps> = () => {
   // const email = user?.email
 
   const router = useRouter()
-  const { toast } = useToast()
 
+  const { toast } = useToast()
   if (!user) {
     // User is not authenticated => redirect to home page
     router.push('/')
-    toast({
-      title: 'Authentication Required',
-      description: 'Please Signup or Login to access dashboard',
-    })
-    return <div>Loading...</div>
+    // causes re-renders when users log out
+
+    // toast({
+    //   title: 'Authentication Required',
+    //   description: 'Please Signup or Login to access dashboard',
+    // })
+    // return <div>Loading...</div>
   }
 
   // if (user) {

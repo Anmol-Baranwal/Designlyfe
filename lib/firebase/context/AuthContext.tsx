@@ -21,9 +21,18 @@ interface AuthContextData {
   user: User | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<SignInResult>
-  signUp: (email: string, password: string) => Promise<SignInResult>
+  signUp: (
+    email: string,
+    password: string,
+    username?: string
+  ) => Promise<SignInResult>
   resetPassword: (email: string) => Promise<SignInResult>
-  onSuccessfulAuth: (userId: string, email: string | null) => void
+  onSuccessfulAuth: (
+    userId: string,
+    email: string | null,
+    username?: string,
+    avatarUrl?: string
+  ) => void
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -38,37 +47,63 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const onSuccessfulAuth = (userId: string, email: string | null) => {
-    const newUser: User = {
-      uid: userId,
-      email: email,
-      emailVerified: false,
-      isAnonymous: false,
-      metadata: {} as UserMetadata,
-      providerData: [],
-      phoneNumber: null,
-      displayName: null,
-      photoURL: null,
-      refreshToken: '',
-      tenantId: null,
-      delete: function (): Promise<void> {
-        throw new Error('Function not implemented.')
-      },
-      getIdToken: function (): Promise<string> {
-        throw new Error('Function not implemented.')
-      },
-      getIdTokenResult: function (): Promise<IdTokenResult> {
-        throw new Error('Function not implemented.')
-      },
-      reload: function (): Promise<void> {
-        throw new Error('Function not implemented.')
-      },
-      toJSON: function (): object {
-        throw new Error('Function not implemented.')
-      },
-      providerId: '',
+  const onSuccessfulAuth = async (
+    userId: string,
+    email: string | null,
+    username?: string,
+    avatarUrl?: string
+  ) => {
+    try {
+      // Create user document in Firestore
+      const response = await fetch('/api/createUser', {
+        method: 'POST',
+        body: JSON.stringify({
+          collectionName: 'users',
+          data: { userId, email, name: '', username, avatarUrl },
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        console.error('Failed to create user document in Firestore')
+        return
+      }
+
+      const newUser: User = {
+        uid: userId,
+        email: email,
+        emailVerified: false,
+        isAnonymous: false,
+        metadata: {} as UserMetadata,
+        providerData: [],
+        phoneNumber: null,
+        displayName: null,
+        photoURL: null,
+        refreshToken: '',
+        tenantId: null,
+        delete: function (): Promise<void> {
+          throw new Error('Function not implemented.')
+        },
+        getIdToken: function (): Promise<string> {
+          throw new Error('Function not implemented.')
+        },
+        getIdTokenResult: function (): Promise<IdTokenResult> {
+          throw new Error('Function not implemented.')
+        },
+        reload: function (): Promise<void> {
+          throw new Error('Function not implemented.')
+        },
+        toJSON: function (): object {
+          throw new Error('Function not implemented.')
+        },
+        providerId: '',
+      }
+      setUser(newUser)
+    } catch (error) {
+      console.error(error)
     }
-    setUser(newUser)
   }
 
   useEffect(() => {

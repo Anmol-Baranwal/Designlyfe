@@ -18,7 +18,7 @@ let firebaseApp =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 
 // Initialize Firestore
-const firestore = getFirestore(firebaseApp)
+const db = getFirestore(firebaseApp)
 // const analytics = getAnalytics(firebaseApp)
 
-export { firebaseApp, firestore }
+export { firebaseApp, db }
