@@ -30,33 +30,33 @@ import { Input } from '../../../input'
 import { Popover, PopoverContent, PopoverTrigger } from '../../../popover'
 import { toast } from '../../../use-toast'
 
-const languages = [
-  { label: 'English', value: 'en' },
-  { label: 'French', value: 'fr' },
-  { label: 'German', value: 'de' },
-  { label: 'Spanish', value: 'es' },
-  { label: 'Portuguese', value: 'pt' },
-  { label: 'Russian', value: 'ru' },
-  { label: 'Japanese', value: 'ja' },
-  { label: 'Korean', value: 'ko' },
-  { label: 'Chinese', value: 'zh' },
-] as const
+// const languages = [
+//   { label: 'English', value: 'en' },
+//   { label: 'French', value: 'fr' },
+//   { label: 'German', value: 'de' },
+//   { label: 'Spanish', value: 'es' },
+//   { label: 'Portuguese', value: 'pt' },
+//   { label: 'Russian', value: 'ru' },
+//   { label: 'Japanese', value: 'ja' },
+//   { label: 'Korean', value: 'ko' },
+//   { label: 'Chinese', value: 'zh' },
+// ] as const
 
 const accountFormSchema = z.object({
   name: z
     .string()
-    .min(2, {
-      message: 'Name must be at least 2 characters.',
+    .min(3, {
+      message: 'Name must be at least 3 characters.',
     })
-    .max(30, {
-      message: 'Name must not be longer than 30 characters.',
+    .max(20, {
+      message: 'Name must not be longer than 20 characters.',
     }),
   dob: z.date({
     required_error: 'A date of birth is required.',
   }),
-  language: z.string({
-    required_error: 'Please select a language.',
-  }),
+  // language: z.string({
+  //   required_error: 'Please select a language.',
+  // }),
 })
 
 type AccountFormValues = z.infer<typeof accountFormSchema>
@@ -97,7 +97,7 @@ export function AccountForm() {
                 <Input placeholder="Your name" {...field} />
               </FormControl>
               <FormDescription>
-                This is the name that will be displayed on your profile and in
+                This is the name that will be displayed on your dashboard and in
                 emails.
               </FormDescription>
               <FormMessage />
@@ -151,7 +151,7 @@ export function AccountForm() {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="language"
           render={({ field }) => (
@@ -203,7 +203,7 @@ export function AccountForm() {
                             )}
                           />
 
-                          {/*   radix-ui/react-icons
+                            radix-ui/react-icons
                           
                           <CheckIcon
                             className={cn(
@@ -212,7 +212,7 @@ export function AccountForm() {
                                 ? 'opacity-100'
                                 : 'opacity-0'
                             )}
-                          /> */}
+                          />
                           {language.label}
                         </CommandItem>
                       ))}
@@ -226,7 +226,7 @@ export function AccountForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <Button type="submit">Update account</Button>
       </form>
     </Form>
