@@ -1,12 +1,12 @@
 'use client'
 
-import Link from 'next/link'
+// import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 import { Button } from '../../../button'
-import { Checkbox } from '../../../checkbox'
+// import { Checkbox } from '../../../checkbox'
 import {
   Form,
   FormControl,
@@ -66,7 +66,7 @@ export function NotificationsForm() {
           name="type"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Notify me about...</FormLabel>
+              <FormLabel>Notification settings for dashboard</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -78,7 +78,7 @@ export function NotificationsForm() {
                       <RadioGroupItem value="all" />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      All new messages
+                      All new messages.
                     </FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
@@ -86,14 +86,16 @@ export function NotificationsForm() {
                       <RadioGroupItem value="mentions" />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      Direct messages and mentions
+                      Whenever someone upvote my asset.
                     </FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
                       <RadioGroupItem value="none" />
                     </FormControl>
-                    <FormLabel className="font-normal">Nothing</FormLabel>
+                    <FormLabel className="font-normal">
+                      Nothing. No notifications for dashboard.
+                    </FormLabel>
                   </FormItem>
                 </RadioGroup>
               </FormControl>
@@ -176,7 +178,7 @@ export function NotificationsForm() {
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">Security emails</FormLabel>
                     <FormDescription>
-                      Receive emails about your account activity and security.
+                      Receive emails about your account security.
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -192,7 +194,7 @@ export function NotificationsForm() {
             />
           </div>
         </div>
-        <FormField
+        {/* <FormField
           control={form.control}
           name="mobile"
           render={({ field }) => (
@@ -214,7 +216,7 @@ export function NotificationsForm() {
               </div>
             </FormItem>
           )}
-        />
+        /> */}
         <Button type="submit">Update notifications</Button>
       </form>
     </Form>
