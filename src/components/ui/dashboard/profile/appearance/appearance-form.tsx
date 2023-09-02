@@ -1,6 +1,6 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
+// import { zodResolver } from '@hookform/resolvers/zod'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useForm } from 'react-hook-form'
@@ -40,7 +40,7 @@ const defaultValues: Partial<AppearanceFormValues> = {
 
 export function AppearanceForm() {
   const form = useForm<AppearanceFormValues>({
-    resolver: zodResolver(appearanceFormSchema),
+    // resolver: zodResolver(appearanceFormSchema),
     defaultValues,
   })
 
@@ -102,7 +102,8 @@ export function AppearanceForm() {
               <FormMessage />
               <RadioGroup
                 onValueChange={field.onChange}
-                defaultValue={field.value}
+                // defaultValue={field.value}
+                defaultValue="light"
                 className="grid max-w-md grid-cols-2 gap-8 pt-2"
               >
                 <FormItem>

@@ -21,10 +21,9 @@ import { Switch } from '../../../switch'
 import { toast } from '../../../use-toast'
 
 const notificationsFormSchema = z.object({
-  type: z.enum(['all', 'mentions', 'none'], {
+  type: z.enum(['all', 'upvote', 'none'], {
     required_error: 'You need to select a notification type.',
   }),
-  mobile: z.boolean().default(false).optional(),
   communication_emails: z.boolean().default(false).optional(),
   social_emails: z.boolean().default(false).optional(),
   marketing_emails: z.boolean().default(false).optional(),
@@ -35,6 +34,7 @@ type NotificationsFormValues = z.infer<typeof notificationsFormSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<NotificationsFormValues> = {
+  type: 'all',
   communication_emails: false,
   marketing_emails: false,
   social_emails: true,
@@ -43,7 +43,7 @@ const defaultValues: Partial<NotificationsFormValues> = {
 
 export function NotificationsForm() {
   const form = useForm<NotificationsFormValues>({
-    resolver: zodResolver(notificationsFormSchema),
+    // resolver: zodResolver(notificationsFormSchema), // incompatible type error
     defaultValues,
   })
 
@@ -70,7 +70,8 @@ export function NotificationsForm() {
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  defaultValue="all"
+                  // defaultValue={field.value}
                   className="flex flex-col space-y-1"
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
@@ -83,7 +84,7 @@ export function NotificationsForm() {
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="mentions" />
+                      <RadioGroupItem value="upvote" />
                     </FormControl>
                     <FormLabel className="font-normal">
                       Whenever someone upvote my asset.
