@@ -1,10 +1,10 @@
 import SettingsProfilePage from '@/components/ui/dashboard/profile/main/page'
 import SettingsLayout from '../../layouts/settingsLayout'
-
+import { Button } from '@/components/ui/button'
 const UserProfile = () => {
   return (
     <>
-      <SettingsLayout>
+      <SettingsLayout button={<Button></Button>}>
         <SettingsProfilePage />
       </SettingsLayout>
     </>
