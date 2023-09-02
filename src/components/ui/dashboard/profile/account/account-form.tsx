@@ -2,7 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendar, faSort, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar } from '@fortawesome/free-solid-svg-icons'
+// import { faSort, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -10,13 +11,13 @@ import * as z from 'zod'
 import { cn } from '@/lib/utils'
 import { Button } from '../../../button'
 import { Calendar } from '../../../calendar'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '../../../command'
+// import {
+//   Command,
+//   CommandEmpty,
+//   CommandGroup,
+//   CommandInput,
+//   CommandItem,
+// } from '../../../command'
 import {
   Form,
   FormControl,
@@ -69,7 +70,7 @@ const defaultValues: Partial<AccountFormValues> = {
 
 export function AccountForm() {
   const form = useForm<AccountFormValues>({
-    resolver: zodResolver(accountFormSchema),
+    // resolver: zodResolver(accountFormSchema),
     defaultValues,
   })
 
