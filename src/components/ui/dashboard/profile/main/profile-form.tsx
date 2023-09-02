@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+// import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useFieldArray, useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -30,11 +30,11 @@ import { toast } from '../../../use-toast'
 const profileFormSchema = z.object({
   username: z
     .string()
-    .min(2, {
-      message: 'Username must be at least 2 characters.',
+    .min(3, {
+      message: 'Username must be at least 3 characters.',
     })
-    .max(30, {
-      message: 'Username must not be longer than 30 characters.',
+    .max(20, {
+      message: 'Username must not be longer than 20 characters.',
     }),
   email: z
     .string({
@@ -55,10 +55,11 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
+  bio: 'I love building products.',
   urls: [
-    { value: 'https://shadcn.com' },
-    { value: 'http://twitter.com/shadcn' },
+    { value: 'https://www.linkedin.com/in/Anmol-Baranwal/' },
+    { value: 'https://twitter.com/Anmol_Codes' },
+    { value: 'https://github.com/Anmol-Baranwal' },
   ],
 }
 
@@ -95,11 +96,11 @@ export function ProfileForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="uiverse" {...field} />
               </FormControl>
               <FormDescription>
                 This is your public display name. It can be your real name or a
-                pseudonym. You can only change this once every 30 days.
+                pseudonym. You can only change this once every 15 days.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -118,14 +119,20 @@ export function ProfileForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectItem value="hello@uiverse.com">
+                    hello@uiverse.com
+                  </SelectItem>
+                  <SelectItem value="anmol@uiverse.com">
+                    anmol@uiverse.com
+                  </SelectItem>
+                  <SelectItem value="contact@uiverse.com">
+                    contact@uiverse.com
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
-                You can manage verified email addresses in your{' '}
-                <Link href="/examples/forms">email settings</Link>.
+                You can manage verified email addresses in your email settings
+                {/* <Link href="/examples/forms">email settings</Link>. */}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -145,8 +152,8 @@ export function ProfileForm() {
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
+                {/* You can <span>@mention</span> other users and organizations to
+                link to them. */}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -161,10 +168,11 @@ export function ProfileForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className={cn(index !== 0 && 'sr-only')}>
-                    URLs
+                    Profile Social Links
                   </FormLabel>
                   <FormDescription className={cn(index !== 0 && 'sr-only')}>
-                    Add links to your website, blog, or social media profiles.
+                    Add your social media profiles so others can connect with
+                    you.
                   </FormDescription>
                   <FormControl>
                     <Input {...field} />
