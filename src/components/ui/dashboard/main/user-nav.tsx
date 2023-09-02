@@ -13,7 +13,7 @@ import {
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 import { useRouter } from 'next/router'
 import { signOutGitHub } from '../../../../../lib/GitHubAuth'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export function UserNav() {
   const { user } = useAuthContext()
@@ -21,6 +21,8 @@ export function UserNav() {
   // const email = user?.email
 
   const router = useRouter()
+
+  const [isProfileClicked, setIsProfileClicked] = useState(false)
 
   const handleSignOut = async () => {
     console.log('Provider ID:', user?.providerId)
@@ -41,12 +43,16 @@ export function UserNav() {
     }
   }, [user, router])
 
+  if (isProfileClicked) {
+    router.push('/settings/profile')
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/avatars/01.png" alt="@shadcn" />
+            <AvatarImage src="" alt="@anmol" />
             <AvatarFallback>AB</AvatarFallback>
           </Avatar>
         </Button>
@@ -62,7 +68,10 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => setIsProfileClicked(true)}
+          >
             Profile
             {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
           </DropdownMenuItem>
