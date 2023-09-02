@@ -1,13 +1,14 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import { cn } from '@/lib/utils'
-import { Button, buttonVariants } from '../../../button'
+// import { cn } from '@/lib/utils'
+import { Button } from '../../../button'
+// import { buttonVariants } from '../../../button'
 import {
   Form,
   FormControl,
@@ -24,10 +25,10 @@ const appearanceFormSchema = z.object({
   theme: z.enum(['light', 'dark'], {
     required_error: 'Please select a theme.',
   }),
-  font: z.enum(['inter', 'manrope', 'system'], {
-    invalid_type_error: 'Select a font',
-    required_error: 'Please select a font.',
-  }),
+  // font: z.enum(['inter', 'manrope', 'system'], {
+  //   invalid_type_error: 'Select a font',
+  //   required_error: 'Please select a font.',
+  // }),
 })
 
 type AppearanceFormValues = z.infer<typeof appearanceFormSchema>
@@ -57,7 +58,7 @@ export function AppearanceForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
+        {/* <FormField
           control={form.control}
           name="font"
           render={({ field }) => (
@@ -88,7 +89,7 @@ export function AppearanceForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="theme"
