@@ -1,5 +1,4 @@
 import { Button } from './ui/button'
-import bgLanding from '../../public//home-page/bgLanding.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faChartArea } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
@@ -7,12 +6,7 @@ import Link from 'next/link'
 
 const LandingPage = () => {
   return (
-    <div
-      className="bg-cover bg-center min-h-screen h-full"
-      style={{
-        backgroundImage: `url(${bgLanding.src})`, // Set the background image URL
-      }}
-    >
+    <div className="bg-cover bg-center">
       <Image
         src="/home-page/craftwork.png"
         alt="asset"
