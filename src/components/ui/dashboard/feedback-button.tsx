@@ -69,7 +69,7 @@ const FeedbackButton = () => {
     <>
       <Dialog>
         <DialogTrigger>
-          <Button className="bg-foreground">Feedback &nbsp;</Button>
+          <Button className="">Feedback &nbsp;</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
