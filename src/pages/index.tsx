@@ -8,7 +8,6 @@ export default function Home() {
         <Navbar />
       </main>
       <LandingPage />
-      <div className="bg-primary-300 mt-50">hey</div>
     </div>
   )
 }
