@@ -3,9 +3,9 @@ import { Metadata } from 'next'
 
 import { Separator } from '../components/ui/separator'
 import { SidebarNav } from '../components/ui/dashboard/profile/components/sidebar-nav'
-import { Button } from '../components/ui/button'
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
+import FeedbackButton from '@/components/ui/dashboard/feedback-button'
 
 export const metadata: Metadata = {
   title: 'Settings Layout',
@@ -58,7 +58,7 @@ export default function SettingsLayout({
               UIVerse
             </div>
             <div className="ml-auto flex items-center space-x-4">
-              <Button className="bg-foreground">Feedback</Button>
+              <FeedbackButton />
             </div>
           </div>
         </div>

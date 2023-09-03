@@ -15,6 +15,7 @@ import { Search } from './search'
 import React, { useState, useEffect } from 'react'
 import { MyBookmarks } from './my-bookmarks'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
+import FeedbackButton from '../feedback-button'
 
 export const metadata: Metadata = {
   title: 'Dashboard of UIVerse',
@@ -74,7 +75,7 @@ export default function DashboardInterface() {
           <div className="flex h-16 items-center px-4">
             <div className="pl-6 font-semibold text-2xl">UIVerse</div>
             <div className="ml-auto flex items-center space-x-4">
-              <Button className="bg-foreground">Feedback</Button>
+              <FeedbackButton />
               <Search />
               <FontAwesomeIcon
                 icon={faBell}
