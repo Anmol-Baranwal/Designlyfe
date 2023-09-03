@@ -303,7 +303,7 @@ export function AssetArtwork({
             {asset.formats.map((format, idx) => (
               <Badge
                 key={idx}
-                className="text-foreground bg-slate-200 mr-2 hover:bg-slate-200 mt-2"
+                className="text-bg-300 bg-slate-200 dark:bg-black mr-2 hover:bg-slate-200 mt-2"
               >
                 {format}
               </Badge>

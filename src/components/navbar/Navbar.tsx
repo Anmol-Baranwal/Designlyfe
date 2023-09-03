@@ -24,7 +24,7 @@ const Navbar: FC = () => {
           linkHref={'/login'}
           buttonTxt={'Signup'}
           className={
-            'bg-primary-100 text-text-100 hover:bg-primary-300 hover:text-bg-300 border-2 border-violet-500 transition duration-300'
+            'bg-primary-100 text-text-100 hover:bg-primary-300 hover:text-bg-300 border-2 hover:border-bg-300 transition duration-300'
           }
           onClick={() => setFormType('signup')}
         />

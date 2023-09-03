@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react'
 export function UserNav() {
   const { user } = useAuthContext()
   // const userId = user?.uid
-  // const email = user?.email
+  const email = user?.email || 'AB'
 
   const router = useRouter()
 
@@ -47,13 +47,18 @@ export function UserNav() {
     router.push('/settings/profile')
   }
 
+  const shortName = email
+    .replace(/[^a-zA-Z]/g, '') // Remove non-alphabet characters
+    .slice(0, 2) // Take the first two letters
+    .toUpperCase() // Capitalize the letters
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarImage src="" alt="@anmol" />
-            <AvatarFallback>AB</AvatarFallback>
+            <AvatarFallback>{shortName}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
