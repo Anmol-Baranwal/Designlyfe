@@ -30,13 +30,12 @@ import {
 import { Input } from '../../input'
 import { Label } from '../../label'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  // DropdownMenuLabel,
-  // DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '../../dropdown-menu'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../select'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   personalLists: PersonalList[]
@@ -211,7 +210,7 @@ export function Sidebar({
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button>Submit Link</Button>
+                  <Button disabled>Submit Link</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -240,22 +239,26 @@ export function Sidebar({
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="type">Type of Asset</Label>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger className="text-left pl-6 text-sm p-2 border-bg-muted border">
-                        Click to see options
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-50">
-                        <DropdownMenuItem>Icon</DropdownMenuItem>
-                        <DropdownMenuItem>Illustration</DropdownMenuItem>
-                        <DropdownMenuItem>Mockup</DropdownMenuItem>
-                        <DropdownMenuItem>UI Kit</DropdownMenuItem>
-                        <DropdownMenuItem>Useful Website</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Click to see options" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Icon">Icon</SelectItem>
+                        <SelectItem value="Illustration">
+                          Illustration
+                        </SelectItem>
+                        <SelectItem value="Mockup">Mockup</SelectItem>
+                        <SelectItem value="UI Kit">UI Kit</SelectItem>
+                        <SelectItem value="Useful Website">
+                          Useful Website
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button>Submit Link</Button>
+                  <Button disabled>Submit Link</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
