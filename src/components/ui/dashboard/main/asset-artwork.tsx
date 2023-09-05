@@ -21,6 +21,8 @@ import { Badge } from '../../badge'
 import { useState, useEffect } from 'react'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 import { useToast } from '../../use-toast'
+import { doc, onSnapshot, query, where } from 'firebase/firestore'
+import { db } from '../../../../../firebaseConfig'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
@@ -66,10 +68,7 @@ export function AssetArtwork({
         bookmark: true,
       }))
     }
-  }, [user, asset])
 
-  useEffect(() => {
-    // Check if the user has upvoted this asset
     if (user && asset.upvotes && asset.upvotes[user.uid]) {
       setReactions((prevReactions) => ({
         ...prevReactions,
@@ -77,6 +76,30 @@ export function AssetArtwork({
       }))
     }
   }, [user, asset])
+
+  // firebase listener sample project
+  // const assetDocRef = doc(db, 'assets', asset.type, asset.author, asset.name)
+  // // const assetQuery = query(assetsDocRef, where('name', '==', asset.name))
+  // // const assetQuerySnapshot = await getDocs(assetQuery)
+  // // const assetDocSnapshot = assetQuerySnapshot.docs[0]
+  // //   const assetDocRef = doc(db, 'assets', type, author, assetDocSnapshot.id)
+  // useEffect(() => {
+  //   // Check if the user has upvoted this asset
+
+  //   const unsubscribe = onSnapshot(assetDocRef, (docSnapshot) => {
+  //     console.log('Document updated:', docSnapshot.data())
+  //     if (docSnapshot.exists()) {
+  //       const upvotes = docSnapshot.data().upvotes || {}
+  //       const upvoteCount = Object.keys(upvotes).length
+  //       setUpvoteCount(upvoteCount)
+  //     }
+  //   })
+
+  //   // Clean up the listener when the component unmounts
+  //   return () => {
+  //     unsubscribe()
+  //   }
+  // }, [user, asset, assetDocRef])
 
   const handleUpvoteReactionClick = async (reaction: keyof Reactions) => {
     if (!user) {
