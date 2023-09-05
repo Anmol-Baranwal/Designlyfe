@@ -49,7 +49,11 @@ export function AssetArtwork({
     share: false,
   })
 
-  const [upvoteCount, setUpvoteCount] = useState<number>(0)
+  const initialUpvoteCount = asset.upvotes
+    ? Object.keys(asset.upvotes).length
+    : 0
+
+  const [upvoteCount, setUpvoteCount] = useState<number>(initialUpvoteCount)
   const [shareClicked, setShareClicked] = useState(false)
 
   const { user } = useAuthContext()
@@ -73,13 +77,6 @@ export function AssetArtwork({
       }))
     }
   }, [user, asset])
-
-  // const handleReactionClick = (reaction: keyof Reactions) => {
-  //   setReactions((prevReactions) => ({
-  //     ...prevReactions,
-  //     [reaction]: !prevReactions[reaction],
-  //   }))
-  // }
 
   const handleUpvoteReactionClick = async (reaction: keyof Reactions) => {
     if (!user) {
@@ -116,6 +113,9 @@ export function AssetArtwork({
           await addUserToAssetUpvotesResponse.json()
         console.log(addUserToAssetUpvotesData.message)
 
+        const updatedUpvoteCount = addUserToAssetUpvotesData.upvoteCount
+        setUpvoteCount(updatedUpvoteCount)
+
         const addUserToBookmarkUpvoteResponse = await fetch(
           '/api/addUserToBookmarkUpvote',
           {
@@ -133,9 +133,6 @@ export function AssetArtwork({
         const addUserToBookmarkUpvoteData =
           await addUserToBookmarkUpvoteResponse.json()
         console.log(addUserToBookmarkUpvoteData.message)
-
-        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
-        setUpvoteCount(upvoteCount || 0)
       } else {
         // remove user id from upvotes field of asset
         const removeUserFromAssetUpvotesResponse = await fetch(
@@ -156,6 +153,9 @@ export function AssetArtwork({
           await removeUserFromAssetUpvotesResponse.json()
         console.log(removeUserFromAssetUpvotesData.message)
 
+        const updatedUpvoteCount = removeUserFromAssetUpvotesData.upvoteCount
+        setUpvoteCount(updatedUpvoteCount)
+
         const removeUserUpvoteFromUserResponse = await fetch(
           '/api/removeUserUpvoteFromUser',
           {
@@ -173,9 +173,6 @@ export function AssetArtwork({
         const removeUserUpvoteFromUserData =
           await removeUserUpvoteFromUserResponse.json()
         console.log(removeUserUpvoteFromUserData.message)
-
-        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
-        setUpvoteCount(upvoteCount || 0)
       }
     } catch (error) {
       console.error('Error adding upvote:', error)
