@@ -116,6 +116,24 @@ export function AssetArtwork({
           await addUserToAssetUpvotesResponse.json()
         console.log(addUserToAssetUpvotesData.message)
 
+        const addUserToBookmarkUpvoteResponse = await fetch(
+          '/api/addUserToBookmarkUpvote',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset: asset,
+            }),
+          }
+        )
+
+        const addUserToBookmarkUpvoteData =
+          await addUserToBookmarkUpvoteResponse.json()
+        console.log(addUserToBookmarkUpvoteData.message)
+
         const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
         setUpvoteCount(upvoteCount || 0)
       } else {
@@ -137,6 +155,24 @@ export function AssetArtwork({
         const removeUserFromAssetUpvotesData =
           await removeUserFromAssetUpvotesResponse.json()
         console.log(removeUserFromAssetUpvotesData.message)
+
+        const removeUserUpvoteFromUserResponse = await fetch(
+          '/api/removeUserUpvoteFromUser',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeUserUpvoteFromUserData =
+          await removeUserUpvoteFromUserResponse.json()
+        console.log(removeUserUpvoteFromUserData.message)
 
         const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
         setUpvoteCount(upvoteCount || 0)
