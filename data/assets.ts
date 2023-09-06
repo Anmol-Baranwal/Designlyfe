@@ -69,7 +69,7 @@ export const Icons: Asset[] = [
     assetUrl:
       'https://www.getillustrations.com/illustration-pack/3d-finance-icons',
     imageUrl:
-      'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
+      'https://www.getillustrations.com/packs/download-free-3d-app-icons-for-iphone/elements/_1x/app%20icons,%20social%20media,%20search%20_%20logo,%20google,%20engine,%20software_sm.png',
     category: 'Paid',
     type: 'Icons',
     author: 'Getillustrations',
@@ -112,7 +112,7 @@ export const Illustrations: Asset[] = [
     formats: ['PNG', 'AI'],
     assetUrl: 'https://craftwork.gumroad.com/l/ZWiR',
     imageUrl:
-      'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
+      'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Free',
     type: 'Illustrations',
     author: 'Craftwork',
@@ -125,8 +125,7 @@ export const Illustrations: Asset[] = [
     formats: ['Figma', 'Sketch', 'PNG', 'SVG'],
     assetUrl: 'https://craftwork.design/downloads/error-404-illustrations/',
     imageUrl:
-      'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
-    // "imageUrl": "",
+      'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Free',
     type: 'Illustrations',
     author: 'Craftwork',
@@ -139,8 +138,7 @@ export const Illustrations: Asset[] = [
     formats: ['PNG', 'SVG'],
     assetUrl: 'https://craftwork.design/downloads/halloween/',
     imageUrl:
-      'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
-    // "imageUrl": "",
+      'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Free',
     type: 'Illustrations',
     author: 'Craftwork',
@@ -154,8 +152,7 @@ export const Illustrations: Asset[] = [
     assetUrl:
       'https://www.getillustrations.com/illustration-pack/blues-dual-tone-free-illustrations',
     imageUrl:
-      'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
-    // "imageUrl": "",
+      'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Free',
     type: 'Illustrations',
     author: 'Getillustrations',
@@ -169,8 +166,7 @@ export const Illustrations: Asset[] = [
     assetUrl:
       'https://www.getillustrations.com/illustration-pack/loomies-free-vector-illustrations',
     imageUrl:
-      'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
-    // "imageUrl": "",
+      'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Free',
     type: 'Illustrations',
     author: 'Getillustrations',
@@ -183,8 +179,7 @@ export const Illustrations: Asset[] = [
     formats: ['Sketch', 'Figma', 'SVG', 'PNG', 'AI', 'XD', 'Affinity'],
     assetUrl: 'https://www.ls.graphics/products/clusck-2-0-illustration-kit',
     imageUrl:
-      'https://images.unsplash.com/photo-1446185250204-f94591f7d702?w=300&dpr=2&q=80',
-    // "imageUrl": "",
+      'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Paid',
     type: 'Illustrations',
     author: 'Ls Graphics',
@@ -198,8 +193,7 @@ export const Illustrations: Asset[] = [
     formats: ['Sketch', 'Figma', 'SVG', 'PNG', 'AI', 'XD', 'Affinity'],
     assetUrl: 'https://www.ls.graphics/illustrations/ding',
     imageUrl:
-      'https://images.unsplash.com/photo-1446185250204-f94591f7d702?w=300&dpr=2&q=80',
-    // "imageUrl": "",
+      'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Paid',
     type: 'Illustrations',
     author: 'Ls Graphics',
@@ -214,7 +208,6 @@ export const Illustrations: Asset[] = [
     assetUrl: 'https://drawer.design/products/distance-learning/',
     imageUrl:
       'https://images.unsplash.com/photo-1615247001958-f4bc92fa6a4a?w=300&dpr=2&q=80',
-    // "imageUrl": "",
     category: 'Paid',
     type: 'Illustrations',
     author: 'Drawer',
@@ -238,7 +231,6 @@ export const Illustrations: Asset[] = [
     assetUrl: 'https://drawer.design/products/dr-vector/',
     imageUrl:
       'https://images.unsplash.com/photo-1615247001958-f4bc92fa6a4a?w=300&dpr=2&q=80',
-    // "imageUrl": "",
     category: 'Paid',
     type: 'Illustrations',
     author: 'Drawer',
@@ -253,7 +245,6 @@ export const Illustrations: Asset[] = [
     assetUrl: 'https://growwwkit.com/illustrations/phonies-2/',
     imageUrl:
       'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
-    // "imageUrl": "",
     category: 'Paid',
     type: 'Illustrations',
     author: 'Growww',
@@ -268,7 +259,6 @@ export const Illustrations: Asset[] = [
     assetUrl: 'https://growwwkit.com/illustrations/circuit/',
     imageUrl:
       'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
-    // "imageUrl": "",
     category: 'Paid',
     type: 'Illustrations',
     author: 'Growww',
@@ -284,7 +274,6 @@ export const Illustrations: Asset[] = [
       'https://www.drawkit.com/product/black-friday-online-shopping-illustrations',
     imageUrl:
       'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
-    // "imageUrl": "",
     category: 'Free',
     type: 'Illustrations',
     author: 'Drawkit',
@@ -298,7 +287,6 @@ export const Illustrations: Asset[] = [
     assetUrl: 'https://www.drawkit.com/product/creative-design-animated-pack',
     imageUrl:
       'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
-    // "imageUrl": "",
     category: 'Paid',
     type: 'Illustrations',
     author: 'Drawkit',
