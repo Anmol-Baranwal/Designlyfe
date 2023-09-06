@@ -43,7 +43,7 @@ const defaultValues: Partial<NotificationsFormValues> = {
 
 export function NotificationsForm() {
   const form = useForm<NotificationsFormValues>({
-    // resolver: zodResolver(notificationsFormSchema), // incompatible type error
+    resolver: zodResolver(notificationsFormSchema),
     defaultValues,
   })
 
