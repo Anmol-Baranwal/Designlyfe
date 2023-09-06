@@ -21,8 +21,9 @@ import { Badge } from '../../badge'
 import { useState, useEffect } from 'react'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 import { useToast } from '../../use-toast'
-import { doc, onSnapshot, query, where } from 'firebase/firestore'
-import { db } from '../../../../../firebaseConfig'
+// import { doc, onSnapshot, query, where } from 'firebase/firestore'
+// import { db } from '../../../../../firebaseConfig'
+import Link from 'next/link'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
@@ -347,7 +348,9 @@ export function AssetArtwork({
         </Avatar>
       </div>
       <div className="space-y-1 text-sm pb-2 overflow-hidden pl-2">
-        <h3 className="font-medium leading-none text-lg">{asset.name}</h3>
+        <h3 className="font-medium leading-none text-lg hover:underline hover:text-bg-300">
+          <Link href={`${asset.assetUrl}?ref=UIVerse`}>{asset.name}</Link>
+        </h3>
         <div className="flex text-md pt-2">
           <p className="text-muted-foreground mr-2">• {asset.category}</p>
           <p className="text-muted-foreground mr-2">
