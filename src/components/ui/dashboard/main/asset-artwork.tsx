@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 // import { PlusCircledIcon } from '@radix-ui/react-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle, faList } from '@fortawesome/free-solid-svg-icons'
@@ -386,7 +386,6 @@ export function AssetArtwork({
           </div>
         </ContextMenuTrigger>
         <ContextMenuContent className="w-40">
-          <ContextMenuItem>Add to Library</ContextMenuItem>
           <ContextMenuSub>
             <ContextMenuSubTrigger>Add to Playlist</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-48">
@@ -444,6 +443,7 @@ export function AssetArtwork({
             alt="share reaction"
             width={20}
             height={20}
+            // layout="fixed"  // docs: https://nextjs.org/docs/pages/api-reference/components/image-legacy#comparison
           />
         </div>
       </div>
