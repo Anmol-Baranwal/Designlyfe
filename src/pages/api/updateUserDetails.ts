@@ -15,6 +15,7 @@ type UserData = {
   username?: string
   avatarUrl?: string
   theme?: string
+  DOB?: Date
   bio?: string
   urls?: { value: string }[]
 }
@@ -30,7 +31,7 @@ export default async function UpdateUserDetails(
 ) {
   if (req.method === 'POST') {
     try {
-      const { userId, username, bio, urls } = req.body
+      const { userId, username, bio, urls, theme, DOB, name } = req.body
 
       // manual testing
       //   const userId = 'ePUEKjRZ1qXb80SEkkUDbhzX8Mf2'
@@ -58,6 +59,9 @@ export default async function UpdateUserDetails(
       if (username) userUpdateData.username = username
       if (bio) userUpdateData.bio = bio
       if (urls) userUpdateData.urls = urls
+      if (theme) userUpdateData.theme = theme
+      if (name) userUpdateData.name = name
+      if (DOB) userUpdateData.DOB = DOB
 
       await updateDoc(userDoc, userUpdateData)
 
