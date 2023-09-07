@@ -152,15 +152,22 @@ export function UserAuthForm({
     if (email === '') {
       toast({
         title: 'Email missing!',
-        description: 'Enter an email to recieve password reset link',
+        description: (
+          <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
+            Enter an email to recieve password reset link.
+          </div>
+        ),
       })
     } else {
       try {
         await resetPassword(email)
         toast({
           title: 'Reset Link Sent',
-          description:
-            'A password reset link has been sent to your email address',
+          description: (
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
+              A password reset link has been sent to your email address.
+            </div>
+          ),
         })
         setIsLoading(false)
       } catch (error) {
@@ -169,7 +176,11 @@ export function UserAuthForm({
         toast({
           variant: 'destructive',
           title: 'Uh oh! Something went wrong.',
-          description: 'There was a problem with your request.',
+          description: (
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
+              There was a problem with your request.
+            </div>
+          ),
         })
         setIsLoading(false)
       }

@@ -85,7 +85,7 @@ export function ProfileForm() {
         toast({
           title: 'Profile updated successfully',
           description: (
-            <div className="mt-2 w-[340px] rounded-md bg-slate-950 p-4 text-white">
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
               Your profile details have been updated.
             </div>
           ),
@@ -94,10 +94,10 @@ export function ProfileForm() {
         console.error('Error updating profile:', response.status)
 
         toast({
-          variant: 'destructive',
+          // variant: 'destructive',
           title: 'Uh Oh! Something went wrong',
           description: (
-            <div className="mt-2 w-[340px] rounded-md bg-slate-950 p-4 text-white">
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
               There was a problem updating your details.
             </div>
           ),
