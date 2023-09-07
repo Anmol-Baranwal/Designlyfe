@@ -65,8 +65,6 @@ export function ProfileForm() {
   const { user } = useAuthContext()
 
   async function onSubmit(data: ProfileFormValues) {
-    console.log({ data })
-
     try {
       const response = await fetch(`/api/updateUserDetails`, {
         method: 'POST',
