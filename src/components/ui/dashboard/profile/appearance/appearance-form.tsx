@@ -20,6 +20,7 @@ import {
 } from '../../../form'
 import { RadioGroup, RadioGroupItem } from '../../../radio-group'
 import { toast } from '../../../use-toast'
+import { useAuthContext } from '../../../../../../lib/firebase/context/AuthContext'
 
 const appearanceFormSchema = z.object({
   theme: z.enum(['light', 'dark'], {
@@ -33,7 +34,6 @@ const appearanceFormSchema = z.object({
 
 type AppearanceFormValues = z.infer<typeof appearanceFormSchema>
 
-// This can come from your database or API.
 const defaultValues: Partial<AppearanceFormValues> = {
   theme: 'light',
 }
@@ -44,15 +44,46 @@ export function AppearanceForm() {
     defaultValues,
   })
 
-  function onSubmit(data: AppearanceFormValues) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+  const { user } = useAuthContext()
+
+  async function onSubmit(data: AppearanceFormValues) {
+    try {
+      const response = await fetch(`/api/updateUserDetails`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user?.uid,
+          theme: data.theme,
+        }),
+      })
+
+      if (response.ok) {
+        toast({
+          title: 'Theme Preference updated successfully',
+          description: (
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
+              Your theme preference has been updated.
+            </div>
+          ),
+        })
+      } else {
+        console.error('Error updating profile:', response.status)
+
+        toast({
+          // variant: 'destructive',
+          title: 'Uh Oh! Something went wrong',
+          description: (
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
+              There was a problem updating your theme preference.
+            </div>
+          ),
+        })
+      }
+    } catch (error) {
+      console.error('Error updating theme preference:', error)
+    }
   }
 
   return (
@@ -103,7 +134,6 @@ export function AppearanceForm() {
               <RadioGroup
                 onValueChange={field.onChange}
                 defaultValue={field.value}
-                // defaultValue="light"
                 className="grid max-w-md grid-cols-2 gap-8 pt-2"
               >
                 <FormItem>
