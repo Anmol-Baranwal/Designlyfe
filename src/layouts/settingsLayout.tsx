@@ -34,13 +34,9 @@ const sidebarNavItems = [
 
 interface SettingsLayoutProps {
   children: React.ReactNode
-  button?: ReactNode
 }
 
-export default function SettingsLayout({
-  children,
-  button,
-}: SettingsLayoutProps) {
+export default function SettingsLayout({ children }: SettingsLayoutProps) {
   const router = useRouter()
 
   const { user } = useAuthContext()
