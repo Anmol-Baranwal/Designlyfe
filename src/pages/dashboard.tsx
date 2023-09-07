@@ -22,6 +22,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   if (!user) {
     // User is not authenticated => redirect to home page
     router.push('/')
+    return null
     // causes re-renders when users log out
 
     // toast({
