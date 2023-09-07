@@ -76,12 +76,11 @@ export function UserNav() {
     router.push('/settings/profile')
   }
 
-  const shortName =
-    userData?.username || // username is much better for finding avatar fallback name
-    email
-      .replace(/[^a-zA-Z]/g, '') // Remove non-alphabet characters
-      .slice(0, 2) // Take the first two letters
-      .toUpperCase()
+  const choice = userData?.username || email // username is much better for finding avatar fallback name
+  const shortName = choice
+    .replace(/[^a-zA-Z]/g, '') // Remove non-alphabet characters
+    .slice(0, 2) // Take the first two letters
+    .toUpperCase()
 
   return (
     <DropdownMenu>
