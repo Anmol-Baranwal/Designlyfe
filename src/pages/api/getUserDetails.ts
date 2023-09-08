@@ -14,6 +14,10 @@ type UserData = {
   email: string
   username: string
   avatarUrl: string
+  theme: string
+  DOB: Date
+  bio: string
+  urls: { value: string }[]
 }
 
 type Data = {
