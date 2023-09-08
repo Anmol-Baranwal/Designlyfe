@@ -21,6 +21,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '../../../radio-group'
 import { toast } from '../../../use-toast'
 import { useAuthContext } from '../../../../../../lib/firebase/context/AuthContext'
+import { useTheme } from 'next-themes'
 
 const appearanceFormSchema = z.object({
   theme: z.enum(['light', 'dark'], {
@@ -45,6 +46,7 @@ export function AppearanceForm() {
   })
 
   const { user } = useAuthContext()
+  const { setTheme } = useTheme()
 
   async function onSubmit(data: AppearanceFormValues) {
     try {
@@ -60,6 +62,7 @@ export function AppearanceForm() {
       })
 
       if (response.ok) {
+        setTheme(data.theme)
         toast({
           title: 'Theme Preference updated successfully',
           description: (
