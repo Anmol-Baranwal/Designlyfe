@@ -11,7 +11,7 @@ import { Sidebar } from './sidebar'
 import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
-import { Search } from './search'
+import { Search } from '../../search'
 import React, { useState, useEffect } from 'react'
 import { MyBookmarks } from './my-bookmarks'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
@@ -83,7 +83,7 @@ export default function DashboardInterface() {
             <div className="pl-6 font-semibold text-2xl">UIVerse</div>
             <div className="ml-auto flex items-center space-x-4">
               <FeedbackButton />
-              <Search />
+              <Search className="md:w-[100px] lg:w-[300px]" />
               <FontAwesomeIcon
                 icon={faBell}
                 className="mr-2 h-4 w-4 rounded-full bg-muted p-2"
