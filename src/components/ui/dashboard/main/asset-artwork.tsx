@@ -303,7 +303,7 @@ export function AssetArtwork({
   }
 
   const { toast } = useToast()
-  const handleShareReactionClick = () => {
+  const handleShareReactionClick = async () => {
     const urlWithRef = `${asset.assetUrl}?ref=UIVerse`
 
     // Copy the URL to the clipboard
@@ -315,6 +315,25 @@ export function AssetArtwork({
     })
 
     setShareClicked(true)
+
+    try {
+      const incrementShareCountResponse = await fetch(
+        '/api/incrementShareCount',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            asset: asset,
+          }),
+        }
+      )
+      const incrementShareCountData = await incrementShareCountResponse.json()
+      console.log(incrementShareCountData.message)
+    } catch (error) {
+      console.error('Error incrementing share count:', error)
+    }
 
     // Reset the shareClicked state after a delay (for the focus effect)
     setTimeout(() => {
