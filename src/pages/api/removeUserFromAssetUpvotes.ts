@@ -6,6 +6,7 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
 } from 'firebase/firestore'
 import { db } from '../../../firebaseConfig'
 
@@ -50,9 +51,20 @@ const removeUserFromAssetBookmark = async (
     //   [`upvotes.${userId}`]: null, // Set to null to remove the user
     // })
 
-    res
-      .status(200)
-      .json({ message: 'User removed from asset upvotes successfully' })
+    const updatedAssetDoc = await getDoc(assetDocRef)
+
+    if (!updatedAssetDoc.exists()) {
+      res.status(404).json({ message: 'Asset document not found' })
+      return
+    }
+
+    const upvotes = updatedAssetDoc.data().upvotes || {}
+    const upvoteCount = Object.keys(upvotes).length
+
+    res.status(200).json({
+      message: 'User removed from asset upvotes successfully',
+      upvoteCount,
+    })
   } catch (error) {
     console.error('Error removing user from asset upvotes:', error)
     res.status(500).json({ error: 'Internal server error' })

@@ -6,6 +6,7 @@ import { SidebarNav } from '../components/ui/dashboard/profile/components/sideba
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import FeedbackButton from '@/components/ui/dashboard/feedback-button'
+import { useAuthContext } from '../../lib/firebase/context/AuthContext'
 
 export const metadata: Metadata = {
   title: 'Settings Layout',
@@ -33,14 +34,17 @@ const sidebarNavItems = [
 
 interface SettingsLayoutProps {
   children: React.ReactNode
-  button?: ReactNode
 }
 
-export default function SettingsLayout({
-  children,
-  button,
-}: SettingsLayoutProps) {
+export default function SettingsLayout({ children }: SettingsLayoutProps) {
   const router = useRouter()
+
+  const { user } = useAuthContext()
+  if (!user) {
+    router.push('/')
+    return null
+  }
+
   const goHomePage = () => {
     router.push('/dashboard')
     return

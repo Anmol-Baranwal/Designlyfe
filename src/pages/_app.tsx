@@ -23,7 +23,11 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <AuthContextProvider>
         <AuthPageProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme={'light'}
+            enableSystem={true}
+          >
             <Component {...pageProps} />
             <Toaster />
           </ThemeProvider>

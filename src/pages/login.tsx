@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-// import Image from 'next/image'
 import Link from 'next/link'
 import { useContext } from 'react'
 
@@ -8,7 +7,7 @@ import { buttonVariants } from '../components/ui/button'
 import { UserAuthForm } from '../components/authentication/user-auth-form'
 import AuthPageContext from '@/components/AuthPageContext'
 import { useAuthContext } from '../../lib/firebase/context/AuthContext'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 export const metadata: Metadata = {
   title: 'Authentication',

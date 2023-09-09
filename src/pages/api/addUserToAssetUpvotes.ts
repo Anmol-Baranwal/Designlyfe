@@ -6,6 +6,7 @@ import {
   where,
   getDocs,
   setDoc,
+  getDoc,
 } from 'firebase/firestore'
 import { db } from '../../../firebaseConfig'
 
@@ -44,9 +45,20 @@ const addUserToAssetBookmark = async (
       },
     })
 
-    res
-      .status(200)
-      .json({ message: 'User added to asset upvotes successfully' })
+    const updatedAssetDoc = await getDoc(assetDocRef)
+
+    if (!updatedAssetDoc.exists()) {
+      res.status(404).json({ message: 'Asset document not found' })
+      return
+    }
+
+    const upvotes = updatedAssetDoc.data().upvotes || {}
+    const upvoteCount = Object.keys(upvotes).length
+
+    res.status(200).json({
+      message: 'User added to asset upvotes successfully',
+      upvoteCount,
+    })
   } catch (error) {
     console.error('Error adding user to asset upvotes:', error)
     res.status(500).json({ error: 'Internal server error' })

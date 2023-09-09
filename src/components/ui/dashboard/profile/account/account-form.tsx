@@ -30,6 +30,7 @@ import {
 import { Input } from '../../../input'
 import { Popover, PopoverContent, PopoverTrigger } from '../../../popover'
 import { toast } from '../../../use-toast'
+import { useAuthContext } from '../../../../../../lib/firebase/context/AuthContext'
 
 // const languages = [
 //   { label: 'English', value: 'en' },
@@ -64,25 +65,57 @@ type AccountFormValues = z.infer<typeof accountFormSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<AccountFormValues> = {
-  // name: "Your name",
-  // dob: new Date("2023-01-23"),
+  name: '',
+  dob: new Date('2023-01-23'),
 }
 
 export function AccountForm() {
   const form = useForm<AccountFormValues>({
-    // resolver: zodResolver(accountFormSchema),
+    resolver: zodResolver(accountFormSchema),
     defaultValues,
   })
 
-  function onSubmit(data: AccountFormValues) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+  const { user } = useAuthContext()
+
+  async function onSubmit(data: AccountFormValues) {
+    try {
+      const response = await fetch(`/api/updateUserDetails`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user?.uid,
+          name: data.name,
+          DOB: data.dob,
+        }),
+      })
+
+      if (response.ok) {
+        toast({
+          title: 'Profile updated successfully',
+          description: (
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
+              Your profile details have been updated.
+            </div>
+          ),
+        })
+      } else {
+        console.error('Error updating profile:', response.status)
+
+        toast({
+          // variant: 'destructive',
+          title: 'Uh Oh! Something went wrong',
+          description: (
+            <div className="mt-2 w-[340px] rounded-md bg-foreground p-4 text-background">
+              There was a problem updating your details.
+            </div>
+          ),
+        })
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error)
+    }
   }
 
   return (

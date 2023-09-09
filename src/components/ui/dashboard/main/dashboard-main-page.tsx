@@ -11,11 +11,13 @@ import { Sidebar } from './sidebar'
 import { Asset } from '../../../../../data/assets'
 import { personalLists } from '../../../../../data/personalLists'
 import { UserNav } from './user-nav'
-import { Search } from './search'
+import { Search } from '../../search'
 import React, { useState, useEffect } from 'react'
 import { MyBookmarks } from './my-bookmarks'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 import FeedbackButton from '../feedback-button'
+import MostLoved from './most-loved'
+import { categoriesBrands } from '../../../../../data/assets'
 
 export const metadata: Metadata = {
   title: 'Dashboard of UIVerse',
@@ -50,7 +52,12 @@ export default function DashboardInterface() {
       }
     }
 
-    fetchAssets()
+    if (
+      selectedSidebarOption &&
+      categoriesBrands.brand.includes(selectedSidebarOption)
+    ) {
+      fetchAssets()
+    }
   }, [selectedSidebarOption])
 
   // console.log({ assets })
@@ -76,7 +83,7 @@ export default function DashboardInterface() {
             <div className="pl-6 font-semibold text-2xl">UIVerse</div>
             <div className="ml-auto flex items-center space-x-4">
               <FeedbackButton />
-              <Search />
+              <Search className="md:w-[100px] lg:w-[300px]" />
               <FontAwesomeIcon
                 icon={faBell}
                 className="mr-2 h-4 w-4 rounded-full bg-muted p-2"
@@ -100,6 +107,8 @@ export default function DashboardInterface() {
                 <div className="h-full px-4 py-6 lg:px-10">
                   {selectedSidebarOption === 'My bookmarks' && user ? (
                     <MyBookmarks userId={user.uid} />
+                  ) : selectedSidebarOption === 'Most Loved' ? (
+                    <MostLoved />
                   ) : (
                     <Tabs defaultValue="All" className="h-full space-y-6">
                       <div className="space-between flex items-center">

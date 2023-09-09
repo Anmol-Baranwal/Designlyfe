@@ -7,13 +7,21 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
+  // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '../../dropdown-menu'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 import { useRouter } from 'next/router'
 import { signOutGitHub } from '../../../../../lib/GitHubAuth'
 import { useEffect, useState } from 'react'
+
+type UserData = {
+  userId: string
+  name: string
+  email: string
+  username: string
+  avatarUrl: string
+}
 
 export function UserNav() {
   const { user } = useAuthContext()
@@ -23,6 +31,8 @@ export function UserNav() {
   const router = useRouter()
 
   const [isProfileClicked, setIsProfileClicked] = useState(false)
+
+  const [userData, setUserData] = useState<UserData | null>(null)
 
   const handleSignOut = async () => {
     console.log('Provider ID:', user?.providerId)
@@ -37,9 +47,28 @@ export function UserNav() {
   }
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        try {
+          const response = await fetch(`/api/getUserDetails?userId=${user.uid}`)
+          if (response.ok) {
+            const data = await response.json()
+            setUserData(data.user)
+            // console.log(data.message)
+          } else {
+            console.error('Failed to fetch user data:', response.statusText)
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error)
+        }
+      }
+    }
+
     if (!user) {
       // If the user is logged out, navigate to the home page
       router.push('/')
+    } else {
+      fetchUserData()
     }
   }, [user, router])
 
@@ -47,10 +76,11 @@ export function UserNav() {
     router.push('/settings/profile')
   }
 
-  const shortName = email
+  const choice = userData?.username || email // username is much better for finding avatar fallback name
+  const shortName = choice
     .replace(/[^a-zA-Z]/g, '') // Remove non-alphabet characters
     .slice(0, 2) // Take the first two letters
-    .toUpperCase() // Capitalize the letters
+    .toUpperCase()
 
   return (
     <DropdownMenu>
@@ -65,9 +95,11 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Anmol</p>
+            <p className="text-sm font-medium leading-none">
+              {userData?.username || 'Builder'}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              uiverse@example.com
+              {userData?.email}
             </p>
           </div>
         </DropdownMenuLabel>

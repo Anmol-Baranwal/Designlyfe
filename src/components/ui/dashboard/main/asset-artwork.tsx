@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 // import { PlusCircledIcon } from '@radix-ui/react-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle, faList } from '@fortawesome/free-solid-svg-icons'
@@ -21,6 +21,9 @@ import { Badge } from '../../badge'
 import { useState, useEffect } from 'react'
 import { useAuthContext } from '../../../../../lib/firebase/context/AuthContext'
 import { useToast } from '../../use-toast'
+// import { doc, onSnapshot, query, where } from 'firebase/firestore'
+// import { db } from '../../../../../firebaseConfig'
+import Link from 'next/link'
 
 interface AssetArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: Asset
@@ -49,7 +52,11 @@ export function AssetArtwork({
     share: false,
   })
 
-  const [upvoteCount, setUpvoteCount] = useState<number>(0)
+  const initialUpvoteCount = asset.upvotes
+    ? Object.keys(asset.upvotes).length
+    : 0
+
+  const [upvoteCount, setUpvoteCount] = useState<number>(initialUpvoteCount)
   const [shareClicked, setShareClicked] = useState(false)
 
   const { user } = useAuthContext()
@@ -62,10 +69,7 @@ export function AssetArtwork({
         bookmark: true,
       }))
     }
-  }, [user, asset])
 
-  useEffect(() => {
-    // Check if the user has upvoted this asset
     if (user && asset.upvotes && asset.upvotes[user.uid]) {
       setReactions((prevReactions) => ({
         ...prevReactions,
@@ -74,12 +78,29 @@ export function AssetArtwork({
     }
   }, [user, asset])
 
-  // const handleReactionClick = (reaction: keyof Reactions) => {
-  //   setReactions((prevReactions) => ({
-  //     ...prevReactions,
-  //     [reaction]: !prevReactions[reaction],
-  //   }))
-  // }
+  // firebase listener sample project
+  // const assetDocRef = doc(db, 'assets', asset.type, asset.author, asset.name)
+  // // const assetQuery = query(assetsDocRef, where('name', '==', asset.name))
+  // // const assetQuerySnapshot = await getDocs(assetQuery)
+  // // const assetDocSnapshot = assetQuerySnapshot.docs[0]
+  // //   const assetDocRef = doc(db, 'assets', type, author, assetDocSnapshot.id)
+  // useEffect(() => {
+  //   // Check if the user has upvoted this asset
+
+  //   const unsubscribe = onSnapshot(assetDocRef, (docSnapshot) => {
+  //     console.log('Document updated:', docSnapshot.data())
+  //     if (docSnapshot.exists()) {
+  //       const upvotes = docSnapshot.data().upvotes || {}
+  //       const upvoteCount = Object.keys(upvotes).length
+  //       setUpvoteCount(upvoteCount)
+  //     }
+  //   })
+
+  //   // Clean up the listener when the component unmounts
+  //   return () => {
+  //     unsubscribe()
+  //   }
+  // }, [user, asset, assetDocRef])
 
   const handleUpvoteReactionClick = async (reaction: keyof Reactions) => {
     if (!user) {
@@ -116,8 +137,26 @@ export function AssetArtwork({
           await addUserToAssetUpvotesResponse.json()
         console.log(addUserToAssetUpvotesData.message)
 
-        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
-        setUpvoteCount(upvoteCount || 0)
+        const updatedUpvoteCount = addUserToAssetUpvotesData.upvoteCount
+        setUpvoteCount(updatedUpvoteCount)
+
+        const addUserToBookmarkUpvoteResponse = await fetch(
+          '/api/addUserToBookmarkUpvote',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset: asset,
+            }),
+          }
+        )
+
+        const addUserToBookmarkUpvoteData =
+          await addUserToBookmarkUpvoteResponse.json()
+        console.log(addUserToBookmarkUpvoteData.message)
       } else {
         // remove user id from upvotes field of asset
         const removeUserFromAssetUpvotesResponse = await fetch(
@@ -138,8 +177,26 @@ export function AssetArtwork({
           await removeUserFromAssetUpvotesResponse.json()
         console.log(removeUserFromAssetUpvotesData.message)
 
-        const upvoteCount = asset.upvotes && Object.keys(asset.upvotes).length
-        setUpvoteCount(upvoteCount || 0)
+        const updatedUpvoteCount = removeUserFromAssetUpvotesData.upvoteCount
+        setUpvoteCount(updatedUpvoteCount)
+
+        const removeUserUpvoteFromUserResponse = await fetch(
+          '/api/removeUserUpvoteFromUser',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.uid,
+              asset,
+            }),
+          }
+        )
+
+        const removeUserUpvoteFromUserData =
+          await removeUserUpvoteFromUserResponse.json()
+        console.log(removeUserUpvoteFromUserData.message)
       }
     } catch (error) {
       console.error('Error adding upvote:', error)
@@ -246,7 +303,7 @@ export function AssetArtwork({
   }
 
   const { toast } = useToast()
-  const handleShareReactionClick = () => {
+  const handleShareReactionClick = async () => {
     const urlWithRef = `${asset.assetUrl}?ref=UIVerse`
 
     // Copy the URL to the clipboard
@@ -258,6 +315,25 @@ export function AssetArtwork({
     })
 
     setShareClicked(true)
+
+    try {
+      const incrementShareCountResponse = await fetch(
+        '/api/incrementShareCount',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            asset: asset,
+          }),
+        }
+      )
+      const incrementShareCountData = await incrementShareCountResponse.json()
+      console.log(incrementShareCountData.message)
+    } catch (error) {
+      console.error('Error incrementing share count:', error)
+    }
 
     // Reset the shareClicked state after a delay (for the focus effect)
     setTimeout(() => {
@@ -291,7 +367,9 @@ export function AssetArtwork({
         </Avatar>
       </div>
       <div className="space-y-1 text-sm pb-2 overflow-hidden pl-2">
-        <h3 className="font-medium leading-none text-lg">{asset.name}</h3>
+        <h3 className="font-medium leading-none text-lg hover:underline hover:text-bg-300">
+          <Link href={`${asset.assetUrl}?ref=UIVerse`}>{asset.name}</Link>
+        </h3>
         <div className="flex text-md pt-2">
           <p className="text-muted-foreground mr-2">• {asset.category}</p>
           <p className="text-muted-foreground mr-2">
@@ -327,7 +405,6 @@ export function AssetArtwork({
           </div>
         </ContextMenuTrigger>
         <ContextMenuContent className="w-40">
-          <ContextMenuItem>Add to Library</ContextMenuItem>
           <ContextMenuSub>
             <ContextMenuSubTrigger>Add to Playlist</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-48">
@@ -385,6 +462,7 @@ export function AssetArtwork({
             alt="share reaction"
             width={20}
             height={20}
+            // layout="fixed"  // docs: https://nextjs.org/docs/pages/api-reference/components/image-legacy#comparison
           />
         </div>
       </div>
