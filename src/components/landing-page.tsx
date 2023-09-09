@@ -17,11 +17,10 @@ const LandingPage = () => {
             href="https://docs.google.com/forms/d/1-8Ga2dGzXhoH8a7w9_mRFtoukfD7a4Al_A060OdHWq8"
           />
           <h2 className="text-6xl font-medium mb-10 mt-2 text-bg-100 font-poppins leading-tight ">
-            find best quality <br /> design assets for free <br /> 10x faster{' '}
-            <br />
+            find best quality <br /> design assets <br /> 10x faster <br />
           </h2>
           <div className="flex">
-            <Button className="mr-8 py-8 px-14 text-xl bg-bg-100 border-2 hover:bg-primary-100">
+            <Button className="mr-8 py-8 px-14 text-xl bg-bg-100 border-2 tracking-widest hover:bg-primary-100">
               <Link href="/login">Try the Demo</Link>
             </Button>
             {/* <Button className="mr-8 h-12 px-8 text-md bg-transparent border-2 border-primary-200 hover:bg-primary-200 hover:shadow-primary-200 hover:shadow-sm">
