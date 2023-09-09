@@ -7,10 +7,15 @@ import { BriefTitle } from './brief-title'
 
 const LandingPage = () => {
   return (
-    <div className="bg-cover bg-center">
-      <div className="flex px-16 justify-center">
-        <div className="flex flex-col w-1/2 py-10">
-          <BriefTitle size="w-60 h-4" txt="Join waitlist Now" />
+    <div className="bg-cover bg-center my-2">
+      <div className="flex pl-24 pr-16 justify-center">
+        <div className="flex flex-col w-1/2 py-8">
+          <BriefTitle
+            size="w-60 h-4"
+            txt="Join waitlist Now"
+            className="cursor-pointer hover:tracking-wider hover:text-slate-600 transition-all duration-300"
+            href="https://docs.google.com/forms/d/1-8Ga2dGzXhoH8a7w9_mRFtoukfD7a4Al_A060OdHWq8"
+          />
           <h2 className="text-6xl font-medium mb-10 mt-2 text-bg-100 font-poppins leading-tight ">
             find best quality <br /> design assets for free <br /> 10x faster{' '}
             <br />
