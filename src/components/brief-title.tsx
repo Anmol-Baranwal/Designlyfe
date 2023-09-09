@@ -1,18 +1,25 @@
+import Link from 'next/link'
 import React, { FC } from 'react'
 
 interface BriefTitleProps {
   size: string
   className?: string
   txt: string
+  href?: string
 }
 
-export const BriefTitle: FC<BriefTitleProps> = ({ size, className, txt }) => {
+export const BriefTitle: FC<BriefTitleProps> = ({
+  size,
+  className,
+  txt,
+  href,
+}) => {
   return (
-    <div className={`mt-20 relative w-full ${className}`}>
+    <div className={`mt-20 relative w-full`}>
       <h3
-        className={`text-xl font-dm-sans tracking-wide mb-[-12px] ml-2 hover:tracking-wider transition-all duration-300 cursor-pointer hover:text-slate-600`}
+        className={`text-xl font-dm-sans tracking-wide mb-[-12px] ml-2 ${className}`}
       >
-        {txt}
+        {href ? <Link href={href}>{txt}</Link> : txt}
       </h3>
       <div className={`${size} bg-slate-200 rounded-lg`} />
     </div>
