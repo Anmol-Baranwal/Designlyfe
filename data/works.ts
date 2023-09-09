@@ -7,22 +7,22 @@ export interface HowItWorksProps {
 export const howItWorksData: HowItWorksProps[] = [
   {
     id: 1,
-    title: 'Set disbursement Instructions',
-    text: 'Get your blood tests delivered at home collect a sample from your blood tests.',
+    title: 'Sign Up on UIVerse',
+    text: 'Use your email and password to access the dashboard.',
   },
   {
     id: 2,
-    title: 'Assembly retrieves funds from your account',
-    text: 'Get your blood tests delivered at home collect a sample from your blood tests.',
+    title: 'Create Your Public Profile',
+    text: 'Once you have created your profile, you will have access to everything.',
   },
   {
     id: 3,
-    title: 'Assembly initiates disbursement',
-    text: 'Get your blood tests delivered at home collect a sample from your blood tests.',
+    title: 'Explore Categories',
+    text: 'Discover various categories and bookmark your favorites.',
   },
   {
     id: 4,
-    title: 'Customer receives funds payment',
-    text: 'Get your blood tests delivered at home collect a sample from your blood tests.',
+    title: 'Contribute to the Community',
+    text: 'Your contributions will be visible on your profile and unlock exclusive perks. Voila!',
   },
 ]
