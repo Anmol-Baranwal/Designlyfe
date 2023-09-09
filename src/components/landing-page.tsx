@@ -1,50 +1,25 @@
 import { Button } from './ui/button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight, faChartArea } from '@fortawesome/free-solid-svg-icons'
-import Image from 'next/image'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faChartArea } from '@fortawesome/free-solid-svg-icons'
+import Image from 'next/legacy/image'
 import Link from 'next/link'
+import { BriefTitle } from './brief-title'
 
 const LandingPage = () => {
   return (
     <div className="bg-cover bg-center">
-      <Image
-        src="/home-page/craftwork.png"
-        alt="asset"
-        width={40}
-        height={40}
-        className="position-craftwork"
-      />
-      <Image
-        src="/home-page/getillustrations.png"
-        alt="asset"
-        width={40}
-        height={40}
-        className="position-getillustrations"
-      />
-      <Image
-        src="/home-page/lsgraphics.png"
-        alt="asset"
-        width={40}
-        height={40}
-        className="position-lsgraphics"
-      />
-      <div className="flex flex-col items-center">
-        <h1 className="text-4xl font-bold mb-4 mt-32 text-primary-300 tracking-wide">
-          Organize Your Resources
-        </h1>
-        <h2 className="text-lg text-center mb-10 text-accent-100">
-          Community platform to upvote, bookmark, and organize trending
-          resources with your dashboard. <br />
-          <span className="tracking-wide text-md font-medium">
-            Be Faster! Be Smarter!
-          </span>
-        </h2>
-        <div className="flex transition-all duration-500">
-          <Button className="mr-8 h-12 px-8 text-md bg-transparent border-2 border-accent-100 hover:border-accent-200 hover:bg-accent-200 hover:text-bg-300 hover:shadow-accent-100 hover:shadow-sm">
-            <Link href="/login">Try the Demo</Link>
-            <FontAwesomeIcon icon={faArrowRight} className="ml-3 h-4 w-4" />
-          </Button>
-          <Button className="mr-8 h-12 px-8 text-md bg-transparent border-2 border-primary-200 hover:bg-primary-200 hover:shadow-primary-200 hover:shadow-sm">
+      <div className="flex px-16 justify-center">
+        <div className="flex flex-col w-1/2 py-10">
+          <BriefTitle size="w-60 h-4" txt="Join waitlist Now" />
+          <h2 className="text-6xl font-medium mb-10 mt-2 text-bg-100 font-poppins leading-tight ">
+            find best quality <br /> design assets for free <br /> 10x faster{' '}
+            <br />
+          </h2>
+          <div className="flex">
+            <Button className="mr-8 py-8 px-14 text-xl bg-bg-100 border-2 hover:bg-primary-100">
+              <Link href="/login">Try the Demo</Link>
+            </Button>
+            {/* <Button className="mr-8 h-12 px-8 text-md bg-transparent border-2 border-primary-200 hover:bg-primary-200 hover:shadow-primary-200 hover:shadow-sm">
             <FontAwesomeIcon icon={faChartArea} className="mr-3 h-4 w-4" />{' '}
             <Link
               href="https://docs.google.com/forms/d/1-8Ga2dGzXhoH8a7w9_mRFtoukfD7a4Al_A060OdHWq8/edit#responses"
@@ -53,7 +28,16 @@ const LandingPage = () => {
               Join
             </Link>
             &nbsp;waitlist
-          </Button>
+          </Button> */}
+          </div>
+        </div>
+        <div className="w-1/2 pt-20 pl-24">
+          <Image
+            src={'/landing-page/hero-illustration.png'}
+            alt="hero illustration"
+            width={400}
+            height={400}
+          />
         </div>
       </div>
     </div>
