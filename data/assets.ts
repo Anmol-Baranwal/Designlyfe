@@ -75,7 +75,7 @@ export const Illustrations: Asset[] = [
     name: 'Control',
     companyLogoUrl: '/companies/craftwork.png',
     formats: ['PNG', 'AI'],
-    assetUrl: 'https://craftwork.gumroad.com/l/ZWiR',
+    assetUrl: 'https://craftwork.design/downloads/control-illustrations',
     imageUrl:
       'https://assets-global.website-files.com/625816a3416990dd61391b9b/6443e2a00d01ac13dc690218_6273fc6c5f3ead368742f07f_626922e48c21ed8e906dc8a6_5fe1c7bf6d3bcd6b02483485_widgets.webp',
     category: 'Free',

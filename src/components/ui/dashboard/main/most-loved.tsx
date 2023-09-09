@@ -1,20 +1,17 @@
 // import React, { useEffect, useState } from 'react'
-import { Asset } from '../../../../../data/assets'
-import { AssetArtwork } from './asset-artwork'
+// import { Asset } from '../../../../../data/assets'
+// import { AssetArtwork } from './asset-artwork'
 
-export default function MostLoved({
-  mostLovedAssets,
-}: {
-  mostLovedAssets: Asset[]
-}) {
+export default function MostLoved() {
   //   const [mostLovedAssets, setMostLovedAssets] = useState<Asset[]>([])
 
-  console.log({ mostLovedAssets })
+  // console.log({ mostLovedAssets })
 
   return (
     <div>
       <div className="relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
+          Coming Soon
           {/* {mostLovedAssets.map((item) => (
             <AssetArtwork
               key={item.name}
