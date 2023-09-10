@@ -70,7 +70,7 @@ export const WhyUs = () => {
                 people interested <br /> in UIVers{' '}
               </p>
             </div>
-            <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-red-200 border  mt-6">
+            <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-red-300 border  mt-6">
               <h4 className="font-semibold font-dm-sans text-4xl">300+</h4>
               <p className="pt-2 font-dm-sans text-lg text-center">
                 assets across <br /> five categories{' '}
