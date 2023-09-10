@@ -2,7 +2,7 @@
 import HowItWorks from '@/components/how-it-works'
 import LandingPage from '@/components/landing-page'
 import Navbar from '@/components/navbar/Navbar'
-// import Subscribe from '@/components/subscribe'
+import Subscribe from '@/components/subscribe'
 // import Showcase from '@/components/showcase'
 import WhyUs from '@/components/why-us'
 
@@ -16,8 +16,8 @@ export default function Home() {
       {/* <CompaniesTrust /> */}
       <WhyUs />
       {/* <Showcase /> */}
-      {/* <Subscribe /> */}
       <HowItWorks />
+      <Subscribe />
     </div>
   )
 }
