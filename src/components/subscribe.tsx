@@ -11,14 +11,14 @@ import EmailInfo from './email-info'
 
 const Subscribe: React.FC = () => {
   return (
-    <div className="py-16 md:py-24 lg:py-32">
-      <div className="mx-auto text-center">
-        <h1 className="text-2xl lg:text-3xl xl:text-4xl font-semibold mb-4 lg:mb-1 text-primary-100">
+    <div className="py-20">
+      <div className="text-center shadow-lg border-bg-muted border py-16 mx-20 rounded-2xl">
+        <h1 className="text-2xl lg:text-4xl xl:text-5xl font-semibold mb-4 lg:mb-1 text-primary-100">
           want notifications from us. <br />
         </h1>
         <HoverCard>
           <HoverCardTrigger asChild>
-            <Button variant="link" className="text-bg-300">
+            <Button variant="link" className="text-bg-300 text-lg">
               what type of emails
             </Button>
           </HoverCardTrigger>
