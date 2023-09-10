@@ -20,7 +20,7 @@ const bulletPoints = [
 
 export const WhyUs = () => {
   return (
-    <div className="bg-cover bg-center my-20">
+    <div className="bg-cover bg-center my-20" id="mission">
       <div className="flex pl-24 pr-16 justify-center">
         <div className="flex flex-col w-1/2 py-8">
           <BriefTitle size="w-44 h-4" txt="Who are we?" />

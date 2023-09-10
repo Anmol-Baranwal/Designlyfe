@@ -7,7 +7,10 @@ import Image from 'next/legacy/image'
 const HowItWorks: React.FC = () => {
   const lastIndex = howItWorksData.length - 1
   return (
-    <section className="bg-primary-100 bg-center bg-no-repeat bg-cover relative py-16 md:py-24">
+    <section
+      className="bg-primary-100 bg-center bg-no-repeat bg-cover relative py-16 md:py-24"
+      id="how-it-works"
+    >
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-accent-100 text-center mb-16 font-poppins">
           How does it works?

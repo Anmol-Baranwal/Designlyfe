@@ -7,7 +7,7 @@ import { BriefTitle } from './brief-title'
 
 const LandingPage = () => {
   return (
-    <div className="bg-cover bg-center my-2">
+    <div className="bg-cover bg-center my-2" id="home">
       <div className="flex pl-24 pr-16 justify-center">
         <div className="flex flex-col w-1/2 py-8">
           <BriefTitle

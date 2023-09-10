@@ -1,4 +1,5 @@
 // import CompaniesTrust from '@/components/companies-trust'
+import Footer from '@/components/Footer'
 import HowItWorks from '@/components/how-it-works'
 import LandingPage from '@/components/landing-page'
 import Navbar from '@/components/navbar/Navbar'
@@ -18,6 +19,7 @@ export default function Home() {
       {/* <Showcase /> */}
       <HowItWorks />
       <Subscribe />
+      <Footer />
     </div>
   )
 }
