@@ -20,18 +20,19 @@ const bulletPoints = [
 
 export const WhyUs = () => {
   return (
-    <div className="bg-cover bg-center my-20" id="mission">
-      <div className="flex pl-24 pr-16 justify-center">
-        <div className="flex flex-col w-1/2 py-8">
+    <div className="bg-cover bg-center mb-20 mt-5" id="mission">
+      <div className="flex flex-col lg:flex-row pl-24 pr-16 justify-center">
+        {/* sm:flex-col-reverse */}
+        <div className="flex flex-col lg:w-1/2 py-8">
           <BriefTitle size="w-44 h-4" txt="Who are we?" />
-          <h2 className="text-5xl font-regular mb-8 mt-3 text-bg-100 font-poppins">
+          <h2 className="text-4xl md:text-5xl font-regular mb-8 mt-3 text-bg-100 font-poppins">
             we are on a mission <br /> to build a community <br /> for you.{' '}
             <br />
           </h2>
           {bulletPoints.map((item, index) => (
             <p
               key={index}
-              className="pl-2 flex items-center mb-3 font-dm-sans font-medium"
+              className="pl-2 flex items-center mb-3 font-dm-sans font-medium text-sm"
             >
               <Image
                 src={item.iconSrc}
@@ -50,7 +51,7 @@ export const WhyUs = () => {
             </Link>
           </div>
         </div>
-        <div className="w-1/2 pt-20 pl-0">
+        <div className="lg:w-1/2 pt-20 pl-auto lg:pl-10">
           <div className="flex flex-row">
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-accent-100 border mr-6">
               <h4 className="font-semibold font-dm-sans text-4xl">5+</h4>
