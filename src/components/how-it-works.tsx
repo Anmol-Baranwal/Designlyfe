@@ -21,7 +21,7 @@ const HowItWorks: React.FC = () => {
             const isLast = index === lastIndex
             return (
               <div
-                className={`card relative text-white text-left ${
+                className={`card relative text-white ${
                   isEven ? 'before-even' : 'before-odd'
                 }`}
                 key={item.id}

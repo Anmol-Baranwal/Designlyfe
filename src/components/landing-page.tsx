@@ -40,7 +40,7 @@ const LandingPage = () => {
           </Button> */}
           </div>
         </div>
-        <div className="hidden md:w-1/2 md:block pt-20 pl-24">
+        <div className="hidden md:w-1/2 md:block pt-20 pl-24 my-auto">
           <Image
             src={'/landing-page/hero-illustration.png'}
             alt="hero illustration"
