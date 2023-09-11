@@ -43,9 +43,11 @@ export const WhyUs = () => {
             </p>
           ))}
           <div className="flex mt-8">
-            <Button className="mr-8 py-8 px-14 text-xl bg-bg-100 border-2 tracking-widest hover:bg-primary-100">
-              <Link href="/login">Try it (1 min)</Link>
-            </Button>
+            <Link href="/login">
+              <Button className="mr-8 py-8 px-14 text-xl bg-bg-100 border-2 tracking-widest hover:bg-primary-100">
+                Try it (1 min)
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="w-1/2 pt-20 pl-0">

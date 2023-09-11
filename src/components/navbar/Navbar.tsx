@@ -16,7 +16,7 @@ const Navbar: FC = () => {
           linkHref={'/login'}
           buttonTxt={'Login'}
           className={
-            'border-2 border-primary-100 bg-accent-200 text-bg-300 hover:bg-primary-100 hover:text-primary-300 transition duration-300'
+            'border-2 border-primary-100 bg-accent-200 text-bg-300 hover:bg-primary-100 hover:text-primary-300 transition duration-300 py-3 px-12'
           }
           onClick={() => setFormType('login')}
         />
@@ -24,7 +24,7 @@ const Navbar: FC = () => {
           linkHref={'/login'}
           buttonTxt={'Signup'}
           className={
-            'bg-primary-100 text-text-100 hover:bg-primary-300 hover:text-bg-300 border-2 hover:border-bg-300 transition duration-300'
+            'bg-primary-100 text-text-100 hover:bg-primary-300 hover:text-bg-300 border-2 hover:border-bg-300 transition duration-300 py-3 px-12'
           }
           onClick={() => setFormType('signup')}
         />
