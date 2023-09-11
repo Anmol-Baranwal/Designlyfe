@@ -17,11 +17,11 @@ export const BriefTitle: FC<BriefTitleProps> = ({
   return (
     <div className={`mt-20 relative w-full`}>
       <h3
-        className={`text-xl font-dm-sans tracking-wide mb-[-12px] ml-2 ${className}`}
+        className={`text-lg md:text-xl font-dm-sans tracking-wide mb-[-12px] ml-2 ${className}`}
       >
         {href ? <Link href={href}>{txt}</Link> : txt}
       </h3>
-      <div className={`${size} bg-slate-200 rounded-lg`} />
+      <div className={`${size} bg-slate-200 rounded-lg md:ml-0 mx-auto`} />
     </div>
   )
 }
