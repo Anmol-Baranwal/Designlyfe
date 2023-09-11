@@ -1,6 +1,6 @@
 import React from 'react'
-import ArrowOdd from '../../public/landing-page/how-it-works/arrowOdd.svg'
-import ArrowEven from '../../public/landing-page/how-it-works/arrowEven.svg'
+import ArrowOdd from '../../public/landing-page/how-it-works/ArrowOdd.svg'
+import ArrowEven from '../../public/landing-page/how-it-works/ArrowEven.svg'
 import { howItWorksData } from '../../data/works'
 import Image from 'next/legacy/image'
 
