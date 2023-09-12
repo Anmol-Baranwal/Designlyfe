@@ -5,6 +5,7 @@ import { AuthContextProvider } from '../../lib/firebase/context/AuthContext'
 import { Toaster } from '../components/ui/toaster'
 import Head from 'next/head'
 import { ThemeProvider } from '../components/theme-provider'
+import Script from 'next/script'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -29,6 +30,15 @@ export default function App({ Component, pageProps }: AppProps) {
             enableSystem={true}
           >
             <Component {...pageProps} />
+            <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
+            <noscript>
+              {/* eslint-disable @next/next/no-img-element */}
+              <img
+                src="https://queue.simpleanalyticscdn.com/noscript.gif"
+                alt=""
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </noscript>
             <Toaster />
           </ThemeProvider>
         </AuthPageProvider>
