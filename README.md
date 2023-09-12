@@ -11,7 +11,7 @@
 This project is hosted on [Vercel Platform](https://vercel.com/). Visit the following link to view the web application.
 
 ```
-https://ui-verse.vercel.app/
+https://designlyfe.tech/
 ```
 <hr>
 
