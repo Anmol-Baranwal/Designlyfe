@@ -43,19 +43,28 @@ const Subscribe: React.FC = () => {
             </div>
           </HoverCardContent>
         </HoverCard>
-        <div className="mt-10 md:w-3/4 lg:w-1/2 xl:w-2/5 mx-auto flex items-center bg-primary-100 py-4 px-4 rounded-full min-h-8 max-w-[555px]">
-          <input
-            placeholder="Enter your email address"
-            type="email"
-            className="w-full px-4 py-2 outline-none bg-transparent rounded-l-lg placeholder-bg-muted tracking-wider text-md pl-8 max-w-full text-primary-300"
-            style={{ caretColor: 'white' }}
-          />
-          <Button
-            type="submit"
-            className="py-6 px-12 text-xl bg-primary-300 text-bg-100 rounded-full hover:bg-accent-100 transition-all duration-300"
+        <div className="mt-10 mx-auto flex items-center justify-center min-h-8 max-w-full">
+          <form
+            action="https://send.pageclip.co/ohnHl8Ae8MNAzMnc9l2cnl8Wp8DdhwXF/newsletter"
+            className="pageclip-form flex w-full justify-center items-center mt-0"
+            method="post"
           >
-            Subscribe
-          </Button>
+            <input
+              placeholder="Enter your email address"
+              type="email"
+              name="email"
+              className="w-80 py-[22px] mr-2 bg-bg-100 placeholder-bg-muted rounded-md tracking-wider text-md pl-8 pr-12 text-primary-300"
+              style={{ caretColor: 'white' }}
+              autoComplete="off"
+              // value={}
+            />
+            <Button
+              type="submit"
+              className="pageclip-form__submit py-8 px-14 text-xl bg-transparent border-2 border-bg-100 text-bg-100 rounded-md hover:bg-primary-200 transition-all duration-300"
+            >
+              Subscribe
+            </Button>
+          </form>
         </div>
       </div>
     </div>
