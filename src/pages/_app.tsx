@@ -30,11 +30,16 @@ export default function App({ Component, pageProps }: AppProps) {
             enableSystem={true}
           >
             <Component {...pageProps} />
-            <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
+            <Script
+              src="https://scripts.simpleanalyticscdn.com/latest.js"
+              async
+              defer
+              data-hostname="designlyfe.tech"
+            />
             <noscript>
               {/* eslint-disable @next/next/no-img-element */}
               <img
-                src="https://queue.simpleanalyticscdn.com/noscript.gif"
+                src="https://queue.simpleanalyticscdn.com/noscript.gif?hostname=designlyfe.tech"
                 alt=""
                 referrerPolicy="no-referrer-when-downgrade"
               />
