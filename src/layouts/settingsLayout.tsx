@@ -59,7 +59,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
               className="pl-6 font-semibold text-2xl cursor-pointer"
               onClick={() => goHomePage()}
             >
-              UIVerse
+              Designlyfe
             </div>
             <div className="ml-auto flex items-center space-x-4">
               <FeedbackButton />

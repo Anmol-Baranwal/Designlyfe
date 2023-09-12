@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="og:description" content="" />
         <meta property="og:image" content="" />
 
-        <title>UIVerse: Keep track of best resources</title>
+        <title>Designlyfe: Keep track of best resources</title>
       </Head>
       <AuthContextProvider>
         <AuthPageProvider>

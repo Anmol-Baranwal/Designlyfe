@@ -25,7 +25,7 @@ const Subscribe: React.FC = () => {
           <HoverCardContent className="w-80">
             <div className="flex justify-items-start text-left pl-2 space-x-8">
               <div className="space-y-1">
-                {/* <h4 className="text-sm font-semibold">@UIVerse</h4> */}
+                {/* <h4 className="text-sm font-semibold">@Designlyfe</h4> */}
                 <EmailInfo text="Updates on the New resources" />
                 <EmailInfo text="Updates on the launch" />
                 <EmailInfo text="Insights on a SAAS product" />

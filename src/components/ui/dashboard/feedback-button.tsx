@@ -97,7 +97,7 @@ const FeedbackButton = () => {
               <Label htmlFor="message">Message</Label>
               <Textarea
                 id="message"
-                placeholder="What changes would you like in UIVerse and why?"
+                placeholder="What changes would you like in Designlyfe and why?"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />

@@ -15,7 +15,7 @@ const Logo: FC<LogoProps> = ({ className }) => {
         width={12}
         height={12}
       /> */}
-      <span className={`font-semibold ${className} ml-4 `}>UIVerse</span>
+      <span className={`font-semibold ${className} ml-4 `}>Designlyfe</span>
     </div>
   )
 }

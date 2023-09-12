@@ -7,7 +7,7 @@ export interface HowItWorksProps {
 export const howItWorksData: HowItWorksProps[] = [
   {
     id: 1,
-    title: 'Sign Up on UIVerse',
+    title: 'Sign Up on Designlyfe',
     text: 'Use your email and password to access the dashboard.',
   },
   {

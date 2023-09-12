@@ -62,7 +62,7 @@ export const WhyUs = () => {
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-primary-200 border mt-6">
               <h4 className="font-semibold font-dm-sans text-4xl">50+</h4>
               <p className="pt-2 font-dm-sans text-lg text-center">
-                websites associated <br /> with UIVerse{' '}
+                websites associated <br /> with Designlyfe{' '}
               </p>
             </div>
           </div>
@@ -70,7 +70,7 @@ export const WhyUs = () => {
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-slate-400 border mr-6">
               <h4 className="font-semibold font-dm-sans text-4xl">30+</h4>
               <p className="pt-2 font-dm-sans text-lg text-center">
-                people interested <br /> in UIVers{' '}
+                people interested <br /> in Designlyfe{' '}
               </p>
             </div>
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-red-300 border  mt-6">
