@@ -58,42 +58,6 @@
   }
 }
 
-/* .position-lines-effect {
-  position: absolute;
-  opacity: 0.2;
-} */
-
-.position-craftwork {
-  position: absolute;
-  top: 170px;
-  left: 150px;
-  animation: moveUpDown 4s infinite;
-}
-
-.position-getillustrations {
-  position: absolute;
-  top: 270px;
-  right: 200px;
-  animation: moveUpDown 4s infinite;
-}
-
-.position-lsgraphics {
-  position: absolute;
-  top: 470px;
-  left: 350px;
-  animation: moveUpDown 3s infinite;
-}
-
-@keyframes moveUpDown {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
 /* Scrollbar /
 / Webkit-based browsers */
 ::-webkit-scrollbar {

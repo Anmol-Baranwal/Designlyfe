@@ -3,17 +3,17 @@ import React from 'react'
 const PrivacyPage: React.FC = () => {
   return (
     <div className="p-40">
-      <h1>Privacy Policy for UIVerse</h1>
+      <h1>Privacy Policy for Designlyfe</h1>
 
       <p>Last Updated: [22/08/23]</p>
 
       <h2>1. Introduction</h2>
 
       <p>
-        Welcome to UIVerse! This privacy policy outlines how we collect, use,
+        Welcome to Designlyfe! This privacy policy outlines how we collect, use,
         and safeguard your personal information while you use our website at{' '}
         <a href="https://ui-verse.vercel.app/">https://ui-verse.vercel.app/</a>{' '}
-        (referred to as &ldquo;UIVerse,&rdquo; &ldquo;we,&rdquo;
+        (referred to as &ldquo;Designlyfe,&rdquo; &ldquo;we,&rdquo;
         &ldquo;us,&rdquo; or &ldquo;our&rdquo;). By accessing or using our
         website, you consent to the practices described in this policy.
       </p>

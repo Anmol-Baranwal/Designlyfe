@@ -304,7 +304,7 @@ export function AssetArtwork({
 
   const { toast } = useToast()
   const handleShareReactionClick = async () => {
-    const urlWithRef = `${asset.assetUrl}?ref=UIVerse`
+    const urlWithRef = `${asset.assetUrl}?ref=Designlyfe`
 
     // Copy the URL to the clipboard
     navigator.clipboard.writeText(urlWithRef).then(() => {

@@ -20,7 +20,7 @@ import MostLoved from './most-loved'
 import { categoriesBrands } from '../../../../../data/assets'
 
 export const metadata: Metadata = {
-  title: 'Dashboard of UIVerse',
+  title: 'Dashboard of Designlyfe',
   description: 'Keep track of your best resources',
 }
 
@@ -80,7 +80,7 @@ export default function DashboardInterface() {
       <div className="hidden flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
-            <div className="pl-6 font-semibold text-2xl">UIVerse</div>
+            <div className="pl-6 font-semibold text-2xl">Designlyfe</div>
             <div className="ml-auto flex items-center space-x-4">
               <FeedbackButton />
               <Search className="md:w-[100px] lg:w-[300px]" />

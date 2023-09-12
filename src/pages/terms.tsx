@@ -3,7 +3,7 @@ import React from 'react'
 const TermsOfServicePage: React.FC = () => {
   return (
     <div className="p-40">
-      <h1>Terms of Service for UIVerse</h1>
+      <h1>Terms of Service for Designlyfe</h1>
 
       <p>Last Updated: [22/08/23]</p>
 
@@ -13,7 +13,7 @@ const TermsOfServicePage: React.FC = () => {
         These Terms of Service (&ldquo;Terms&rdquo;) govern your use of the
         website at{' '}
         <a href="https://ui-verse.vercel.app/">https://ui-verse.vercel.app/</a>{' '}
-        (referred to as &ldquo;UIVerse,&rdquo; &ldquo;we,&rdquo;
+        (referred to as &ldquo;Designlyfe,&rdquo; &ldquo;we,&rdquo;
         &ldquo;us,&rdquo; or &ldquo;our&rdquo;). By accessing or using our
         website, you agree to abide by these Terms. If you do not agree to these
         Terms, please do not use our website.

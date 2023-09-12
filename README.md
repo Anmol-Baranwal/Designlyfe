@@ -1,4 +1,4 @@
-# <img src="https://github.com/Anmol-Baranwal/UIVerse/assets/74038190/75e216b6-5e31-4ae5-a05d-b1bfaf404ce2" width="" />
+# Designlyfe
 
 > :information_source: This web application is constructed with Next.js, a framework you can find at [Next.js](https://nextjs.org/) which is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
