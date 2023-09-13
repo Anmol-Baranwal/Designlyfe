@@ -18,7 +18,7 @@ import { companies, categories } from '../../../data/nav-menu'
 const NavbarItems = () => {
   return (
     <div className="xl:block hidden">
-      <div className="flex mr-auto font-dm-sans pl-5">
+      <div className="flex mr-auto font-dm-sans pl-0">
         <NavbarMenuItems itemTxt="Our Mission" href="#mission" />
         <NavbarMenuItems itemTxt="How It works" href="#how-it-works" />
         <NavigationMenu>
@@ -28,7 +28,7 @@ const NavbarItems = () => {
                 Categories
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {categories.map((component) => (
                     <ListItem key={component.title} title={component.title}>
                       {component.description}
@@ -46,7 +46,7 @@ const NavbarItems = () => {
                 Companies
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                <ul className="grid w-[100px] gap-3 sm:grid-cols-1 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] ">
                   {companies.map((component) => (
                     <ListItem
                       key={component.title}

@@ -15,13 +15,13 @@ export default function Footer() {
         <p className="text-primary-300 md:mb-0 lg:mb-0 pb-2 pt-4 text-xl">
           Copyright &copy; {new Date().getFullYear()} Designlyfe
         </p>
-        <div className="md:mt-4 lg:mt-0 flex flex-wrap justify-end py-4">
+        <div className="sm:mt-4 lg:mt-0 flex sm:flex-wrap xs:flex-nowrap justify-end py-4 ">
           {links.map((link, index) => (
             <Link
               href={link.url}
               key={index}
               scroll={false}
-              className="ml-6 text-lg text-primary-300 hover:opacity-70 transition-all duration-500 hover:underline hover:text-accent-100"
+              className="md:ml-6 md:text-lg xs:text-md xs:ml-3 text-primary-300 hover:opacity-70 transition-all duration-500 hover:underline hover:text-accent-100 mb-2 underline"
             >
               {link.label}
             </Link>

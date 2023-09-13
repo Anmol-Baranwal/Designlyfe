@@ -21,7 +21,7 @@ const bulletPoints = [
 export const WhyUs = () => {
   return (
     <div className="bg-cover bg-center mb-20 mt-5" id="mission">
-      <div className="flex flex-col lg:flex-row pl-24 pr-16 justify-center">
+      <div className="flex flex-col lg:flex-row sm:pl-24 sm:pr-16 pl-10 pr-10 justify-center">
         {/* sm:flex-col-reverse */}
         <div className="flex flex-col lg:w-1/2 py-8">
           <BriefTitle size="w-44 h-4" txt="Who are we?" />
@@ -45,37 +45,45 @@ export const WhyUs = () => {
           ))}
           <div className="flex mt-8">
             <Link href="/login">
-              <Button className="mr-8 py-8 px-14 text-xl bg-bg-100 border-2 tracking-widest hover:bg-primary-100">
+              <Button className="mr-8 py-8 px-14 text-xl bg-bg-100 border-2 tracking-widest hover:bg-primary-100 xs:px-[-20px] ml-10">
                 Try it (1 min)
               </Button>
             </Link>
           </div>
         </div>
-        <div className="lg:w-1/2 pt-20 pl-auto lg:pl-10">
+        <div className="lg:w-1/2 pt-20 pl-auto md:pl-10">
           <div className="flex flex-row">
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-accent-100 border mr-6">
-              <h4 className="font-semibold font-dm-sans text-4xl">5+</h4>
-              <p className="pt-2 font-dm-sans text-lg text-center">
+              <h4 className="font-semibold font-dm-sans text-4xl xs:text-2xl">
+                5+
+              </h4>
+              <p className="pt-2 font-dm-sans text-lg text-center xs:text-sm">
                 companies <br /> ready to collaborate{' '}
               </p>
             </div>
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-primary-200 border mt-6">
-              <h4 className="font-semibold font-dm-sans text-4xl">50+</h4>
-              <p className="pt-2 font-dm-sans text-lg text-center">
+              <h4 className="font-semibold font-dm-sans text-4xl xs:text-2xl">
+                50+
+              </h4>
+              <p className="pt-2 font-dm-sans text-lg text-center xs:text-sm">
                 websites associated <br /> with Designlyfe{' '}
               </p>
             </div>
           </div>
           <div className="flex flex-row">
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-slate-400 border mr-6">
-              <h4 className="font-semibold font-dm-sans text-4xl">30+</h4>
-              <p className="pt-2 font-dm-sans text-lg text-center">
+              <h4 className="font-semibold font-dm-sans text-4xl xs:text-2xl">
+                30+
+              </h4>
+              <p className="pt-2 font-dm-sans text-lg text-center xs:text-sm">
                 people interested <br /> in Designlyfe{' '}
               </p>
             </div>
             <div className="bg-muted h-56 w-56 rounded-lg flex flex-col justify-center items-center border-red-300 border  mt-6">
-              <h4 className="font-semibold font-dm-sans text-4xl">300+</h4>
-              <p className="pt-2 font-dm-sans text-lg text-center">
+              <h4 className="font-semibold font-dm-sans text-4xl xs:text-2xl">
+                300+
+              </h4>
+              <p className="pt-2 font-dm-sans text-lg text-center xs:text-sm">
                 assets across <br /> five categories{' '}
               </p>
             </div>

@@ -18,7 +18,7 @@ const Subscribe: React.FC = () => {
         </h1>
         <HoverCard>
           <HoverCardTrigger asChild>
-            <Button variant="link" className="text-bg-300 text-lg">
+            <Button variant="link" className="text-bg-300 text-lg underline">
               what type of emails
             </Button>
           </HoverCardTrigger>
@@ -46,7 +46,7 @@ const Subscribe: React.FC = () => {
         <div className="mt-10 mx-auto flex items-center justify-center min-h-8 max-w-full">
           <form
             action="https://send.pageclip.co/ohnHl8Ae8MNAzMnc9l2cnl8Wp8DdhwXF/newsletter"
-            className="pageclip-form flex w-full justify-center items-center mt-0"
+            className="pageclip-form flex md:flex-row flex-col w-full justify-center items-center mt-0"
             method="post"
           >
             <input
@@ -60,7 +60,7 @@ const Subscribe: React.FC = () => {
             />
             <Button
               type="submit"
-              className="pageclip-form__submit py-8 px-14 text-xl bg-transparent border-2 border-bg-100 text-bg-100 rounded-md hover:bg-primary-200 transition-all duration-300"
+              className="pageclip-form__submit py-8 px-14 md:mt-0 mt-4 text-xl bg-transparent border-2 border-bg-100 text-bg-100 rounded-md hover:bg-primary-200 transition-all duration-300"
             >
               Subscribe
             </Button>

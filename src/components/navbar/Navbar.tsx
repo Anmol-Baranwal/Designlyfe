@@ -8,10 +8,10 @@ const Navbar: FC = () => {
   const { setFormType } = useContext(AuthPageContext)
 
   return (
-    <div className="flex align-items items-center justify-between px-6 mt-0 p-4 py-6 text-lg border-b-2 shadow-md bg-primary-300">
-      <Logo className="text-4xl font-semibold mr-28 text-primary-100" />
+    <div className="flex align-items items-center justify-between px-6 m-0 p-4 py-6 text-lg border-b-2 shadow-md bg-primary-300">
+      <Logo className="text-4xl xs:text-xl font-semibold mr-28 text-primary-100" />
       <NavbarItems />
-      <div className="flex justify-end">
+      <div className="flex justify-end xs:hidden md:block">
         <Button
           linkHref={'/login'}
           buttonTxt={'Login'}

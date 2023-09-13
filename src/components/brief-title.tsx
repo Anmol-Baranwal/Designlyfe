@@ -21,7 +21,7 @@ export const BriefTitle: FC<BriefTitleProps> = ({
       >
         {href ? <Link href={href}>{txt}</Link> : txt}
       </h3>
-      <div className={`${size} bg-slate-200 rounded-lg md:ml-0 mx-auto`} />
+      <div className={`${size} bg-slate-200 rounded-lg ml-0`} />
     </div>
   )
 }
